@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style>
+			.nexttext { font-weight: bold; color: #002A5C; }
+			.nextButton {
+				display: block;
+				width: 25%;
+				border: none;
+				background-color: #797979;
+				padding: 14px 28px;
+				font-size: 16px;
+				cursor: pointer;
+				text-align: center;
+				font-weight: bold;
+				color: #FFFFFF;
+				margin: auto;
+				-webkit-appearance: none;
+			}
+			.nextButton:disabled {
+				color: #bebebe;
+			}
+			/* .radioSelect {
+				transform: scale(1.25);
+			} */
+		</style>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		$(function(){
+			document.getElementById("radio0").onclick = nextEnable;
+			document.getElementById("radio1").onclick = nextEnable;
+			document.getElementById("button").onclick = nextButton;
+			blockNumber = 0
+			blocktionary = {}
+			//Old GET parser.
+			getUrl = window.location.href.split("c=");
+		/*	conditionarr = getUrl[1].split("&session");
+			c = conditionarr[0]; */
+			var url_string = window.location.href;
+			var url = new URL(url_string);
+			var c = url.searchParams.get("c");
+			blockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
+			//Near condition, red distractor
+			if(c == 0) {
+				var seenConsistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brrrr","brrrb","bbbrr"];
+				var seenInconsistentBlocks = ["rbrrr","rbrbb","brbbb"];
+				blicketsC = ["rrbrb","rbbrr","rrbbr","rbbbb"];
+				blicketsI = ["brrbr","brrbb","bbrbr","bbrbb","brbbr","bbbbr","bbbbb"];
+				nonBlicketsC = ["bbrrr","bbrrb","brbrr","brbrb","bbbrb"];
+				nonBlicketsI = ["rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
+				};
+			//Near condition, blue distractor
+			if(c == 1) {
+				var seenConsistentBlocks = ["bbrbb","brrbr","bbrrr","brrrb","rbbbb","rbbbr","rrrbb"];
+				var seenInconsistentBlocks = ["brbbb","brbrr","rbrrr"];
+				blicketsC = ["bbrbr","brrbb","bbrrb","brrrr"];
+				blicketsI = ["rbbrb","rbbrr","rrbrb","rrbrr","rbrrb","rrrrb","rrrrr"];
+				nonBlicketsC = ["rrbbb","rrbbr","rbrbb","rbrbr","rrrbr"];
+				nonBlicketsI = ["bbbbb","bbbbr","brbbr","bbbrb","bbbrr","brbrb"];
+				};
+			//Distant condition, red distractor
+			if(c == 2) {
+				var seenConsistentBlocks = ["rrrbr","rrrbb","rrbrb","rbbrb","brrrr","bbrrb","bbbbr"];
+				var seenInconsistentBlocks = ["rbrrr","rrbbb","bbrbr"];
+				blicketsC = ["rbrbr","rbrbb","rrbrr","rbbrr"];
+				blicketsI = ["brrbr","brrbb","bbrbb","brbrr","brbrb","bbbrr","bbbrb"];
+				nonBlicketsC = ["brrrb","bbrrr","brbbr","brbbb","bbbbb"];
+				nonBlicketsI = ["rrrrr","rrrrb","rbrrb","rrbbr","rbbbr","rbbbb"];
+				};
+
+			//Distant condition, blue distractor
+			if(c == 3) {
+				var seenConsistentBlocks = ["bbbrb","bbbrr","bbrbr","brrbr","rbbbb","rrbbr","rrrrb"];
+				var seenInconsistentBlocks = ["brbbb","bbrrr","rrbrb"];
+				blicketsC = ["brbrb","brbrr","bbrbb","brrbb"];
+				blicketsI = ["rbbrb","rbbrr","rrbrb","rrbrr","rbrbb","rbrbr","rrrbb","rrrbr"];
+				nonBlicketsC = ["rbbbr","rrbbb","rbrrb","rbrrr","rrrrr"];
+				nonBlicketsI = ["bbbbb","bbbbr","brbbr","bbrrb","brrrb","brrrr"];
+
+				};
+				function changeImg() {
+					if (rcon==1){
+						document.getElementById('block1').src = sourceB;
+						document.getElementById('block2').src = sourceNB;
+						blockNames = [currentB,currentNB]
+						rcon = Math.floor(Math.random() * 2 + 1);
+					}else{
+						document.getElementById('block2').src = sourceB;
+						document.getElementById('block1').src = sourceNB;
+						blockNames = [currentNB,currentB]
+						rcon = Math.floor(Math.random() * 2 + 1);
+					}
+				}
+				function nextButton() {
+					blockNumber += 1
+						var radios = document.getElementsByName('blicketness');
+						for (var i = 0, length = radios.length; i < length; i++) {
+						    if (radios[i].checked) {
+						        selection = blockNames[i];
+						        document.getElementById('radio'+i).checked = false;
+						    }
+						    else {
+						        other = blockNames[i];
+						    }
+						}
+						if (blickets.indexOf(selection) !== -1){
+							blocktionary[blockNumber] = selection+" (correct)";
+						}else{
+							blocktionary[blockNumber] = selection+" (incorrect)";
+						}
+						localStorage["fc_"+blockNumber+"_selection"] = selection;
+						localStorage["fc_"+blockNumber+"_unselected"] = other;
+						console.log("selection: "+selection);
+						console.log("other: "+other);
+						document.getElementById('button').disabled = true;
+						if (blockNumber > 3){
+							window.location.href = "./explanation.html?c="+getUrl[1];
+						}
+					currentB = b[blockNumber];
+					currentNB = nb[blockNumber];
+					document.getElementById('block1').src = "img/white.png";
+					document.getElementById('block2').src = "img/white.png";
+					setTimeout(changeImg,100);
+					sourceB = "img/"+currentB+".png";
+					sourceNB = "img/"+currentNB+".png";
+				}
+				function nextEnable() {
+					document.getElementById('button').disabled = false;
+				}
+				function shuffle(array) {
+	  				var currentIndex = array.length, temporaryValue, randomIndex;
+	  				while (0 !== currentIndex) {
+	    				randomIndex = Math.floor(Math.random() * currentIndex);
+	    				currentIndex -= 1;
+					    temporaryValue = array[currentIndex];
+					    array[currentIndex] = array[randomIndex];
+					    array[randomIndex] = temporaryValue;
+	  					}
+					return array;
+				}
+				function sort(a,iList) {
+	  				var array = []
+	  				for (var i = 0; i < a.length; i++) {
+    					array[i] = a[iList[i]]
+					}
+					return array;
+				}
+				indexList = shuffle([0,1,2,3])
+				blicketsC = shuffle(blicketsC);
+				blicketsI = shuffle(blicketsI);
+				nonBlicketsC = shuffle(nonBlicketsC);
+				nonBlicketsI = shuffle(nonBlicketsI);
+				blickets = [].concat(blicketsC.slice(0,2),blicketsI.slice(0,2));
+				nonBlickets = [].concat(nonBlicketsC.slice(0,1),nonBlicketsI.slice(0,2),nonBlicketsC.slice(1,2));
+				b = sort(blickets,indexList)
+				nb = sort(nonBlickets,indexList)
+				currentB = b[blockNumber];
+				currentNB = nb[blockNumber];
+				rcon = Math.floor(Math.random() * 2 + 1);
+				sourceB = "img/"+currentB+".png";
+				sourceNB = "img/"+currentNB+".png";
+				changeImg()
+		});
+
+		</script>
+	</head>
+	<body>
+	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;font-size:18px;">
+		<p>
+			Which block is more likely to be the <b>blicket</b>?
+		</p>
+		<img src="" id="block1"/>
+		<img src="" id="block2"/>
+			<div class="radio" id="select">
+				<form action="">
+  					<input class="radioSelect" type="radio" id="radio0" name="blicketness" value="block1">
+  					<span style="display:inline-block; width:77px;"></span>
+  					<input class="radioSelect" type="radio" id="radio1" name="blicketness" value="block2">
+					</form>
+			<div class="next" align="center">
+				<button type="button" class="nextButton" id="button" style="margin-top:5px" onclick="" disabled="true">NEXT</button>
+			</div>
+		</p>
+	</div>
+	</body>
+</html>

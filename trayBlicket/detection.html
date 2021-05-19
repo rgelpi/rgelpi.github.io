@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style>
+		.nexttext { font-weight: bold; color: #002A5C; }
+		.nextButton {
+			display: block;
+			width: 25%;
+			border: none;
+			background-color: #797979;
+			padding: 14px 28px;
+			font-size: 16px;
+			cursor: pointer;
+			text-align: center;
+			font-weight: bold;
+			color: #FFFFFF;
+			margin: auto;
+			-webkit-appearance: none;
+		}
+		.nextButton:disabled {
+			color: #bebebe;
+		}
+		.otherNextButton {
+			display: block;
+			width: 100%;
+			border: none;
+			background-color: #797979;
+			padding: 14px 28px;
+			font-size: 16px;
+			cursor: pointer;
+			text-align: center;
+			font-weight: bold;
+			color: #FFFFFF;
+			-webkit-appearance: none;
+		}
+		.otherNextButton:disabled {
+			color: #bebebe;
+		}
+		.drag {
+			position: absolute;
+			z-index: 999;
+			right: 0;
+			width: 325px;
+			height: 101px;
+			background-color: transparent; }
+		</style>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  		<script src="js/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			window.detected = false;
+		//Parses condition from GET parameter: this is a little bit brittle, so it's been updated
+			getUrl = window.location.href.split("c=");
+		/*	conditionarr = getUrl[1].split("&session");
+			c = conditionarr[0]; */
+		//New GET parser
+			var url_string = window.location.href;
+			//This url includes a string at the end that goes "?c=0"
+			var url = new URL(url_string);
+			var c = url.searchParams.get("c");
+			//For testing purposes. Should never be invoked normally as c should be carried over from
+			//the preceding pages, but this will assign a condition going forward from this page.-->
+			console.log(typeof c);
+			if(typeof c != "string"){
+				console.warn("No condition was successfully defined. Randomly assigning c.");
+				c = Math.floor(Math.random() * 4).toString();
+				console.log("New condition for c is " + c + ".");
+				getUrl[0] = window.location.href;
+				getUrl[1] = c;
+			}
+		//Near condition, red distractor
+			if(c == 0 || c == 1) {
+				var consistentBlocks = ["rrbrr","brrbb"];
+				var inconsistentBlocks = ["rbrbb","brbrb"];
+				blickets = ["rrbrr","brbrb"];
+				localStorage["condition"] = "near";
+				localStorage["distractor"] = "red"
+			};
+		//Distant condition, red distractor
+			if(c == 2 || c == 3) {
+				var consistentBlocks = ["rrbrb","bbrrb"];
+				var inconsistentBlocks = ["rrbbb","bbrbr"];
+				blickets = ["rrbrb","bbrbr"];
+				localStorage["condition"] = "distant";
+				localStorage["distractor"] = "red"
+			};
+
+			//This loads the sound file. Note preloading does not work for iOS, so a loading function is attached to
+			//the nextButton() function.
+			var soundFile = document.getElementById('audio');
+			//soundFile.preload = 'auto';
+
+		//Next button cycles through block list, then triggers "blickets are blocks..." message
+			function nextButton() {
+				if (instructions == true){
+					$(document.getElementById("task")).show();
+					$(document.getElementById("instructions")).hide();
+					document.getElementById("button").disabled = true;
+					instructions = false;
+					//iOS needs a click event to load a sound file.
+					soundFile.load();
+					return;
+				}
+				$('.true-box').css('z-index','2');
+				$('.false-box').css('z-index','10');
+				document.getElementById("detectionStatus").innerHTML = "";
+				document.getElementById("nexttext").innerHTML = "";
+				if (blicketness == 1){
+					blicketNum += 1;
+					var blockID = "b"+blicketNum;
+					document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
+				}else{
+					nblicketNum += 1;
+					var blockID = "nb"+nblicketNum;
+					document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
+					}
+				if(blockIndex <= 2){
+					document.getElementById("button").disabled = true
+					$('.drag').css('left',500);
+					$('.drag').css('top',-50);
+					//This might be the place to "Reset" the droppable() function.
+					blockIndex += 1;
+					blocksRemaining = 4 - blockIndex;
+					document.getElementById("remaining").innerHTML = blocksRemaining;
+					currentBlock = blockList[blockIndex];
+					document.getElementById('current').src = "img/new_stimuli/"+currentBlock+".png";
+				}else{
+					$('.true-box').css('top',-20);
+					$('.true-box').css('left',515);
+					document.getElementById('trueBox').style.height = "94px";
+					document.getElementById('trueBox').style.width = "300px";
+					$('.false-box').css('top',220);
+					$('.false-box').css('left',515);
+					document.getElementById('falseBox').style.height = "94px";
+					document.getElementById('falseBox').style.width = "300px";
+					document.getElementById("remaining-text").innerHTML = "";
+					document.getElementById('message').innerHTML = 'Remember, only trays that are <b>daxy</b> activate the machine.<br><br>Please click <span class="nexttext">Next</span> to continue.'
+					$('.drag').css('top',-10000);
+					buttonurl = "location.href='./sortingintro.html?c="+c+"'";
+					document.getElementById('button').onclick = nextPage
+				}
+
+			function nextPage() {
+				np = "./sortingintro.html?c="+getUrl[1]
+				window.location.href = np
+			}
+
+			}
+			//List shuffle function
+			function shuffle(array) {
+  				var currentIndex = array.length, temporaryValue, randomIndex;
+  				while (0 !== currentIndex) {
+    				randomIndex = Math.floor(Math.random() * currentIndex);
+    				currentIndex -= 1;
+				    temporaryValue = array[currentIndex];
+				    array[currentIndex] = array[randomIndex];
+				    array[randomIndex] = temporaryValue;
+  					}
+				return array;
+			}
+
+			//   Shuffles consistent/inconsistent block lists and concatenates them
+			consistentBlocks = shuffle(consistentBlocks);
+			inconsistentBlocks = shuffle(inconsistentBlocks);
+			blockList = consistentBlocks.concat(inconsistentBlocks);
+			for (block in blockList){
+				document.getElementById("block"+block).src = "img/new_stimuli/"+blockList[block]+".png";
+			}
+			var disX = 0;
+			var disY = 0;
+			blockIndex = 0;
+			blocksRemaining = 4;
+			instructions = true;
+			currentBlock = blockList[blockIndex];
+			blicketNum = 0;
+			nblicketNum = 0;
+			$(document.getElementById("task")).hide();
+			document.getElementById('current').src = "img/new_stimuli/"+currentBlock+".png";
+			document.getElementById("remaining").innerHTML = blocksRemaining;
+
+//The following section contains the new blicket detection task.
+
+			var con_left = $('.drag-con').offset().left;
+			var con_top = $('.drag-con').offset().top;
+			var con_right = con_left + $('.drag-con').width();
+			var con_bottom = con_left + $('.drag-con').height();
+			var boxX = $('.drag-bg').offset().left;
+			var boxY = $('.drag-bg').offset().top;
+			$('.droppable').css('left',126);
+			$('.droppable').css('top',12);
+			$('.drag').css('left',500);
+			$('.drag').css('top',0);
+			document.getElementById("begintask").onclick = nextButton;
+			document.getElementById("button").onclick = nextButton;
+			$('.drag').draggable();
+			$('.droppable').droppable({
+				drop: function( event, ui ) {
+        			window.detected = true;
+					document.getElementById("button").disabled = false;
+					document.getElementById("draghere").innerHTML = "";
+					document.getElementById("nexttext").innerHTML = "Press NEXT to continue";
+						if(blickets.indexOf(currentBlock) !== -1){
+							blicketness = 1;
+							$('.false-box').css('z-index','2');
+							$('.true-box').css('z-index','10');
+							document.getElementById("detectionStatus").innerHTML = "It activated!";
+							document.getElementById("detectionStatus").style.color = "green";
+							//Ensures that the sound plays from the start even if another block
+							//is dragged over before the previous sound finishes its playback.
+							soundFile.currentTime = 0.1;
+							soundFile.play();
+						}else{
+							blicketness = 0;
+							document.getElementById("detectionStatus").innerHTML = "Nothing happened.";
+							document.getElementById("detectionStatus").style.color = "red";
+						}
+				}
+    		});
+    		$(document).off()
+
+
+//The following section contains the previous blicket detector task
+/*
+			var con_left = $('.drag-con').offset().left;
+			var con_top = $('.drag-con').offset().top
+			var con_right = con_left + $('.drag-con').width();
+			var con_bottom = con_left + $('.drag-con').height();
+			var boxX = $('.drag-bg').offset().left;
+			var boxY = $('.drag-bg').offset().top;
+			$('.drag').css('left',280);
+			$('.drag').css('top',60);
+			document.getElementById("begintask").onclick = nextButton
+			document.getElementById("button").onclick = nextButton
+	//			*新加了一个盒子的高度，移动的时候把高度减掉就可以了。
+	//			当按下鼠标的时候触发一个事件,把鼠标的坐标ev的值传进去
+	//			translation: newly added a box's height, and when moving, just delete the height.
+	//			translation: when you click the mouse, it will stimulate an event, and should put in the "ev" value of the mouse location/coordinate
+
+			$('.drag').mousedown(function(ev){
+
+	//				这样就能获取到鼠标的坐标了。ev.pageX是鼠标的坐标，减去方块到浏览器边边的坐标，就是鼠标离方块原点的坐标了。也就是以
+	//				不这样做的话就不能从鼠标点下去的地方进行拖拽了。
+	// 				translation: this way you can get the mouse's location/coordinate. "ev.pageX" is the mouse's coordinate,
+	//				and if minus the coordinate( yvonne's interpretation is distance)
+	// 				from rectangle to the browser's outline, it will be the coordinate (interpretation: distance) between
+	//				mouse and rectangle's centre.This means that if you do not do this way, you cannot drag from the point where the mouse clicks at.
+				disX = ev.pageX - 280;
+				disY = ev.pageY - 60;
+	//				console.log($('.drag-bg').offset().left);
+	//				console.log(ev.pageX);
+	//				console.log(disX);
+	//				console.log($(this).offset().left);
+
+	//				console.log(disX);
+
+				$(document).mousemove(function(ev){
+	//					当鼠标移动的时候,还是一样把鼠标的坐标传进去,鼠标离浏览器边边的值减去鼠标离方块边边的值就是方块到浏览器边边的值啦。
+	//					然后动态修改方块的left值
+	//					translation: when the mouse moves, it is still the same where you put in the mouse's coordinate, and use the value/distance from the mouse
+	//					to the browser's outer line minus the value/distance between the mouse to the rectangule's outer line will be the value/ distance
+	//					from the rectangle to the browser's outer line.
+	//					$('.drag').css('left',ev.pageX - disX);
+	//					$('.drag').css('top',ev.pageY - disY);
+	//					$('.drag').css('left','100px');
+
+					var moveX = ev.pageX - boxX - disX;
+					var moveY = ev.pageY - boxY - disY;
+					$('.drag').css('left',moveX);
+					$('.drag').css('top',moveY);
+				});
+
+				$(document).mouseup(function(ev){
+	//					dragX,就是你那个方块到浏览器的x坐标啦。这里才定义是为了在鼠标放下的时候再获取，毕竟是鼠标放下的时候才判断在不在里面的嘛。
+	// 					translation: "dragX" is the coordinate( yvonne's interpretation: distance) from your rectangle to the browser's "x" coordinate. Here's identification
+	//					is for getting/obtaining after the mouse put down, cause you can only judge whether it is in or not after the mouse has been put down.
+
+					var dragX = ev.pageX - disX;
+					var dragY = ev.pageY - disY;
+	//					输出一下坐标,便于测试
+	//					translation: give out/print out the coordinate, this is for the ease of testing
+	//				console.log(dragX);
+	//				console.log(dragY);
+	//				console.log(ev.pageX);
+	//				console.log(ev.pageY);
+	//				console.log(con_left);
+	//				console.log(con_right);
+					if(dragX>=con_left && dragX<=con_right && dragY>=con_top && dragY<=con_bottom){
+	//						z-index属性，简单来说就是值越大在越上面，跟PS的图层是一样的，我刚开始出了那个错就是没有把z-index重置，
+	//						导致每次都是10，所以底下那个真的没显示出来
+	// 						translation: "z-index"'s characteristics, simply speaking is the larger the value, the higher/topper rank it is, and it is similar to
+	//						PS picture level, I initially made a mistake cause I did not reset the "z-index", therefore everything it was "10", and the bottom ones were not shown
+
+						window.detected = true
+						document.getElementById("button").disabled = false
+						document.getElementById("draghere").innerHTML = "";
+						document.getElementById("nexttext").innerHTML = "Press NEXT to continue";
+						if(blickets.indexOf(currentBlock) !== -1){
+							blicketness = 1;
+							$('.false-box').css('z-index','2');
+							$('.true-box').css('z-index','10');
+							document.getElementById("detectionStatus").innerHTML = "It activated!";
+							document.getElementById("detectionStatus").style.color = "green";
+						}else{
+							blicketness = 0;
+							document.getElementById("detectionStatus").innerHTML = "Nothing happened.";
+							document.getElementById("detectionStatus").style.color = "red";
+						}
+					}else{
+						$('.true-box').css('z-index','2');
+						$('.false-box').css('z-index','10');
+					}
+					//操作完之后就把事件注销掉
+	//				translation: after you conduct it, should cancel the event.
+					$(document).off();
+				});
+				//如果没有return false的话，用chrome拖拽的时候会有一个禁止操作的鼠标图标
+	//			translation: if no "return false", using "chrome" to drag will give/lead to a "no/stop operation" mouse symbol/sign
+				return false;
+
+			}) */
+		})
+	</script>
+	</head>
+	<body style="font-family:helvetica;" >
+<!--This div contains the "these are the blocks" section -->
+		<div id="instructions" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+		<p style="font-size:28px;">
+			Activating the machine
+		</p>
+		<p style="font-size:18px;margin-top:-15px;">
+			These are the trays you will try out:
+		</p>
+		<div style="float:center;">
+			<img src="img/white.png" height=50 width=160 id="block0"/>
+			<img src="img/white.png" height=50 width=160 id="block1"/>
+			<img src="img/white.png" height=50 width=160 id="block2"/>
+			<img src="img/white.png" height=50 width=160 id="block3"/>
+			<br>
+		</div>
+		<p style="font-size:18px;">
+			In the next task, you will determine which trays are <b>daxy</b> by dragging them onto the machine one at a time.
+			<br><br>
+			Click <span class=nexttext>NEXT</span> to continue
+		</p>
+		</p>
+			<div align="center">
+				<button type="button" class="nextButton" id="begintask" onclick="">NEXT</button>
+			</div>
+		</div>
+<!--This div contains the blicket detector task -->
+		<div id="task" class="drag-bg" style="margin-left:-100px;">
+			<div class="img-box">
+			<div class="drag-con">
+			</div>
+				<div class="true-box">
+					<img src="img/new_stimuli/true.gif" id="trueBox" width=400/>
+				</div>
+				<div class="false-box">
+					<img src="img/new_stimuli/false.png" id="falseBox" width=400/>
+				</div>
+				<div style="float:right;margin-left:265px;margin-top:-100px;font-size:28px">
+					<p><a id="detectionStatus"></a></p>
+				</div>
+				<div class="droppable">
+					<p style="margin-left:200px;margin-top:106px;font-size:32px;text-align:center"></p>
+				</div>
+				<div>
+					<p style="margin-left:45px;margin-top:-150px;font-size:32px;text-align:center"><a id="draghere">Drag the<br>block here!<br>↓</a></p>
+				</div>
+				<div style="float:left;margin-left:0px;margin-top:0px;font-size:32px">
+					<p><a id="message"></a></p>
+				</div>
+				<div style="float:right;margin-left:615px;margin-top:70px;font-size:28px;width:300px">
+					<p>Trays that are <b>daxy</b></p>
+				</div>
+				<div style="float:right;margin-left:595px;margin-top:310px;font-size:28px;width:300px">
+					<p>Trays that are <b>not daxy</b></p>
+				</div>
+				<div style="float:right;margin-left:500px;margin-top:140px">
+					<img src="img/white.png" height=50 width=160 id="b1"/>
+				</div>
+				<div style="float:right;margin-left:670px;margin-top:140px">
+					<img src="img/white.png" height=50 width=160 id="b2"/>
+				</div>
+				<div style="float:right;margin-left:840px;margin-top:140px">
+					<img src="img/white.png" height=50 width=160 id="b3"/>
+				</div>
+				<div style="float:right;margin-left:1010px;margin-top:140px">
+					<img src="img/white.png" height=50 width=160 id="b4"/>
+				</div>
+				<div style="float:right;margin-left:1180px;margin-top:140px">
+					<img src="img/white.png" height=50 width=160 id="b5"/>
+				</div>
+				<div style="float:right;margin-left:500px;margin-top:380px">
+					<img src="img/white.png" height=50 width=160 id="nb1"/>
+				</div>
+				<div style="float:right;margin-left:670px;margin-top:380px">
+					<img src="img/white.png" height=50 width=160 id="nb2"/>
+				</div>
+				<div style="float:right;margin-left:840px;margin-top:380px">
+					<img src="img/white.png" height=50 width=160 id="nb3"/>
+				</div>
+				<div style="float:right;margin-left:1010px;margin-top:380px">
+					<img src="img/white.png" height=50 width=160 id="nb4"/>
+				</div>
+				<div style="float:right;margin-left:1180px;margin-top:380px">
+					<img src="img/white.png" height=50 width=160 id="nb5"/>
+				</div>
+				<div id="remaining-text" style="float:left;margin-top:330px;margin-right:-100px;font-size:28px;">
+					<p><a id="remaining"></a> trays remaining<br>
+					<a id="nexttext"></a></p>
+				</div>
+				<div class="next" style="margin-top:430px; width:150px" align="center">
+					<button type="button" class="otherNextButton" id="button" disabled="true" onclick="">NEXT</button>
+				</div>
+			</div>
+
+		<img class="drag" src="img/new_stimuli/blank.png" id="current" width=325px height=101/>
+	</div>
+	<audio id="audio" hidden>
+		<source src="./vid/blicketsound.mp3" type="audio/mp3">
+		<source src="./vid/blicketsound.ogg" type="audio/ogg">
+	</audio>
+	</body>
+</html>

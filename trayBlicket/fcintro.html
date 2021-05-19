@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <style>
+        .nexttext { font-weight: bold; color: #002A5C; }
+        .nextButton {
+            display: block;
+            width: 25%;
+            border: none;
+            background-color: #797979;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin: auto;
+            -webkit-appearance: none;
+        }
+        .nextButton:disabled {
+            color: #bebebe;
+        }
+    </style>
+    <script>
+        //New GET parser.
+        /*
+        conditionarr = window.location.href.split("c=")
+        c = conditionarr[1] */
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var c = url.searchParams.get("c");
+    </script>
+</head>
+<body>
+<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+    <p style="font-size:28px;">
+        Blicket Identification
+    </p>
+    <p style="font-size:18px;margin-top:-15px;">
+        You will now be shown a series of pairs of blocks. One is a <b>blicket</b> and one is not. Select the block you think is more likely to be the <b>blicket</b>.
+        <br><br>
+        Click <span class=nexttext>NEXT</span> to continue
+    </p>
+    <div class="next">
+        <button type="button" class="nextButton" id="button" style="margin-top:5px" onclick="location.href='./forcedchoice.html'+'?c='+c;">NEXT</button>
+    </div>
+    </p>
+</div>
+</body>
+</html>

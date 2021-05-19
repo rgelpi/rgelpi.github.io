@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style>
+			.nexttext { font-weight: bold; color: #002A5C; }
+			.textbox {width:100%;padding:1px;}
+			.nextButton {
+				display: block;
+				width: 25%;
+				border: none;
+				background-color: #797979;
+				padding: 14px 28px;
+				font-size: 16px;
+				cursor: pointer;
+				text-align: center;
+				font-weight: bold;
+				color: #FFFFFF;
+				margin: auto;
+				-webkit-appearance: none;
+			}
+			.nextButton:disabled {
+				color: #bebebe;
+			}
+			/* .radioSelect {
+				transform: scale(1.25);
+			} */
+		</style>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				document.getElementById("button").onclick = nextButton;
+				//Old GET parser.
+			/*	conditionarr = window.location.href.split("c=")
+				c = conditionarr[1] */
+				//New GET parser.
+				var url_string = window.location.href;
+				var url = new URL(url_string);
+				var c = url.searchParams.get("c");
+				function nextButton() {
+					var radios = document.getElementsByName("blicket");
+						for (var i = 0, length = radios.length; i < length; i++) {
+							if (radios[i].checked) {
+								q1 = radios[i].value;
+								break;
+							}
+						}
+					var radios = document.getElementsByName("notblicket");
+						for (var i = 0, length = radios.length; i < length; i++) {
+							if (radios[i].checked) {
+								q2 = radios[i].value;
+								break;
+							}
+						}
+					localStorage["attention1"] = q1
+					localStorage["attention2"] = q2
+					window.location.href = "./shapeperception.html"
+
+				}
+			})
+		</script>
+	</head>
+	<body>
+	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;font-size:18px;";>
+		<p>
+			If we place a <b>daxy</b> tray on the machine, by itself, will the machine activate?
+			<div class="radio" id="b">
+				<form action="">
+  					<input class="radioSelect" type="radio" id="b1" name="blicket" value="1">
+  					Yes
+  					<input class="radioSelect" type="radio" id="b2" name="blicket" value="-1">
+  					No
+					</form>
+					<br><br>
+		</div>
+		If we place an tray that is <b>not daxy</b> on the machine, by itself, will the machine activate?<br><br>
+			<div class="radio" id="nb">
+				<form action="">
+  					<input class="radioSelect" type="radio" id="nb1" name="notblicket" value="-1">
+  					Yes
+  					<input class="radioSelect" type="radio" id="nb2" name="notblicket" value="1">
+  					No
+					</form>
+					<br><br>
+		</div>
+			<div class="next">
+				<button type="button" class="nextButton" id="button" style="margin-top:15px">NEXT</button><br><br><br>
+			</div>
+		</p>
+	</div>
+	</body>
+</html>

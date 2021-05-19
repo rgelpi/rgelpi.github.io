@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style>
+		.nexttext { font-weight: bold; color: #002A5C; }
+		.textbox {width:100%;padding:1px;}
+		.nextButton {
+			display: block;
+			width: 25%;
+			border: none;
+			background-color: #797979;
+			padding: 14px 28px;
+			font-size: 16px;
+			cursor: pointer;
+			text-align: center;
+			font-weight: bold;
+			color: #FFFFFF;
+			margin: auto;
+			-webkit-appearance: none;
+		}
+		.nextButton:disabled {
+			color: #bebebe;
+		}
+		</style>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				document.getElementById("button").onclick = nextButton;
+			/*	conditionarr = window.location.href.split("c=")
+				c = conditionarr[1] */
+				var url_string = window.location.href;
+				var url = new URL(url_string);
+				var c = url.searchParams.get("c");				
+				function nextButton() {
+					localStorage["explanation"] = document.getElementById("rule").value;
+					window.location.href = "./friendrule.html?c="+c
+				}
+			})
+		</script>
+	</head>
+	<body>	
+	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+		<p style="font-size:18px;margin-top:-15px;">
+Is there a particular way you can identify <b>blickets</b> by their appearance? If so, what is it?
+		</p>
+	<input type="text" class="textbox" id="rule"><br>
+			<div class="next" align="center">
+				<button type="button" class="nextButton" id="button" style="margin-top:15px">NEXT</button>
+			</div>
+		</p>
+	</div>
+	</body>
+</html>

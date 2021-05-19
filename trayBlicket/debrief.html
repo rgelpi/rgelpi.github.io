@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <style>
+        .nexttext {
+            font-weight: bold;
+            color: #002A5C;
+        }
+
+        .greyedout {
+            color: #777777;
+        }
+
+        .boxed {
+            border: 2px solid black;
+        }
+
+        .textbox {
+            width: 100%;
+            padding: 1px;
+        }
+    </style>
+    <script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var wso = new WebSocket("wss://somata.inf.ed.ac.uk/chunks/ws");
+        var sentData = 0;
+        var wsError = 0; // Keeps track of whether any websocket errors have occurred
+        wso.onopen = function () {
+            /*Send a small message to the console once the connection is established */
+            console.log('chunk ws connection open.');
+        }
+
+        wso.onmessage = function (event) {
+            message = JSON.parse(event.data);
+            console.log('webSocket message: ' + event.data);
+            if (sentData == 1) {
+                document.getElementById("codediv").innerHTML = "The survey is now complete. Thank you for your participation. Your code is 8" + wsError + "-" + event.data.length;
+            }
+        }
+
+        wso.onerror = function (error) {
+            console.log('webSocket error detected: ' + JSON.stringify(error));
+            wsError = 1;
+        }
+    </script>
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            function nextButton() {
+                localStorage["comments"] = document.getElementById("textbox").value;
+                var currentDate = new Date();
+                localStorage["submitDateTime"] = currentDate.toUTCString();
+                localStorage["timezoneOffset"] = currentDate.getTimezoneOffset().toString();
+                // experimentId & sessionId set in index
+                // isComplete allows the server to record completion, but is optional
+                localStorage["isComplete"] = true;
+                var dataStr = JSON.stringify(localStorage);
+                if (sentData == 0) {
+                    document.getElementById("codediv").innerHTML = "Sending data"
+                    wso.send(dataStr);
+                    sentData = 1;
+                }
+                // console.log(dataStr)
+                //$.ajax({
+                //	url: './data.php',
+                //	type: 'post',
+                //	contentType:'application/json',
+                //	data: JSON.stringify(data),
+                //	dataType:'json'
+                //});
+                // Could also wait to see if storage is successful...
+                //window.location.href = "./code.html"
+            };
+            document.getElementById("button").onclick = nextButton;
+        })
+    </script>
+</head>
+
+<body style="background-color:#ccffff">
+    <div style="margin-left:10%;margin-right:10%;margin-top:25px;margin-bottom:25px;font-family:helvetica;background-color:#ffffff"
+        class="boxed">
+        <p style="text-align:center;font-size:18px;margin-left:25px;margin-right:25px;margin-top:25px;">
+            <b>Thank you so much for participating in the Blicket Study!</b>
+        </p>
+        <p style="float:left;font-size:18px;margin-left:25px;margin-right:25px;">
+            We really appreciate your time and interest. The study you just participated in was designed to investigate how people identify causal relationships and discover patterns. All participants were shown similar introduction and demonstration videos -- with some differences in the specific patterns of colours and/or events -- and asked some questions to understand what rule they had learned for judging when a block is a blicket.
+            <br><br> Past research suggests that, when asked to learn causal relationships from certain kinds of information, children tend to make different judgments than adults. We are interested in discovering the nature and causes of these differences. We have provided some articles at the bottom of the page, should you be interested in looking into this topic further.
+            <br><br>
+        </p>
+        <div id="codediv" style="text-align:center;font-size:18px">
+            <p style="text-align:center;font-size:18px;margin-left:25px;margin-right:25px;"><b>Questions or Concerns?</b></p>
+            <p style="float:left;font-size:18px;margin-left:25px;margin-right:25px;">
+                Was anything unclear or confusing about this experiment? Feel free to share any questions or comments you may have in the
+                space below.
+                <br><br>
+                <textarea id="textbox" class="textbox" rows="4"></textarea>
+                <br><br> If you would like to receive a report of this study (or a summary of the findings) when it is completed,
+                feel free to contact Dr. Buchsbaum and her team at (416) 946-3981, or by email at <a href="mailto:cocodev@psych.utoronto.ca"
+                    target="_blank">cocodev@psych.utoronto.ca</a>.
+                <br><br> If you have concerns about this study or your rights as a participant of this experiment, you are
+                encouraged to contact the Office of Research Ethics at <a href="mailto:ethics.review@utoronto.ca" target="_blank">ethics.review@utoronto.ca</a>
+                or (416) 946-3273.
+                <br><br>
+            </p>
+            <p style="text-align:center;font-size:18px;margin-left:25px;margin-right:25px;">
+                Press <span class="nexttext">NEXT</span> to record your responses and finish the survey.
+                <div style="text-align:center">
+                    <button type="button" id="button" style="margin-bottom:35px;" onclick="">NEXT</button>
+                </div>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

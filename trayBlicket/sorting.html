@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <style>
+        .blockSlots {
+            margin: auto;
+        }
+        .nexttext { font-weight: bold; color: #002A5C; }
+        .nextButton {
+            display: block;
+            width: 25%;
+            border: none;
+            background-color: #797979;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin: auto;
+            -webkit-appearance: none;
+        }
+        .nextButton:disabled {
+            color: #bebebe;
+        }
+        .radioSelect {
+            transform: scale(1.25);
+        }
+        .ui-state-active {
+            border: 5px solid red;
+        }
+        .ui-state-highlight {
+            border: 5px solid yellow;
+        }
+        </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript">
+        function manage(txt) {
+            var bt = document.getElementById('thisButton');
+            if ((txt.value != '' && 'Enter rule here...') && txt.value.length > 10) {
+                bt.disabled = false;
+            }
+            else {
+                bt.disabled = true;
+            }
+        }
+
+        $(function(){
+            getUrl = window.location.href.split("c=");
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var c = url.searchParams.get("c");
+            blockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
+            blockNumber = 0;
+            taskName = "sorting";
+
+            // $('.drag').draggable();
+            // $('.drag').css('top',300);
+            // //$('.drag').css('left',600);$('.drag').draggable();
+            // $('.drag').css('top',300);
+            // //$('.drag').css('left',600);
+            // $('.blicketBin').droppable({
+            //     //hoverClass: "ui-state-highlight",
+            //     drop: function( event, ui ){
+            //         window.detected = true;
+            //         document.getElementById('nextButton').enable();
+            //         $(this).addClass('ui-state-active');
+            //         document.getElementById('confirmButton').show();
+            //
+            //     }
+            // });
+            //
+            // function enableDrag(){
+            //     $('.drag').draggable("enable");
+            // }
+            //
+            // function disableDrag(){
+            //     $('.drag').draggable("disable");
+            // }
+            //
+            // function resetPos(){
+            //     $('.drag').css('top',300);
+            //     //some more stuff having to do with centering the object
+            // }
+            //
+            // function enableDrag(){
+            //     $('.drag').draggable("enable");
+            // }
+            //
+            // function disableDrag(){
+            //     $('.drag').draggable("disable");
+            // }
+            //
+            // function resetPos(){
+            //     $('.drag').css('top',300);
+            //     //some more stuff having to do with centering the object
+            // }
+
+            //Near condition
+            if(c == 0 || c == 1) {
+                var ConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr","rrbrb","rbbrr","rrbbr","rbbbb"];
+                var InconsistentB = ["brbrb","brrrr","brrrb","bbrrr","bbrrb","brbrr","bbbrr","bbbrb"];
+                var ConsistentNB = ["brrbr","brrbb","bbbbr","bbrbr","bbrbb","brbbr","brbbb","bbbbb",];
+                var InconsistentNB = ["rbrrr","rbrbb","rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
+            };
+            //Distant condition
+            if(c == 2 || c == 3) {
+                var ConsistentB = ["rrrbr","rrrbb","rrbrb","rbbrb","rbrbr","rbrbb","rrbrr","rbbrr"];
+                var InconsistentB = ["bbrbr","brrbr","brrbb","bbrbb","brbrr","brbrb","bbbrr","bbbrb"];
+                var ConsistentNB = ["brrrr","bbrrb","bbbbr","brrrb","bbrrr","brbbr","brbbb","bbbbb"];
+                var InconsistentNB = ["rbrrr","rrbbb","rrrrr","rrrrb","rbrrb","rrbbr","rbbbr","rbbbb"];
+            };
+            function shuffle(array) {
+                var currentIndex = array.length, temporaryValue, randomIndex;
+                while (0 !== currentIndex) {
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                }
+                return array;
+            }
+
+            var blickets = ConsistentB.concat(InconsistentB);
+            var nonBlickets = ConsistentNB.concat(InconsistentNB);
+
+            blickets = shuffle(blickets);
+            nonBlickets = shuffle(nonBlickets);
+            console.log(blickets);
+            console.log(nonBlickets);
+
+            var blicketNum = 0;
+            var nblicketNum = 0;
+            for(var b in blickets){
+                blicketNum += 1;
+                var blockID = "b"+blicketNum;
+                document.getElementById(blockID).src = "img/new_stimuli/"+blickets[b]+".png";
+            }
+            for(var b in nonBlickets){
+                nblicketNum += 1;
+                var blockID = "n"+nblicketNum;
+                document.getElementById(blockID).src = "img/new_stimuli/"+nonBlickets[b]+".png";
+            }
+
+            document.getElementById("thisButton").onclick = nextButton;
+            function nextButton() {
+                localStorage["rule"] = document.getElementById('text').value
+                window.location.href = "./friendrule.html?c=" + getUrl[1];
+            }
+
+
+        })
+</script>
+</head>
+<body>
+<!--In this section, the task is introduced.-->
+<div id="taskIntro">
+
+</div>
+<!--This section contains the blicket sorting task.-->
+<div id="draggableBlock">
+    <img class="drag" style="position:relative;vertical-align: middle;" src="img/new_stimuli/blank.png" height=1 width=1 id="block"/>
+</div>
+<div id="sortingTask">
+    <div class=blockSlots id="blockSlots" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:0%;font-family:helvetica;";>
+        <div class="blicketBin" id="blicketBin" style="float:left;margin-left:10%;width:360px;height:600px;border:2px solid black">
+            <br>
+            <img src="img/new_stimuli/true.gif" height=93 id="true"/>
+            <br><br>Trays that are <b>daxy</b><br><br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b1"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b2"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b3"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b4"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b5"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b6"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b7"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b8"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b9"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b10"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b11"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b12"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b13"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b14"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b15"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="b16"/>
+        </div>
+        <div class="blicketBin" id="nonBlicketBin" style="float:right;margin-right:10%;width:360px;height:600px;border:2px solid black"">
+            <br>
+            <img src="img/new_stimuli/false.png" height=93 id="false"/>
+            <br><br>Trays that are <b>not daxy</b><br><br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n1"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n2"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n3"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n4"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n5"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n6"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n7"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n8"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n9"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n10"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n11"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n12"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n13"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n14"/>
+            <br>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n15"/>
+            <img src="img/new_stimuli/bbbbb.png" height=50 width=160 id="n16"/>
+        </div>
+    </div>
+</div>
+<div class="next">
+    <div style="text-align: center; font-family: helvetica; margin-top: 650px;">
+        <p>
+            Please describe the rule that makes a tray activate the machine in 1-2 sentences.
+        </p>
+        <input type="text" class="textbox" id="text" value="Enter rule here..." style="width: 25%; height=5%;"
+               onfocus="if (this.value == 'Enter rule here...') {this.value = '';}"
+               onblur="if (this.value == '') {this.value = 'Enter rule here...';}"
+               onkeyup="manage(this)" >
+    </div>
+    <button type="button" class="nextButton" id="thisButton" style="margin-top:20px;" disabled="disabled">NEXT</button>
+    <button type="button" class="confirmButton" style="margin-top:400px;width:100px;" hidden>NEXT</button>
+</div>
+</body>
+</html>

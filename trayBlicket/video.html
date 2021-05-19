@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style>
+			.nexttext { font-weight: bold; color: #002A5C; }
+			.nextButton {
+				display: block;
+				width: 25%;
+				border: none;
+				background-color: #797979;
+				padding: 14px 28px;
+				font-size: 16px;
+				cursor: pointer;
+				text-align: center;
+				font-weight: bold;
+				color: #FFFFFF;
+				-webkit-appearance: none;
+			}
+			.nextButton:disabled {
+				color: #bebebe;
+			}
+			.info {
+				padding: 10px 10px;
+			}
+		</style>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				//New GET parser.
+				/*
+				conditionarr = window.location.href.split("c=")
+				c = conditionarr[1] */
+				var url_string = window.location.href
+				var url = new URL(url_string)
+				c = url.searchParams.get("c") //This doesn't work unless c is a global variable.
+				var vid = document.getElementById('video');
+				// Turn off the default controls
+				// Plays the video when the function is called.
+				/* var playVideo = function () {
+					var playButton = document.getElementById('play');
+					vid.play();
+					playButton.disabled = true;
+				}
+				// Call the play function via click.
+				$('play').click(playVideo); */
+				function hide (elements) {
+					elements = elements.length ? elements : [elements];
+					for (var index = 0; index < elements.length; index++) {
+						elements[index].style.display = 'none';
+					}
+				}
+				document.getElementById("beginvideo").onclick = nextButton;
+				$(document.getElementById("videoSection")).hide();
+				function nextButton() {
+						$(document.getElementById("videoSection")).show();
+						$(document.getElementById("instructions")).hide();
+						document.getElementById("nextButton").disabled = true;
+						$(document.getElementById('nextButton')).hide();
+						$('video').load();
+						$('video')[0].play();
+					}
+				vid.onloadeddata = function () {
+					window.setTimeout(nextEnable, 25800);
+					//Removed for new iOS playback
+					$('video').prop('loop', false);
+
+					function nextEnable() {
+						document.getElementById('nextButton').disabled = false;
+						$(document.getElementById('nextButton')).show();
+					}
+				}
+				vid.onplay = function() {
+					vid.controls = false;
+					document.getElementById("info").style.display = 'none';
+				}
+			});
+		</script>
+	</head>
+	<body>
+	<div id="instructions" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+		<p style="font-size:28px;">
+			Activating the machine
+		</p>
+		<p style="font-size:18px;">
+			First, we will show you a brief video introducing you to the things you will see in this task.
+			<br><br>
+			Click <span class=nexttext>PLAY</span> to start the video
+		</p>
+		</p>
+		<div align="center">
+			<button type="button" class="nextButton" id="beginvideo" onclick="">PLAY</button>
+		</div>
+	</div>
+	<div id="videoSection" class="containsVideo" style="text-align:center;font-family:helvetica;";>
+		<figure id="videoContainer">
+   <video playsinline id="video" width="80%" height="auto" controls="false" onloadeddata="" onclick="this.play()">
+      <source src="./vid/video.mp4" type="video/mp4">
+      <source src="./vid/video.webm" type="video/webm">
+      <source src="./vid/video.ogv" type="video/ogg">
+      <!-- Flash fallback (CL: Commented this out, since the swf file is missing and support is likely worse)
+      <object type="application/x-shockwave-flash" data="flash-player.swf?videoUrl=./vid/blicket_instructions.mp4" width="1024" height="576">
+         <param name="movie" value="flash-player.swf?videoUrl=./vid/blicket_instructions.mp4" />
+         <param name="allowfullscreen" value="false" />
+         <param name="wmode" value="transparent"/>
+      </object>-->
+   </video>
+		</figure>
+		<!-- <div id="controls">
+			<button id="play" title="play">PLAY</button>
+		</div> -->
+		<div class="next" align="center">
+			<button type="button" class="nextButton" id="nextButton" style="margin-top:5px" disabled="true" onclick="location.href='./detection.html'+'?c='+c;">NEXT</button>
+		</div>
+		<!-- <div class="info" style="display:block;" align="center">
+			<p>Please press the play button on the video.</p> -->
+		</div>
+		</p>
+	</div>
+	</body>
+</html>

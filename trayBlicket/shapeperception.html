@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style>
+			.nexttext { font-weight: bold; color: #002A5C; }
+			.nextButton {
+				display: block;
+				width: 25%;
+				border: none;
+				background-color: #797979;
+				padding: 14px 28px;
+				font-size: 16px;
+				cursor: pointer;
+				text-align: center;
+				font-weight: bold;
+				color: #FFFFFF;
+				margin: auto;
+				-webkit-appearance: none;
+			}
+			.nextButton:disabled {
+				color: #bebebe;
+			}
+			/* .radioSelect {
+				transform: scale(1.25);
+			} */
+			.answers {
+				line-height: 22px;
+			}
+		</style>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		$(function() {
+			//New GET parser.
+			/*
+			conditionarr = window.location.href.split("c=");
+			c = conditionarr[1]; */
+			var url_string = window.location.href;
+			var url = new URL(url_string);
+			var c = url.searchParams.get("c");
+
+
+			var fields = "#cake, #claw, #bone, #about";
+			$("#button").attr("disabled", "disabled");
+
+			$(fields).on('change', function() {
+				if(allFilled()) {
+					$("#button").removeAttr("disabled");
+				} else {
+					$("#button").attr("disabled", "disabled");
+				}
+			});
+
+			function allFilled() {
+				var filled = true;
+				$(fields).each(function() {
+					if ($(this).val() == '') {
+						filled = false;
+					}
+				});
+				return filled;
+			};
+
+
+			document.getElementById("button").onclick = nextButton;
+			function nextButton() {
+				localStorage["cake"] = document.getElementById("cake").value;
+				localStorage["claw"] = document.getElementById("claw").value;
+				localStorage["bone"] = document.getElementById("bone").value;
+				localStorage["about"] = document.getElementById("about").value;
+				window.location.href = "./debrief.html"
+			}
+		})
+		</script>
+	</head>
+	<body>
+	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+		<p style="font-size:28px;">
+			Word Perception
+		</p>
+		<p style="font-size:18px;margin-top:-15px;">Please solve the following word jumbles. Figure out what the word is for each set of scrambled letters.</p>
+		<form>
+			<br>
+			C K E A<br>
+			<input type="text" class="textbox" id="cake"><br><br>
+			A W C L<br>
+			<input type="text" class="textbox" id="claw"><br><br>
+			N B O E<br>
+			<input type="text" class="textbox" id="bone"><br><br>
+			<br><p style="font-size:18px;margin-top:-15px;">Please describe what you think this project was about in 1-2 sentences.</p>
+			<br><input type="text" class="textbox" id="about" style="width:50%"><br><br>
+		</form>
+			<div class="next">
+				<button class="nextButton" type="button" id="button" style="margin-top:5px" onclick="location.href='./debrief.html'">NEXT</button>
+			</div>
+			<br><br>
+		</p>
+	</div>
+	</body>
+</html>

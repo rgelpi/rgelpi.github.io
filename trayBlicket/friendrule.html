@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style>
+			.nexttext { font-weight: bold; color: #002A5C; }
+			.textbox {width:100%;padding:1px;}
+			.nextButton {
+				display: block;
+				width: 25%;
+				border: none;
+				background-color: #797979;
+				padding: 14px 28px;
+				font-size: 16px;
+				cursor: pointer;
+				text-align: center;
+				font-weight: bold;
+				color: #FFFFFF;
+				margin: auto;
+				-webkit-appearance: none;
+			}
+			.nextButton:disabled {
+				color: #bebebe;
+			}
+			/* .radioSelect {
+				transform: scale(1.25);
+			} */
+		</style>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				var nextButton = function() {
+					var radios = document.getElementsByName('preference');
+						for (var i = 0, length = radios.length; i < length; i++) {
+							if (radios[i].checked) {
+								localStorage["rulepreference"] = radios[i].value; //i+1;
+								console.log("stored rulepreference");
+								break;
+							}
+						}
+					window.location.href = "./attention.html?c="+getUrl[1]
+				}
+				var nextEnable = function() {
+					document.getElementById("next").disabled = false;
+				}
+				var sameButton = function() {
+					localStorage["rulepreference"] = "(same)";
+					console.log("stored rulepreference")
+					window.location.href = "./attention.html?c="+getUrl[1]
+				}
+				console.log("nextButton defined");
+				document.getElementById("next").onclick = nextButton;
+				document.getElementById("same").onclick = sameButton;
+				document.getElementById("next").disabled = true;
+				document.getElementById("radio1").onclick = nextEnable;
+				document.getElementById("radio2").onclick = nextEnable;
+				document.getElementById("radio3").onclick = nextEnable;
+				document.getElementById("radio4").onclick = nextEnable;
+				document.getElementById("radio5").onclick = nextEnable;
+				document.getElementById("radio6").onclick = nextEnable;
+				document.getElementById("radio7").onclick = nextEnable;
+				//Old GET parser.
+				getUrl = window.location.href.split("c=");
+			/*	conditionarr = getUrl[1].split("&session");
+				c = conditionarr[0]; */
+				//New GET parser.
+				var url_string = window.location.href;
+				var url = new URL(url_string);
+				var c = url.searchParams.get("c");
+				document.getElementById("realrule").src = "./img/rule_"+c+".png"
+				if(c==0||c==1){
+					document.getElementById("realrule").src = "./img/new_stimuli/near_rule.png"
+					document.getElementById("explanation").innerHTML = "Suppose a friend says that the way to determine whether a tray is <b>daxy</b> is by looking at the square, the circle and the triangle:<br><br>-  If a <b>square is on the tray</b> and a <b>circle is not on the tray</b>, the tray is daxy.<br><br>-  If a <b>square is not on the tray</b> and a <b>triangle is on the tray</b>, then the tray is also daxy (see image below)."
+				}
+				if(c==2||c==3){
+
+					document.getElementById("realrule").src = "./img/new_stimuli/dist_rule.png"
+					document.getElementById("explanation").innerHTML = "Suppose a friend says that the way to determine whether a tray is <b>daxy</b> is by looking at the the circle and triangle:<br><br>-  If either the<b>circle OR the triangle are on the tray</b> (but not both), the tray is daxy (see image below)."
+				}
+
+		})
+		</script>
+	</head>
+	<body>
+	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+		<p style="font-size:18px;margin-top:-25px;" id="explanation">
+		</p>
+		<img src="" id="realrule" style="width:310px;height:auto;"/>
+		<p style="font-size:18px;">
+			<b>Assuming your friend's explanation is different from the one you gave before, which explanation do you prefer now?</b>
+			<div class="radio" id="select">
+				<form action="">
+					Friend's answer
+  					<input class="radioSelect" type="radio" id="radio1" name="preference" value="1">
+  					<input class="radioSelect" type="radio" id="radio2" name="preference" value="2">
+  					<input class="radioSelect" type="radio" id="radio3" name="preference" value="3">
+  					<input class="radioSelect" type="radio" id="radio4" name="preference" value="4">
+  					<input class="radioSelect" type="radio" id="radio5" name="preference" value="5">
+  					<input class="radioSelect" type="radio" id="radio6" name="preference" value="6">
+  					<input class="radioSelect" type="radio" id="radio7" name="preference" value="7">
+  					Your previous answer
+					</form>
+					<br><br>
+		</div>
+			Click <span class=nexttext>NEXT</span> once you have made your selection.<br><br>Alternatively, if your friend's explanation is the same as the rule you gave before, click <span class=nexttext>Rules are the same</span>.
+		</p>
+			<div class="next" align="center">
+				<button type="button" class="nextButton" id="next" style="margin-top:15px">NEXT</button><br><br><br>
+			</div>
+			<div class="next" align="center">
+				<button type="button" class="nextButton" id="same" style="margin-top:15px;font-weight:normal">Rules are the same</button><br><br><br>
+			</div>
+		</p>
+	</div>
+	</body>
+</html>
