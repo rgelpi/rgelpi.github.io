@@ -43,7 +43,7 @@
         }
 
         wso.onerror = function (error) {
-            console.log('webSocket error detected: ' + JSON.stringify(error));
+            console.log('webSocket error detected: ' + JSON.stringify(error, ["message", "arguments", "type", "name"]));
             wsError = 1;
         }
     </script>
