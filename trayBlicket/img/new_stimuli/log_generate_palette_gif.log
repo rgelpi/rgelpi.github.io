@@ -1,0 +1,133 @@
+ffmpeg version 4.3.1 Copyright (c) 2000-2020 the FFmpeg developers
+  built with Apple clang version 11.0.3 (clang-1103.0.32.59)
+  configuration: --prefix=/usr/local/Cellar/ffmpeg/4.3.1-with-options_7 --enable-shared --cc=clang --host-cflags= --host-ldflags= --enable-gpl --enable-libaom --enable-libdav1d --enable-libmp3lame --enable-libopus --enable-libsnappy --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-demuxer=dash --disable-libjack --disable-indev=jack --enable-opencl --enable-videotoolbox --disable-htmlpages
+  libavutil      56. 51.100 / 56. 51.100
+  libavcodec     58. 91.100 / 58. 91.100
+  libavformat    58. 45.100 / 58. 45.100
+  libavdevice    58. 10.100 / 58. 10.100
+  libavfilter     7. 85.100 /  7. 85.100
+  libswscale      5.  7.100 /  5.  7.100
+  libswresample   3.  7.100 /  3.  7.100
+  libpostproc    55.  7.100 / 55.  7.100
+Splitting the commandline.
+Reading option '-v' ... matched as option 'v' (set logging level) with argument 'debug'.
+Reading option '-nostdin' ... matched as option 'stdin' (enable or disable interaction on standard input) with argument 0.
+Reading option '-progress' ... matched as option 'progress' (write program-readable progress information) with argument '/private/var/folders/y5/z_30clw15xq0rc5gwrv90j2m0000gn/T/KritaFFmpegProgress.SaxxaO'.
+Reading option '-r' ... matched as option 'r' (set frame rate (Hz value, fraction or abbreviation)) with argument '24'.
+Reading option '-start_number' ... matched as AVOption 'start_number' with argument '0'.
+Reading option '-i' ... matched as input url with argument '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame%04d.png'.
+Reading option '-vf' ... matched as option 'vf' (set video filters) with argument 'palettegen'.
+Reading option '-y' ... matched as option 'y' (overwrite output files) with argument '1'.
+Reading option '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/palette.png' ... matched as output url.
+Finished splitting the commandline.
+Parsing a group of options: global .
+Applying option v (set logging level) with argument debug.
+Applying option nostdin (enable or disable interaction on standard input) with argument 0.
+Applying option progress (write program-readable progress information) with argument /private/var/folders/y5/z_30clw15xq0rc5gwrv90j2m0000gn/T/KritaFFmpegProgress.SaxxaO.
+[file @ 0x7fd60fd0fbc0] Setting default whitelist 'file,crypto,data'
+Applying option y (overwrite output files) with argument 1.
+Successfully parsed a group of options.
+Parsing a group of options: input url /Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame%04d.png.
+Applying option r (set frame rate (Hz value, fraction or abbreviation)) with argument 24.
+Successfully parsed a group of options.
+Opening an input file: /Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame%04d.png.
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0000.png' for reading
+[file @ 0x7fd60fd11b40] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fd11cc0] Statistics: 65314 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0001.png' for reading
+[file @ 0x7fd60fc06600] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fe05680] Statistics: 65314 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0002.png' for reading
+[file @ 0x7fd60fe05840] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fe05900] Statistics: 65314 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0003.png' for reading
+[file @ 0x7fd60fe05a80] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fe05b40] Statistics: 65314 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0004.png' for reading
+[file @ 0x7fd60fe05b40] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fe05c40] Statistics: 65314 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0005.png' for reading
+[file @ 0x7fd60fd11d80] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fd11e80] Statistics: 65314 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0006.png' for reading
+[file @ 0x7fd60fd11e40] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fc06640] Statistics: 65314 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0007.png' for reading
+[file @ 0x7fd60fc06840] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fc06900] Statistics: 65300 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0008.png' for reading
+[file @ 0x7fd60fc06a80] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fc06b40] Statistics: 65300 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0009.png' for reading
+[file @ 0x7fd60fc06b40] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fc06cc0] Statistics: 65300 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0010.png' for reading
+[file @ 0x7fd60fc06cc0] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fc06d80] Statistics: 65300 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0011.png' for reading
+[file @ 0x7fd60fc06b00] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fc06cc0] Statistics: 65300 bytes read, 0 seeks
+[image2 @ 0x7fd610012200] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame0012.png' for reading
+[file @ 0x7fd60fc06f00] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fc06fc0] Statistics: 65300 bytes read, 0 seeks
+Input #0, image2, from '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame%04d.png':
+  Duration: 00:00:00.52, start: 0.000000, bitrate: N/A
+    Stream #0:0, 13, 1/25: Video: png, 1 reference frame, rgba(pc), 800x253 [SAR 2835:2835 DAR 800:253], 0/1, 25 fps, 25 tbr, 25 tbn, 25 tbc
+Successfully opened the file.
+Parsing a group of options: output url /Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/palette.png.
+Applying option vf (set video filters) with argument palettegen.
+Successfully parsed a group of options.
+Opening an output file: /Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/palette.png.
+Successfully opened the file.
+detected 4 logical cores
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> png (native))
+cur_dts is invalid st:0 (0) [init:0 i_done:0 finish:0] (this is harmless if it occurs once at the start per stream)
+    Last message repeated 4 times
+[graph 0 input from stream 0:0 @ 0x7fd60fc07900] Setting 'video_size' to value '800x253'
+[graph 0 input from stream 0:0 @ 0x7fd60fc07900] Setting 'pix_fmt' to value '26'
+[graph 0 input from stream 0:0 @ 0x7fd60fc07900] Setting 'time_base' to value '1/24'
+[graph 0 input from stream 0:0 @ 0x7fd60fc07900] Setting 'pixel_aspect' to value '2835/2835'
+[graph 0 input from stream 0:0 @ 0x7fd60fc07900] Setting 'frame_rate' to value '24/1'
+[graph 0 input from stream 0:0 @ 0x7fd60fc07900] w:800 h:253 pixfmt:rgba tb:1/24 fr:24/1 sar:2835/2835
+[format @ 0x7fd60fe09dc0] Setting 'pix_fmts' to value 'rgb24|rgba|rgb48be|rgba64be|pal8|gray|ya8|gray16be|ya16be|monob'
+[auto_scaler_0 @ 0x7fd60fd141c0] Setting 'flags' to value 'bicubic'
+[auto_scaler_0 @ 0x7fd60fd141c0] w:iw h:ih flags:'bicubic' interl:0
+[Parsed_palettegen_0 @ 0x7fd60fe09980] auto-inserting filter 'auto_scaler_0' between the filter 'graph 0 input from stream 0:0' and the filter 'Parsed_palettegen_0'
+[auto_scaler_1 @ 0x7fd60fd14f00] Setting 'flags' to value 'bicubic'
+[auto_scaler_1 @ 0x7fd60fd14f00] w:iw h:ih flags:'bicubic' interl:0
+[format @ 0x7fd60fe09dc0] auto-inserting filter 'auto_scaler_1' between the filter 'Parsed_palettegen_0' and the filter 'format'
+[AVFilterGraph @ 0x7fd60fc07440] query_formats: 4 queried, 1 merged, 2 already done, 0 delayed
+[auto_scaler_1 @ 0x7fd60fd14f00] picking rgba out of 10 ref:bgra alpha:1
+[swscaler @ 0x7fd612588000] Forcing full internal H chroma due to input having non subsampled chroma
+[auto_scaler_0 @ 0x7fd60fd141c0] w:800 h:253 fmt:rgba sar:2835/2835 -> w:800 h:253 fmt:bgra sar:1/1 flags:0x4
+[swscaler @ 0x7fd612595000] Forcing full internal H chroma due to input having non subsampled chroma
+[auto_scaler_1 @ 0x7fd60fd14f00] w:16 h:16 fmt:bgra sar:1/1 -> w:16 h:16 fmt:rgba sar:1/1 flags:0x4
+Output #0, image2, to '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/palette.png':
+  Metadata:
+    encoder         : Lavf58.45.100
+    Stream #0:0, 0, 1/24: Video: png, 1 reference frame, rgba, 16x16 [SAR 1:1 DAR 1:1], 0/1, q=2-31, 200 kb/s, 24 fps, 24 tbn, 24 tbc
+    Metadata:
+      encoder         : Lavc58.91.100 png
+cur_dts is invalid st:0 (0) [init:1 i_done:0 finish:0] (this is harmless if it occurs once at the start per stream)
+    Last message repeated 12 times
+[Parsed_palettegen_0 @ 0x7fd60fe09980] 255(+1) colors generated out of 1898 colors; ratio=0.134352
+[Parsed_palettegen_0 @ 0x7fd60fe09980] Dupped color: FF0D0D0D
+cur_dts is invalid st:0 (0) [init:1 i_done:0 finish:0] (this is harmless if it occurs once at the start per stream)
+Clipping frame in rate conversion by 0.000008
+cur_dts is invalid st:0 (0) [init:1 i_done:0 finish:0] (this is harmless if it occurs once at the start per stream)
+[out_0_0 @ 0x7fd60fe09d00] EOF on sink link out_0_0:default.
+No more output streams to write to, finishing.
+[image2 @ 0x7fd610809600] Opening '/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/palette.png' for writing
+[file @ 0x7fd60fd13500] Setting default whitelist 'file,crypto,data'
+[AVIOContext @ 0x7fd60fd16900] Statistics: 0 seeks, 1 writeouts
+frame=    1 fps=0.0 q=-0.0 Lsize=N/A time=00:00:00.04 bitrate=N/A speed=0.258x    
+[AVIOContext @ 0x7fd60fd0fd80] Statistics: 0 seeks, 1 writeouts
+video:1kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+Input file #0 (/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/frame%04d.png):
+  Input stream #0:0 (video): 13 packets read (848998 bytes); 13 frames decoded; 
+  Total: 13 packets (848998 bytes) demuxed
+Output file #0 (/Users/rgelpi/Documents/JavaScript/webBlicket/public/eeblicket/img/new_stimuli/palette.png):
+  Output stream #0:0 (video): 1 frames encoded; 1 packets muxed (993 bytes); 
+  Total: 1 packets (993 bytes) muxed
+13 frames successfully decoded, 0 decoding errors

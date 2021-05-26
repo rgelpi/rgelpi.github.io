@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a4852491-48aa-4207-b018-91fdddcc6619" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/detection.html" beforeDir="false" afterPath="$PROJECT_DIR$/detection.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1XEQdGeDiFr6Nsyjjm9GQvaNkbF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="web.server" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <properties />
+      <listeners />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a4852491-48aa-4207-b018-91fdddcc6619" name="Default" comment="" />
+      <created>1562181761601</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1562181761601</updated>
+      <workItem from="1580608865351" duration="380000" />
+      <workItem from="1582738979656" duration="152000" />
+      <workItem from="1583424960819" duration="2978000" />
+      <workItem from="1583429506487" duration="3140000" />
+      <workItem from="1583610798978" duration="2151000" />
+      <workItem from="1585596026214" duration="969000" />
+      <workItem from="1586535447203" duration="1433000" />
+      <workItem from="1588026580817" duration="5000" />
+      <workItem from="1589376086873" duration="3162000" />
+      <workItem from="1589547866458" duration="1150000" />
+      <workItem from="1589979767991" duration="1921000" />
+      <workItem from="1614704609889" duration="8028000" />
+      <workItem from="1614785183102" duration="334000" />
+      <workItem from="1616513428060" duration="7287000" />
+      <workItem from="1616544057493" duration="43000" />
+      <workItem from="1616544109357" duration="31000" />
+      <workItem from="1616544160216" duration="299000" />
+      <workItem from="1616544482462" duration="3133000" />
+      <workItem from="1617193769238" duration="373000" />
+      <workItem from="1618404109279" duration="2343000" />
+      <workItem from="1619619163893" duration="539000" />
+      <workItem from="1619795554238" duration="551000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1060" y="495" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1616549808535">
+      <screen x="0" y="23" width="3008" height="1619" />
+    </state>
+    <state x="1060" y="495" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1680.665.1680.1027/0.23.3008.1619@0.23.3008.1619" timestamp="1616549808535" />
+    <state x="385" y="322" key="EditFileWatcherDialog" timestamp="1614710011046">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="385" y="322" key="EditFileWatcherDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1614710011046" />
+    <state x="1097" y="472" width="1310" height="722" key="SettingsEditor" timestamp="1616550137434">
+      <screen x="0" y="23" width="3008" height="1619" />
+    </state>
+    <state x="1097" y="472" width="1310" height="722" key="SettingsEditor/-1680.665.1680.1027/0.23.3008.1619@0.23.3008.1619" timestamp="1616550137434" />
+    <state x="338" y="163" width="2068" height="1598" key="dock-window-1" timestamp="1616519123742">
+      <screen x="0" y="23" width="3008" height="1619" />
+    </state>
+    <state x="338" y="163" width="2068" height="1598" key="dock-window-1/-1680.665.1680.1027/0.23.3008.1619@0.23.3008.1619" timestamp="1616519123742" />
+    <state x="471" y="172" width="837" height="729" key="find.popup" timestamp="1614721964971">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="471" y="172" width="837" height="729" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1614721964971" />
+    <state x="477" y="248" key="run.anything.popup" timestamp="1614705283845">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="477" y="248" key="run.anything.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1614705283845" />
+    <state x="709" y="398" width="670" height="676" key="search.everywhere.popup" timestamp="1616514141090">
+      <screen x="0" y="23" width="3008" height="1619" />
+    </state>
+    <state x="709" y="398" width="670" height="676" key="search.everywhere.popup/-1680.665.1680.1027/0.23.3008.1619@0.23.3008.1619" timestamp="1616514141090" />
+  </component>
+</project>
