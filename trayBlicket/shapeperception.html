@@ -45,7 +45,7 @@
 			var fields = "#cake, #claw, #bone, #about";
 			$("#button").attr("disabled", "disabled");
 
-			$(fields).on('change', function() {
+			$(fields).on('keyup change', function() {
 				if(allFilled()) {
 					$("#button").removeAttr("disabled");
 				} else {
@@ -91,7 +91,6 @@
 			<input type="text" class="textbox" id="bone"><br><br>
 			<br><p style="font-size:18px;margin-top:-15px;">Please describe what you think this project was about in 1-2 sentences.</p>
 			<br><input type="text" class="textbox" id="about" style="width:50%"><br><br>
-			<p>(When you have finished filling out all of the fields, press TAB or click outside of the text fields to continue.)</p><br>
 		</form>
 			<div class="next">
 				<button class="nextButton" type="button" id="button" style="margin-top:5px" onclick="location.href='./debrief.html'">NEXT</button>
