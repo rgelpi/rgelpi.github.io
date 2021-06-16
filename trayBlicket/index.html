@@ -42,10 +42,12 @@
 				document.getElementById("no").onclick = nextEnable;
                 // Changed "sessionID" to "sessionId" For consistency with back-end; obtaining from params
                 sessionId = queryDict["sessionId"];
+                workerId = queryDict["workerId"];
                 console.log(sessionId);
 				localStorage["sessionId"] = sessionId;
 				localStorage["experimentId"] = "localOptima_100";
-				// CL: Why isn't c put into localStorage here, rather than in the introduction?
+				localStorage["workerId"] = workerId;
+ 				// CL: Why isn't c put into localStorage here, rather than in the introduction?
 				//Updated GET parser here.
 				var url_string = window.location.href;
 				var url = new URL(url_string);
@@ -91,7 +93,7 @@
 		<p style="float:left;font-size:18px;margin-left:25px;margin-right:25px;margin-top:-15px;">
 			<span class=greyedout>Principal Investigator: Dr. Daphna Buchsbaum. University of Toronto, 100 St. George Street, M5S 2E5, Telephone: (416) 946-3981. Email: cocodev@psych.utoronto.ca</span>
 			<br><br>
-			This research is being conducted by Dr. Daphna Buchsbaum, a faculty member at the University of Toronto. Dr. Buchsbaum’s lab investigates computational models of human cognition. The study typically takes 5 minutes, and you will be compensated $0.50 for your time.
+			This research is being conducted by Dr. Daphna Buchsbaum, a faculty member at the University of Toronto. Dr. Buchsbaum’s lab investigates computational models of human cognition. The study typically takes 5-10 minutes, and you will be compensated $1.00 for your time.
 			<br><br>
 			If you agree to take part in the research, there will be a short demonstration, after which you will fill out a brief on-line questionnaire. The questionnaires will involve reading information and answering questions. All of the information that we obtain during the research will be kept confidential, and not associated with your name in any way. There are no risks to you by participating in this study.
 			<br><br>
