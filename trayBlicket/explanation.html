@@ -27,13 +27,23 @@
 		</style>
 		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			function manage(txt) {
+				var bt = document.getElementById('button');
+				if ((txt.value != '' && 'Enter rule here...') && txt.value.length > 10) {
+					bt.disabled = false;
+				}
+				else {
+					bt.disabled = true;
+				}
+			}
+
 			$(function(){
 				document.getElementById("button").onclick = nextButton;
 			/*	conditionarr = window.location.href.split("c=")
 				c = conditionarr[1] */
 				var url_string = window.location.href;
 				var url = new URL(url_string);
-				var c = url.searchParams.get("c");				
+				var c = url.searchParams.get("c");
 				function nextButton() {
 					localStorage["explanation"] = document.getElementById("rule").value;
 					window.location.href = "./friendrule.html?c="+c
@@ -41,15 +51,17 @@
 			})
 		</script>
 	</head>
-	<body>	
+	<body>
 	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
 		<p style="font-size:18px;margin-top:-15px;">
 Is there a particular way you can identify <b>blickets</b> by their appearance? If so, what is it?
 		</p>
-	<input type="text" class="textbox" id="rule"><br>
-			<div class="next" align="center">
-				<button type="button" class="nextButton" id="button" style="margin-top:15px">NEXT</button>
-			</div>
+		<input type="text" class="textbox" id="rule" value="Enter rule here..." style="width: 25%; height=5%;"
+			   onfocus="if (this.value == 'Enter rule here...') {this.value = '';}"
+			   onblur="if (this.value == '') {this.value = 'Enter rule here...';}"
+			   onkeyup="manage(this)" >
+	</div>
+	<button type="button" class="nextButton" id="button" style="margin-top:20px;" disabled="disabled">NEXT</button>
 		</p>
 	</div>
 	</body>

@@ -74,17 +74,27 @@
 			}
 		//Near condition, red distractor
 			if(c == 0 || c == 1) {
-				var consistentBlocks = ["rrbrr","brrbb"];
-				var inconsistentBlocks = ["rbrbb","brbrb"];
-				blickets = ["rrbrr","brbrb"];
+				// var consistentBlocks = ["rrbrr","brrbb"];
+				// var inconsistentBlocks = ["rbrbb","brbrb"];
+				// blickets = ["rrbrr","brbrb"];
+				// localStorage["condition"] = "near";
+				// localStorage["distractor"] = "red"
+				var consistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brrrr","brrrb","bbbrr"];
+				var inconsistentBlocks = ["rbrrr","rbrbb","brbbb"];
+				blickets = ["rrbrr","rbbrb","rrbbb","rbbbr","brbbb"];
 				localStorage["condition"] = "near";
 				localStorage["distractor"] = "red"
 			};
 		//Distant condition, red distractor
 			if(c == 2 || c == 3) {
-				var consistentBlocks = ["rrbrb","bbrrb"];
-				var inconsistentBlocks = ["rrbbb","bbrbr"];
-				blickets = ["rrbrb","bbrbr"];
+				// var consistentBlocks = ["rrbrb","bbrrb"];
+				// var inconsistentBlocks = ["rrbbb","bbrbr"];
+				// blickets = ["rrbrb","bbrbr"];
+				// localStorage["condition"] = "distant";
+				// localStorage["distractor"] = "red"
+				var consistentBlocks = ["rrrbr","rrrbb","rrbrb","rbbrb","brrrr","bbrrb","bbbbr"];
+				var inconsistentBlocks = ["rbrrr","rrbbb","bbrbr"];
+				blickets = ["rrrbr","rrrbb","rrbrb","rbbrb","bbrbr"];
 				localStorage["condition"] = "distant";
 				localStorage["distractor"] = "red"
 			};
@@ -118,13 +128,13 @@
 					var blockID = "nb"+nblicketNum;
 					document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
 					}
-				if(blockIndex <= 2){
+				if(blockIndex <= 8){
 					document.getElementById("button").disabled = true
 					$('.drag').css('left',500);
 					$('.drag').css('top',-50);
 					//This might be the place to "Reset" the droppable() function.
 					blockIndex += 1;
-					blocksRemaining = 4 - blockIndex;
+					blocksRemaining = 10 - blockIndex;
 					document.getElementById("remaining").innerHTML = blocksRemaining;
 					currentBlock = blockList[blockIndex];
 					document.getElementById('current').src = "img/new_stimuli/"+currentBlock+".png";
@@ -140,12 +150,12 @@
 					document.getElementById("remaining-text").innerHTML = "";
 					document.getElementById('message').innerHTML = 'Remember, only certain trays activate the machine.<br><br>Please click <span class="nexttext">Next</span> to continue.'
 					$('.drag').css('top',-10000);
-					buttonurl = "location.href='./sortingintro.html?c="+c+"'";
+					buttonurl = "location.href='./fcintro.html?c="+c+"'";
 					document.getElementById('button').onclick = nextPage
 				}
 
 			function nextPage() {
-				np = "./sortingintro.html?c="+getUrl[1]
+				np = "./fcintro.html?c="+getUrl[1]
 				window.location.href = np
 			}
 
@@ -173,7 +183,7 @@
 			var disX = 0;
 			var disY = 0;
 			blockIndex = 0;
-			blocksRemaining = 4;
+			blocksRemaining = 10;
 			instructions = true;
 			currentBlock = blockList[blockIndex];
 			blicketNum = 0;
@@ -339,6 +349,13 @@
 			<img src="img/white.png" height=50 width=160 id="block1"/>
 			<img src="img/white.png" height=50 width=160 id="block2"/>
 			<img src="img/white.png" height=50 width=160 id="block3"/>
+			<img src="img/white.png" height=50 width=160 id="block4"/>
+			<br>
+			<img src="img/white.png" height=50 width=160 id="block5"/>
+			<img src="img/white.png" height=50 width=160 id="block6"/>
+			<img src="img/white.png" height=50 width=160 id="block7"/>
+			<img src="img/white.png" height=50 width=160 id="block8"/>
+			<img src="img/white.png" height=50 width=160 id="block9"/>
 			<br>
 		</div>
 		<p style="font-size:18px;">
