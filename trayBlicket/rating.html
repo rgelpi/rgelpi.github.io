@@ -54,7 +54,7 @@
 			var c = url.searchParams.get("c");
 			blockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
 		//Near condition, red distractor
-			if(c == 0) {
+			if(c == 0 || c == 1) {
 				var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
 				var seenInconsistentB = ["brbbb"];
 				var unseenConsistentB = ["rrbrb","rbbrr","rrbbr","rbbbb"];
@@ -63,20 +63,20 @@
 				var seenInconsistentNB = ["rbrrr","rbrbb"];
 				var unseenConsistentNB = ["bbrrr","bbrrb","brbrr","brbrb","bbbrb",];
 				var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
-			}; 
-		//Near condition, blue distractor	
-			if(c == 1) {
-				var seenConsistentB = ["bbrbb","brrbr","bbrrr","brrrb"];
-				var seenInconsistentB = ["rbrrr"];
-				var unseenConsistentB = ["bbrbr","brrbb","bbrrb","brrrr"];
-				var unseenInconsistentB = ["rbbrb","rbbrr","rrbrb","rrbrr","rbrrb","rrrrb","rrrrr"];
-				var seenConsistentNB = ["rbbbb","rbbbr","rrrbb"];
-				var seenInconsistentNB = ["brbbb","brbrr"];
-				var unseenConsistentNB = ["rrbbb","rrbbr","rbrbb","rbrbr","rrrbr",];
-				var unseenInconsistentNB = ["bbbbb","bbbbr","brbbr","bbbrb","bbbrr","brbrb"];
-				}; 
+			};
+		//Near condition, blue distractor
+		// 	if(c == 1) {
+		// 		var seenConsistentB = ["bbrbb","brrbr","bbrrr","brrrb"];
+		// 		var seenInconsistentB = ["rbrrr"];
+		// 		var unseenConsistentB = ["bbrbr","brrbb","bbrrb","brrrr"];
+		// 		var unseenInconsistentB = ["rbbrb","rbbrr","rrbrb","rrbrr","rbrrb","rrrrb","rrrrr"];
+		// 		var seenConsistentNB = ["rbbbb","rbbbr","rrrbb"];
+		// 		var seenInconsistentNB = ["brbbb","brbrr"];
+		// 		var unseenConsistentNB = ["rrbbb","rrbbr","rbrbb","rbrbr","rrrbr",];
+		// 		var unseenInconsistentNB = ["bbbbb","bbbbr","brbbr","bbbrb","bbbrr","brbrb"];
+		// 		};
 			//Distant condition, red distractor
-			if(c == 2) {
+			if(c == 2 || c == 3) {
 				var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rbbrb"];
 				var seenInconsistentB = ["bbrbr"];
 				var unseenConsistentB = ["rbrbr","rbrbb","rrbrr","rbbrr"];
@@ -87,16 +87,16 @@
 				var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrbbr","rbbbr","rbbbb"];
 			};
 			//Distant condition, blue distractor
-			if(c == 3) {
-				var seenConsistentB = ["bbbrb","bbbrr","bbrbr","brrbr"];
-				var seenInconsistentB = ["rrbrb"];
-				var unseenConsistentB = ["brbrb","brbrr","bbrbb","brrbb"];
-				var unseenInconsistentB = ["rbbrb","rbbrr","rrbrr","rbrbb","rbrbr","rrrbb","rrrbr"];
-				var seenConsistentNB = ["rbbbb","rrbbr","rrrrb"];
-				var seenInconsistentNB = ["brbbb","bbrrr"];
-				var unseenConsistentNB = ["rbbbr","rrbbb","rbrrb","rbrrr","rrrrr"];
-				var unseenInconsistentNB = ["bbbbb","bbbbr","brbbr","bbrrb","brrrb","brrrr"];
-				};
+			// if(c == 3) {
+			// 	var seenConsistentB = ["bbbrb","bbbrr","bbrbr","brrbr"];
+			// 	var seenInconsistentB = ["rrbrb"];
+			// 	var unseenConsistentB = ["brbrb","brbrr","bbrbb","brrbb"];
+			// 	var unseenInconsistentB = ["rbbrb","rbbrr","rrbrr","rbrbb","rbrbr","rrrbb","rrrbr"];
+			// 	var seenConsistentNB = ["rbbbb","rrbbr","rrrrb"];
+			// 	var seenInconsistentNB = ["brbbb","bbrrr"];
+			// 	var unseenConsistentNB = ["rbbbr","rrbbb","rbrrb","rbrrr","rrrrr"];
+			// 	var unseenInconsistentNB = ["bbbbb","bbbbr","brbbr","bbrrb","brrrb","brrrr"];
+			// 	};
 
 				function changeImg() {
 					return function(){
@@ -119,9 +119,9 @@
 						$(document.getElementById("howConfident")).show();
 						$(document.getElementById("isBlicket")).hide();
 						if(selection == 1){
-							document.getElementById("confidencetext").innerHTML = "How confident are you that this block is a <b>blicket</b>?";
+							document.getElementById("confidencetext").innerHTML = "How confident are you that this tray <b>activates the machine</b>?";
 						}else{
-							document.getElementById("confidencetext").innerHTML = "How confident are you that this block is <b>not a blicket</b>?";
+							document.getElementById("confidencetext").innerHTML = "How confident are you that this tray <b>does not activate the machine</b>?";
 						}
 					}else{
 						taskName = "blicketness";
@@ -147,9 +147,9 @@
 							document.getElementById('block1').src = "img/white.png";
 							document.getElementById('block2').src = "img/white.png";
 							setTimeout(changeImg(), 100);
-							source = "img/"+currentBlock+".png";
+							source = "img/new_stimuli/"+currentBlock+".png";
 						}else{
-							window.location.href = "./forcedchoice.html?c="+getUrl[1];
+							window.location.href = "./explanation.html?c="+getUrl[1];
 						}
 					}
 				}
@@ -180,8 +180,8 @@
 				console.log(sampleBlocks)
 				sampleBlocks = shuffle(sampleBlocks)
 				currentBlock = sampleBlocks[blockNumber]
-				document.getElementById('block1').src = "img/"+currentBlock+".png";
-				document.getElementById('block2').src = "img/"+currentBlock+".png";
+				document.getElementById('block1').src = "img/new_stimuli/"+currentBlock+".png";
+				document.getElementById('block2').src = "img/new_stimuli/"+currentBlock+".png";
 		});
 
 		</script>
@@ -190,9 +190,9 @@
 	<!--In this section, participants rate whether blocks are blickets-->
 	<div id="isBlicket" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;font-size:18px;">
 		<p>
-			Is this block a <b>blicket</b>?
+			Does this tray <b>activate the machine</b>?
 		</p>
-		<img src="" id="block1"/>
+		<img src="" id="block1" width="300px"/>
 			<div class="radio" id="blicketSelect">
 				<form action="">
 					Yes
@@ -205,9 +205,9 @@
 	<!--In this section, participants rate their confidence-->
 	<div id="howConfident" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;font-size:18px;">
 		<p id="confidencetext">
-			Is this block a <b>blicket</b>?
+			Does this tray <b>activate the machine</b>?
 		</p>
-		<img src="" id="block2"/>
+		<img src="" id="block2" width="300px"/>
 			<div class="radio" id="confidenceSelect">
 				<form action="">
 					Just guessing
