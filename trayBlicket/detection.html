@@ -72,8 +72,8 @@
 				getUrl[0] = window.location.href;
 				getUrl[1] = c;
 			}
-		//Near condition, red distractor
-			if(c == 0 || c == 1) {
+		//Near condition, complex rule
+			if(c == 0) {
 				// var consistentBlocks = ["rrbrr","brrbb"];
 				// var inconsistentBlocks = ["rbrbb","brbrb"];
 				// blickets = ["rrbrr","brbrb"];
@@ -83,10 +83,25 @@
 				var inconsistentBlocks = ["rbrrr","rbrbb","brbbb"];
 				blickets = ["rrbrr","rbbrb","rrbbb","rbbbr","brbbb"];
 				localStorage["condition"] = "near";
-				localStorage["distractor"] = "red"
+				localStorage["distractor"] = "complex"
 			};
-		//Distant condition, red distractor
-			if(c == 2 || c == 3) {
+
+		//Near condition, simple rule (A xor C)
+			if(c == 1) {
+				// var consistentBlocks = ["rrbrr","brrbb"];
+				// var inconsistentBlocks = ["rbrbb","brbrb"];
+				// blickets = ["rrbrr","brbrb"];
+				// localStorage["condition"] = "near";
+				// localStorage["distractor"] = "red"
+				var consistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brbrr","brbrb","bbbrr"];
+				var inconsistentBlocks = ["rbrrr","rbrbb","brrbb"];
+				blickets = ["rrbrr","rbbrb","rrbbb","rbbbr","brrbb"];
+				localStorage["condition"] = "near";
+				localStorage["distractor"] = "simple";
+			};
+
+		//Distant condition, complex rule
+			if(c == 2) {
 				// var consistentBlocks = ["rrbrb","bbrrb"];
 				// var inconsistentBlocks = ["rrbbb","bbrbr"];
 				// blickets = ["rrbrb","bbrbr"];
@@ -96,7 +111,21 @@
 				var inconsistentBlocks = ["rbrrr","rrbbb","bbrbr"];
 				blickets = ["rrrbr","rrrbb","rrbrb","rbbrb","bbrbr"];
 				localStorage["condition"] = "distant";
-				localStorage["distractor"] = "red"
+				localStorage["distractor"] = "complex"
+			};
+
+			//Distant condition, simple rule (B)
+			if(c == 3) {
+				// var consistentBlocks = ["rrbrb","bbrrb"];
+				// var inconsistentBlocks = ["rrbbb","bbrbr"];
+				// blickets = ["rrbrb","bbrbr"];
+				// localStorage["condition"] = "distant";
+				// localStorage["distractor"] = "red"
+				var consistentBlocks = ["rrrbr","rrrbb","rrbrb","rrbbb","bbrrr","bbrrb","bbbbr"];
+				var inconsistentBlocks = ["rbrrr","rbbbb","brrbr"];
+				blickets = ["rrrbr","rrrbb","rrbrb","rrbrb","brrbr"];
+				localStorage["condition"] = "distant";
+				localStorage["distractor"] = "simple"
 			};
 
 			//This loads the sound file. Note preloading does not work for iOS, so a loading function is attached to

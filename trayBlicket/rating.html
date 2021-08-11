@@ -53,8 +53,8 @@
 			var url = new URL(url_string);
 			var c = url.searchParams.get("c");
 			blockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
-		//Near condition, red distractor
-			if(c == 0 || c == 1) {
+		//Near condition, complex rule
+			if(c == 0) {
 				var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
 				var seenInconsistentB = ["brbbb"];
 				var unseenConsistentB = ["rrbrb","rbbrr","rrbbr","rbbbb"];
@@ -64,19 +64,20 @@
 				var unseenConsistentNB = ["bbrrr","bbrrb","brbrr","brbrb","bbbrb",];
 				var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
 			};
-		//Near condition, blue distractor
-		// 	if(c == 1) {
-		// 		var seenConsistentB = ["bbrbb","brrbr","bbrrr","brrrb"];
-		// 		var seenInconsistentB = ["rbrrr"];
-		// 		var unseenConsistentB = ["bbrbr","brrbb","bbrrb","brrrr"];
-		// 		var unseenInconsistentB = ["rbbrb","rbbrr","rrbrb","rrbrr","rbrrb","rrrrb","rrrrr"];
-		// 		var seenConsistentNB = ["rbbbb","rbbbr","rrrbb"];
-		// 		var seenInconsistentNB = ["brbbb","brbrr"];
-		// 		var unseenConsistentNB = ["rrbbb","rrbbr","rbrbb","rbrbr","rrrbr",];
-		// 		var unseenInconsistentNB = ["bbbbb","bbbbr","brbbr","bbbrb","bbbrr","brbrb"];
-		// 		};
-			//Distant condition, red distractor
-			if(c == 2 || c == 3) {
+		//Near condition, simple rule
+			if(c == 1) {
+				var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
+				var seenInconsistentB = ["brrbb"];
+				var unseenConsistentB = ["rbbbb", "rbbrr", "rrbbr", "rrbrb"];
+				var unseenInconsistentB = ["bbrbb", "bbrbr", "bbrrb", "bbrrr", "brrbr", "brrrb", "brrrr"];
+				var seenConsistentNB = ["brbrr","brbrb","bbbrr"];
+				var seenInconsistentNB = ["rbrrr","rbrbb"];
+				var unseenConsistentNB = ["bbbbb", "bbbbr", "bbbrb", "brbbb", "brbbr"];
+				var unseenInconsistentNB = ["rbrbr", "rbrrb", "rrrbb", "rrrbr", "rrrrb", "rrrrr"];
+				};
+
+			//Distant condition, complex rule
+			if(c == 2) {
 				var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rbbrb"];
 				var seenInconsistentB = ["bbrbr"];
 				var unseenConsistentB = ["rbrbr","rbrbb","rrbrr","rbbrr"];
@@ -86,17 +87,17 @@
 				var unseenConsistentNB = ["brrrb","bbrrr","brbbr","brbbb","bbbbb"];
 				var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrbbr","rbbbr","rbbbb"];
 			};
-			//Distant condition, blue distractor
-			// if(c == 3) {
-			// 	var seenConsistentB = ["bbbrb","bbbrr","bbrbr","brrbr"];
-			// 	var seenInconsistentB = ["rrbrb"];
-			// 	var unseenConsistentB = ["brbrb","brbrr","bbrbb","brrbb"];
-			// 	var unseenInconsistentB = ["rbbrb","rbbrr","rrbrr","rbrbb","rbrbr","rrrbb","rrrbr"];
-			// 	var seenConsistentNB = ["rbbbb","rrbbr","rrrrb"];
-			// 	var seenInconsistentNB = ["brbbb","bbrrr"];
-			// 	var unseenConsistentNB = ["rbbbr","rrbbb","rbrrb","rbrrr","rrrrr"];
-			// 	var unseenInconsistentNB = ["bbbbb","bbbbr","brbbr","bbrrb","brrrb","brrrr"];
-			// 	};
+			//Distant condition, simple rule
+			if(c == 3) {
+				var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rrbbb"];
+				var seenInconsistentB = ["brrbr"];
+				var unseenConsistentB = ["rrbbr", "rrbrr", "rrrrb", "rrrrr"];
+				var unseenInconsistentB = ["brbbb", "brbbr", "brbrb", "brbrr", "brrbb", "brrrb", "brrrr"];
+				var seenConsistentNB = ["bbrrr","bbrrb","bbbbr"];
+				var seenInconsistentNB = ["rbrrr","rbbbb"];
+				var unseenConsistentNB = ["bbbbb", "bbbrb", "bbbrr", "bbrbb", "bbrbr"];
+				var unseenInconsistentNB = ["rbbbr", "rbbrb", "rbbrr", "rbrbb", "rbrbr", "rbrrb"];
+			};
 
 				function changeImg() {
 					return function(){

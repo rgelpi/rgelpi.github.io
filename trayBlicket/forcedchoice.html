@@ -43,7 +43,7 @@
 			var url = new URL(url_string);
 			var c = url.searchParams.get("c");
 			blockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
-			//Near condition, red distractor
+			//Near condition, complex rule
 			if(c == 0) {
 				var seenConsistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brrrr","brrrb","bbbrr"];
 				var seenInconsistentBlocks = ["rbrrr","rbrbb","brbbb"];
@@ -52,16 +52,16 @@
 				nonBlicketsC = ["bbrrr","bbrrb","brbrr","brbrb","bbbrb"];
 				nonBlicketsI = ["rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
 				};
-			//Near condition, blue distractor
+			//Near condition, simple rule
 			if(c == 1) {
-				var seenConsistentBlocks = ["bbrbb","brrbr","bbrrr","brrrb","rbbbb","rbbbr","rrrbb"];
-				var seenInconsistentBlocks = ["brbbb","brbrr","rbrrr"];
-				blicketsC = ["bbrbr","brrbb","bbrrb","brrrr"];
-				blicketsI = ["rbbrb","rbbrr","rrbrb","rrbrr","rbrrb","rrrrb","rrrrr"];
-				nonBlicketsC = ["rrbbb","rrbbr","rbrbb","rbrbr","rrrbr"];
-				nonBlicketsI = ["bbbbb","bbbbr","brbbr","bbbrb","bbbrr","brbrb"];
+				var seenConsistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brbrr","brbrb","bbbrr"];
+				var seenInconsistentBlocks = ["rbrrr","rbrbb","brrbb"];
+				blicketsC = ["rbbbb", "rbbrr", "rrbbr", "rrbrb"];
+				blicketsI = ["bbrbb", "bbrbr", "bbrrb", "bbrrr", "brrbr", "brrrb", "brrrr"];
+				nonBlicketsC = ["bbbbb", "bbbbr", "bbbrb", "brbbb", "brbbr"];
+				nonBlicketsI = ["rbrbr", "rbrrb", "rrrbb", "rrrbr", "rrrrb", "rrrrr"];
 				};
-			//Distant condition, red distractor
+			//Distant condition, complex rule
 			if(c == 2) {
 				var seenConsistentBlocks = ["rrrbr","rrrbb","rrbrb","rbbrb","brrrr","bbrrb","bbbbr"];
 				var seenInconsistentBlocks = ["rbrrr","rrbbb","bbrbr"];
@@ -71,14 +71,14 @@
 				nonBlicketsI = ["rrrrr","rrrrb","rbrrb","rrbbr","rbbbr","rbbbb"];
 				};
 
-			//Distant condition, blue distractor
+			//Distant condition, simple rule
 			if(c == 3) {
-				var seenConsistentBlocks = ["bbbrb","bbbrr","bbrbr","brrbr","rbbbb","rrbbr","rrrrb"];
-				var seenInconsistentBlocks = ["brbbb","bbrrr","rrbrb"];
-				blicketsC = ["brbrb","brbrr","bbrbb","brrbb"];
-				blicketsI = ["rbbrb","rbbrr","rrbrb","rrbrr","rbrbb","rbrbr","rrrbb","rrrbr"];
-				nonBlicketsC = ["rbbbr","rrbbb","rbrrb","rbrrr","rrrrr"];
-				nonBlicketsI = ["bbbbb","bbbbr","brbbr","bbrrb","brrrb","brrrr"];
+				var seenConsistentBlocks = ["rrrbr","rrrbb","rrbrb","rrbbb","bbrrr","bbrrb","bbbbr"];
+				var seenInconsistentBlocks = ["rbrrr","rbbbb","brrbr"];
+				blicketsC = ["rrbbr", "rrbrr", "rrrrb", "rrrrr"];
+				blicketsI = ["brbbb", "brbbr", "brbrb", "brbrr", "brrbb", "brrrb", "brrrr"];
+				nonBlicketsC = ["bbbbb", "bbbrb", "bbbrr", "bbrbb", "bbrbr"];
+				nonBlicketsI = ["rbbbr", "rbbrb", "rbbrr", "rbrbb", "rbrbr", "rbrrb"];
 
 				};
 				function changeImg() {
