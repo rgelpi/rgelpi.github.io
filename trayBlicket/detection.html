@@ -71,6 +71,13 @@
 				console.log("New condition for c is " + c + ".");
 				getUrl[0] = window.location.href;
 				getUrl[1] = c;
+				//If the condition has been randomly defined, make sure it ends up as one of the "simple" rules
+				if(c == 0){
+					c = 1;
+				}
+				if(c == 2){
+					c = 3;
+				}
 			}
 		//Near condition, complex rule
 			if(c == 0) {

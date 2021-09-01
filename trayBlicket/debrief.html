@@ -29,6 +29,7 @@
         var wso = new WebSocket("wss://somata.inf.ed.ac.uk/chunks/ws");
         var sentData = 0;
         var wsError = 0; // Keeps track of whether any websocket errors have occurred
+        var prolificCode = "2D12D249";
         wso.onopen = function () {
             /*Send a small message to the console once the connection is established */
             console.log('chunk ws connection open.');
@@ -38,7 +39,7 @@
             message = JSON.parse(event.data);
             console.log('webSocket message: ' + event.data);
             if (sentData == 1) {
-                document.getElementById("codediv").innerHTML = "The survey is now complete. Thank you for your participation. Your code is 8" + wsError + "-" + event.data.length;
+                document.getElementById("codediv").innerHTML = "The survey is now complete. Thank you for your participation. Your code is " + prolificCode;
             }
         }
 
