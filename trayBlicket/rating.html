@@ -54,7 +54,7 @@
 			var c = url.searchParams.get("c");
 			blockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
 		//Near condition, complex rule
-			if(c == 0) {
+			if(c == 1) {
 				var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
 				var seenInconsistentB = ["brbbb"];
 				var unseenConsistentB = ["rrbrb","rbbrr","rrbbr","rbbbb"];
@@ -65,7 +65,7 @@
 				var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
 			};
 		//Near condition, simple rule
-			if(c == 1) {
+			if(c == 0) {
 				var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
 				var seenInconsistentB = ["brrbb"];
 				var unseenConsistentB = ["rbbbb", "rbbrr", "rrbbr", "rrbrb"];
@@ -77,7 +77,7 @@
 				};
 
 			//Distant condition, complex rule
-			if(c == 2) {
+			if(c == 3) {
 				var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rbbrb"];
 				var seenInconsistentB = ["bbrbr"];
 				var unseenConsistentB = ["rbrbr","rbrbb","rrbrr","rbbrr"];
@@ -88,7 +88,7 @@
 				var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrbbr","rbbbr","rbbbb"];
 			};
 			//Distant condition, simple rule
-			if(c == 3) {
+			if(c == 2) {
 				var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rrbbb"];
 				var seenInconsistentB = ["brrbr"];
 				var unseenConsistentB = ["rrbbr", "rrbrr", "rrrrb", "rrrrr"];
