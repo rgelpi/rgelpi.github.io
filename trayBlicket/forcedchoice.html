@@ -44,7 +44,7 @@
 			var c = url.searchParams.get("c");
 			blockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
 			//Near condition, complex rule
-			if(c == 0) {
+			if(c == 1) {
 				var seenConsistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brrrr","brrrb","bbbrr"];
 				var seenInconsistentBlocks = ["rbrrr","rbrbb","brbbb"];
 				blicketsC = ["rrbrb","rbbrr","rrbbr","rbbbb"];
@@ -53,7 +53,7 @@
 				nonBlicketsI = ["rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
 				};
 			//Near condition, simple rule
-			if(c == 1) {
+			if(c == 0) {
 				var seenConsistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brbrr","brbrb","bbbrr"];
 				var seenInconsistentBlocks = ["rbrrr","rbrbb","brrbb"];
 				blicketsC = ["rbbbb", "rbbrr", "rrbbr", "rrbrb"];
@@ -62,7 +62,7 @@
 				nonBlicketsI = ["rbrbr", "rbrrb", "rrrbb", "rrrbr", "rrrrb", "rrrrr"];
 				};
 			//Distant condition, complex rule
-			if(c == 2) {
+			if(c == 3) {
 				var seenConsistentBlocks = ["rrrbr","rrrbb","rrbrb","rbbrb","brrrr","bbrrb","bbbbr"];
 				var seenInconsistentBlocks = ["rbrrr","rrbbb","bbrbr"];
 				blicketsC = ["rbrbr","rbrbb","rrbrr","rbbrr"];
@@ -72,7 +72,7 @@
 				};
 
 			//Distant condition, simple rule
-			if(c == 3) {
+			if(c == 2) {
 				var seenConsistentBlocks = ["rrrbr","rrrbb","rrbrb","rrbbb","bbrrr","bbrrb","bbbbr"];
 				var seenInconsistentBlocks = ["rbrrr","rbbbb","brrbr"];
 				blicketsC = ["rrbbr", "rrbrr", "rrrrb", "rrrrr"];

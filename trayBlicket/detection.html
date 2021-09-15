@@ -74,7 +74,7 @@
 				//If the condition has been randomly defined, make sure it ends up as one of the "simple" rules
 			}
 		//Near condition, complex rule
-			if(c == 0) {
+			if(c == 1) {
 				// var consistentBlocks = ["rrbrr","brrbb"];
 				// var inconsistentBlocks = ["rbrbb","brbrb"];
 				// blickets = ["rrbrr","brbrb"];
@@ -88,7 +88,7 @@
 			};
 
 		//Near condition, simple rule (A xor C)
-			if(c == 1) {
+			if(c == 0) {
 				// var consistentBlocks = ["rrbrr","brrbb"];
 				// var inconsistentBlocks = ["rbrbb","brbrb"];
 				// blickets = ["rrbrr","brbrb"];
@@ -102,7 +102,7 @@
 			};
 
 		//Distant condition, complex rule
-			if(c == 2) {
+			if(c == 3) {
 				// var consistentBlocks = ["rrbrb","bbrrb"];
 				// var inconsistentBlocks = ["rrbbb","bbrbr"];
 				// blickets = ["rrbrb","bbrbr"];
@@ -116,7 +116,7 @@
 			};
 
 			//Distant condition, simple rule (B)
-			if(c == 3) {
+			if(c == 2) {
 				// var consistentBlocks = ["rrbrb","bbrrb"];
 				// var inconsistentBlocks = ["rrbbb","bbrbr"];
 				// blickets = ["rrbrb","bbrbr"];
