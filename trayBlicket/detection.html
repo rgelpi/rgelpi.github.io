@@ -74,7 +74,7 @@
 				//If the condition has been randomly defined, make sure it ends up as one of the "simple" rules
 			}
 		//Near condition, complex rule
-			if(c == 1) {
+			if(c == 0) {
 				// var consistentBlocks = ["rrbrr","brrbb"];
 				// var inconsistentBlocks = ["rbrbb","brbrb"];
 				// blickets = ["rrbrr","brbrb"];
@@ -88,7 +88,7 @@
 			};
 
 		//Near condition, simple rule (A xor C)
-			if(c == 0) {
+			if(c == 1) {
 				// var consistentBlocks = ["rrbrr","brrbb"];
 				// var inconsistentBlocks = ["rbrbb","brbrb"];
 				// blickets = ["rrbrr","brbrb"];
@@ -102,7 +102,7 @@
 			};
 
 		//Distant condition, complex rule
-			if(c == 3) {
+			if(c == 2) {
 				// var consistentBlocks = ["rrbrb","bbrrb"];
 				// var inconsistentBlocks = ["rrbbb","bbrbr"];
 				// blickets = ["rrbrb","bbrbr"];
@@ -116,7 +116,7 @@
 			};
 
 			//Distant condition, simple rule (B)
-			if(c == 2) {
+			if(c == 3) {
 				// var consistentBlocks = ["rrbrb","bbrrb"];
 				// var inconsistentBlocks = ["rrbbb","bbrbr"];
 				// blickets = ["rrbrb","bbrbr"];
@@ -152,11 +152,11 @@
 				if (blicketness == 1){
 					blicketNum += 1;
 					var blockID = "b"+blicketNum;
-					document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
+					// document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
 				}else{
 					nblicketNum += 1;
 					var blockID = "nb"+nblicketNum;
-					document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
+					// document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
 					}
 				if(blockIndex <= 8){
 					document.getElementById("button").disabled = true
@@ -421,42 +421,42 @@
 				<div style="float:left;margin-left:0px;margin-top:0px;font-size:32px">
 					<p><a id="message"></a></p>
 				</div>
-				<div style="float:right;margin-left:615px;margin-top:70px;font-size:28px;width:340px">
-					<p>Machine <b>activated</b></p>
-				</div>
-				<div style="float:right;margin-left:595px;margin-top:310px;font-size:28px;width:340px">
-					<p>Machine <b>didn't activate</b></p>
-				</div>
-				<div style="float:right;margin-left:500px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b1"/>
-				</div>
-				<div style="float:right;margin-left:670px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b2"/>
-				</div>
-				<div style="float:right;margin-left:840px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b3"/>
-				</div>
-				<div style="float:right;margin-left:1010px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b4"/>
-				</div>
-				<div style="float:right;margin-left:1180px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b5"/>
-				</div>
-				<div style="float:right;margin-left:500px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb1"/>
-				</div>
-				<div style="float:right;margin-left:670px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb2"/>
-				</div>
-				<div style="float:right;margin-left:840px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb3"/>
-				</div>
-				<div style="float:right;margin-left:1010px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb4"/>
-				</div>
-				<div style="float:right;margin-left:1180px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb5"/>
-				</div>
+<!--				<div style="float:right;margin-left:615px;margin-top:70px;font-size:28px;width:340px">-->
+<!--					<p>Machine <b>activated</b></p>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:595px;margin-top:310px;font-size:28px;width:340px">-->
+<!--					<p>Machine <b>didn't activate</b></p>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:500px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b1"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:670px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b2"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:840px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b3"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:1010px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b4"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:1180px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b5"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:500px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb1"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:670px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb2"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:840px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb3"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:1010px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb4"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:1180px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb5"/>-->
+<!--				</div>-->
 				<div id="remaining-text" style="float:left;margin-top:330px;margin-right:-100px;font-size:28px;">
 					<p><a id="remaining"></a> trays remaining<br>
 					<a id="nexttext"></a></p>
