@@ -46,7 +46,7 @@
 				var c = url.searchParams.get("c");
 				function nextButton() {
 					localStorage["explanation"] = document.getElementById("rule").value;
-					window.location.href = "./friendrule.html?c="+c
+					window.location.href = "./debrief.html?c="+c
 				}
 			})
 		</script>
@@ -54,7 +54,7 @@
 	<body>
 	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
 		<p style="font-size:18px;margin-top:-15px;">
-What is the rule (combination of blocks) that a tray needs to follow in order to <b>activate the machine</b>?
+What blocks do you think a tray needs in order to <b>make the machine go</b>?
 		</p>
 		<input type="text" class="textbox" id="rule" value="Enter rule here..." style="width: 25%; height=5%;"
 			   onfocus="if (this.value == 'Enter rule here...') {this.value = '';}"

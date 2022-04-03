@@ -93,19 +93,30 @@
 						blockNames = [currentNB,currentB]
 						rcon = Math.floor(Math.random() * 2 + 1);
 					}
+					$('.selected').removeClass('selected');
 				}
 				function nextButton() {
 					blockNumber += 1
-						var radios = document.getElementsByName('blicketness');
-						for (var i = 0, length = radios.length; i < length; i++) {
-						    if (radios[i].checked) {
-						        selection = blockNames[i];
-						        document.getElementById('radio'+i).checked = false;
-						    }
-						    else {
-						        other = blockNames[i];
-						    }
+						var trays = document.getElementsByName('trays');
+						for (var i = 0, length = trays.length; i < length; i++) {
+							console.log(i)
+							console.log('block' + (i + 1))
+							if (trays[i].classList.contains('selected')) {
+								selection = blockNames[i];
+							} else {
+								other = blockNames[i];
+							}
 						}
+						// var radios = document.getElementsByName('blicketness');
+						// for (var i = 0, length = radios.length; i < length; i++) {
+						//     if (radios[i].checked) {
+						//         selection = blockNames[i];
+						//         document.getElementById('radio'+i).checked = false;
+						//     }
+						//     else {
+						//         other = blockNames[i];
+						//     }
+						// }
 						if (blickets.indexOf(selection) !== -1){
 							blocktionary[blockNumber] = selection+" (correct)";
 						}else{
@@ -117,7 +128,7 @@
 						console.log("other: "+other);
 						document.getElementById('button').disabled = true;
 						if (blockNumber > 3){
-							window.location.href = "./ratingintro.html?c="+getUrl[1];
+							window.location.href = "./explanation.html?c="+getUrl[1];
 						}
 					currentB = b[blockNumber];
 					currentNB = nb[blockNumber];
@@ -129,6 +140,8 @@
 				}
 				function nextEnable() {
 					document.getElementById('button').disabled = false;
+					$('.selected').removeClass('selected');
+					$(this).addClass('selected');
 				}
 				function shuffle(array) {
 	  				var currentIndex = array.length, temporaryValue, randomIndex;
@@ -170,16 +183,18 @@
 	<body>
 	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;font-size:18px;">
 		<p>
-			Which tray is more likely to <b>activate the machine</b>?
+			Which tray is more likely to <b>make the machine go</b>?
 		</p>
-		<img src="" id="block1" width="300px"/>
-		<img src="" id="block2" width="300px"/>
+		<img src="" id="block1" name="trays" width="300px"/>
+		<img src="" id="block2" name="trays" width="300px"/>
 			<div class="radio" id="select">
-				<form action="">
+				<!-- 
+<form action="">
   					<input class="radioSelect" type="radio" id="radio0" name="blicketness" value="block1">
   					<span style="display:inline-block; width:250px;"></span>
   					<input class="radioSelect" type="radio" id="radio1" name="blicketness" value="block2">
 					</form>
+ -->
 			<div class="next" align="center">
 				<button type="button" class="nextButton" id="button" style="margin-top:50px" onclick="" disabled="true">NEXT</button>
 			</div>
