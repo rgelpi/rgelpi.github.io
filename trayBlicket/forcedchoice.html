@@ -23,6 +23,8 @@
 			.nextButton:disabled {
 				color: #bebebe;
 			}
+			.selected{
+				border: solid 3px #2e6da4;
 			/* .radioSelect {
 				transform: scale(1.25);
 			} */
@@ -30,8 +32,8 @@
 		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 		$(function(){
-			document.getElementById("radio0").onclick = nextEnable;
-			document.getElementById("radio1").onclick = nextEnable;
+			document.getElementById("block1").onclick = nextEnable;
+			document.getElementById("block2").onclick = nextEnable;
 			document.getElementById("button").onclick = nextButton;
 			blockNumber = 0
 			blocktionary = {}
