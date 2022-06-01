@@ -73,62 +73,168 @@
 				getUrl[1] = c;
 				//If the condition has been randomly defined, make sure it ends up as one of the "simple" rules
 			}
-		//Near condition, complex rule
-			if(c == 0) {
-				// var consistentBlocks = ["rrbrr","brrbb"];
-				// var inconsistentBlocks = ["rbrbb","brbrb"];
-				// blickets = ["rrbrr","brbrb"];
-				// localStorage["condition"] = "near";
-				// localStorage["distractor"] = "red"
-				var consistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brrrr","brrrb","bbbrr"];
-				var inconsistentBlocks = ["rbrrr","rbrbb","brbbb"];
-				blickets = ["rrbrr","rbbrb","rrbbb","rbbbr","brbbb"];
-				localStorage["condition"] = "near";
-				localStorage["distractor"] = "complex"
-			};
 
-		//Near condition, simple rule (A xor C)
-			if(c == 1) {
-				// var consistentBlocks = ["rrbrr","brrbb"];
-				// var inconsistentBlocks = ["rbrbb","brbrb"];
-				// blickets = ["rrbrr","brbrb"];
-				// localStorage["condition"] = "near";
-				// localStorage["distractor"] = "red"
-				var consistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brbrr","brbrb","bbbrr"];
-				var inconsistentBlocks = ["rbrrr","rbrbb","brrbb"];
-				blickets = ["rrbrr","rbbrb","rrbbb","rbbbr","brrbb"];
-				localStorage["condition"] = "near";
-				localStorage["distractor"] = "simple";
-			};
+			var c = 0
 
-		//Distant condition, complex rule
-			if(c == 2) {
-				// var consistentBlocks = ["rrbrb","bbrrb"];
-				// var inconsistentBlocks = ["rrbbb","bbrbr"];
-				// blickets = ["rrbrb","bbrbr"];
-				// localStorage["condition"] = "distant";
-				// localStorage["distractor"] = "red"
-				var consistentBlocks = ["rrrbr","rrrbb","rrbrb","rbbrb","brrrr","bbrrb","bbbbr"];
-				var inconsistentBlocks = ["rbrrr","rrbbb","bbrbr"];
-				blickets = ["rrrbr","rrrbb","rrbrb","rbbrb","bbrbr"];
-				localStorage["condition"] = "distant";
-				localStorage["distractor"] = "complex"
-			};
+			var allBlockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
 
-			//Distant condition, simple rule (B)
-			if(c == 3) {
-				// var consistentBlocks = ["rrbrb","bbrrb"];
-				// var inconsistentBlocks = ["rrbbb","bbrbr"];
-				// blickets = ["rrbrb","bbrbr"];
-				// localStorage["condition"] = "distant";
-				// localStorage["distractor"] = "red"
-				var consistentBlocks = ["rrrbr","rrrbb","rrbrb","rrbbb","bbrrr","bbrrb","bbbbr"];
-				var inconsistentBlocks = ["rbrrr","rbbbb","brrbr"];
-				blickets = ["rrrbr","rrrbb","rrbrb","rrbbb","brrbr"];
-				localStorage["condition"] = "distant";
-				localStorage["distractor"] = "simple"
-			};
-			
+			function r_filter(x){
+				return x.slice(0,1) === 'r';
+			}
+
+			function b_filter(x){
+				return x.slice(0,1) === 'b';
+			}
+
+			function any_is_true(list, feature, truth_value){
+				return list.some(e => (e.slice(feature,feature+1) === 'r') === truth_value)
+			}
+
+			function get_random_subarray(arr, size) {
+				var shuffled = arr.slice(0), i = arr.length, temp, index;
+				while (i--) {
+					index = Math.floor((i + 1) * Math.random());
+					temp = shuffled[index];
+					shuffled[index] = shuffled[i];
+					shuffled[i] = temp;
+				}
+				return shuffled.slice(0, size);
+			}
+
+			function generate_sublist(list) {
+				var final_list = false;
+				var final_sublist = [];
+				while (!final_list) {
+					var all_conditions = [];
+					var sublist = get_random_subarray(list, 6)
+					final_sublist = sublist;
+					for (var feature in features) {
+						for (var truth_value in truth_values) {
+							all_conditions.push(any_is_true(sublist, features[feature], truth_values[truth_value]))
+						}
+					}
+					final_list = all_conditions.every(function (e) {
+						return e;
+					});
+				}
+				return final_sublist;
+			}
+
+			var all_r_list = allBlockList.filter(r_filter);
+			var all_b_list = allBlockList.filter(b_filter);
+			var features = [1, 2, 3, 4];
+			var truth_values = [true, false];
+
+			//List shuffle function
+			function shuffle(array) {
+				var currentIndex = array.length, temporaryValue, randomIndex;
+				while (0 !== currentIndex) {
+					randomIndex = Math.floor(Math.random() * currentIndex);
+					currentIndex -= 1;
+					temporaryValue = array[currentIndex];
+					array[currentIndex] = array[randomIndex];
+					array[randomIndex] = temporaryValue;
+				}
+				return array;
+			}
+
+			var r_list = generate_sublist(all_r_list);
+			var b_list = generate_sublist(all_b_list);
+
+			//List shuffle function
+			function shuffle(array) {
+				var currentIndex = array.length, temporaryValue, randomIndex;
+				while (0 !== currentIndex) {
+					randomIndex = Math.floor(Math.random() * currentIndex);
+					currentIndex -= 1;
+					temporaryValue = array[currentIndex];
+					array[currentIndex] = array[randomIndex];
+					array[randomIndex] = temporaryValue;
+				}
+				return array;
+			}
+
+			if(c == 0 || c == 1){
+				// True rule is A, distractor rule is alternation
+				blickets = r_list;
+				blockList = [r_list[0], b_list[0],
+					r_list[1], b_list[1],
+					r_list[2], b_list[2],
+					r_list[3], b_list[3],
+					b_list[4], b_list[5],
+					r_list[4], r_list[5]];
+				localStorage["condition"] = "block_feature";
+				localStorage["distractor"] = "null";
+			}
+			else{
+				// True rule is alternation, distractor rule is A
+				blickets = [r_list[0], r_list[1], r_list[2], r_list[3], b_list[4], b_list[5]];
+				blockList = [r_list[0], b_list[0],
+					r_list[1], b_list[1],
+					r_list[2], b_list[2],
+					r_list[3], b_list[3],
+					b_list[4], r_list[4],
+					b_list[5], r_list[5]];
+				localStorage["condition"] = "alternation";
+				localStorage["distractor"] = "null";
+			}
+			console.log(blockList);
+
+		// //Near condition, complex rule
+		// 	if(c == 0) {
+		// 		// var consistentBlocks = ["rrbrr","brrbb"];
+		// 		// var inconsistentBlocks = ["rbrbb","brbrb"];
+		// 		// blickets = ["rrbrr","brbrb"];
+		// 		// localStorage["condition"] = "near";
+		// 		// localStorage["distractor"] = "red"
+		// 		var consistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brrrr","brrrb","bbbrr"];
+		// 		var inconsistentBlocks = ["rbrrr","rbrbb","brbbb"];
+		// 		blickets = ["rrbrr","rbbrb","rrbbb","rbbbr","brbbb"];
+		// 		localStorage["condition"] = "near";
+		// 		localStorage["distractor"] = "complex"
+		// 	};
+		//
+		// //Near condition, simple rule (A xor C)
+		// 	if(c == 1) {
+		// 		// var consistentBlocks = ["rrbrr","brrbb"];
+		// 		// var inconsistentBlocks = ["rbrbb","brbrb"];
+		// 		// blickets = ["rrbrr","brbrb"];
+		// 		// localStorage["condition"] = "near";
+		// 		// localStorage["distractor"] = "red"
+		// 		var consistentBlocks = ["rrbrr","rbbrb","rrbbb","rbbbr","brbrr","brbrb","bbbrr"];
+		// 		var inconsistentBlocks = ["rbrrr","rbrbb","brrbb"];
+		// 		blickets = ["rrbrr","rbbrb","rrbbb","rbbbr","brrbb"];
+		// 		localStorage["condition"] = "near";
+		// 		localStorage["distractor"] = "simple";
+		// 	};
+		//
+		// //Distant condition, complex rule
+		// 	if(c == 2) {
+		// 		// var consistentBlocks = ["rrbrb","bbrrb"];
+		// 		// var inconsistentBlocks = ["rrbbb","bbrbr"];
+		// 		// blickets = ["rrbrb","bbrbr"];
+		// 		// localStorage["condition"] = "distant";
+		// 		// localStorage["distractor"] = "red"
+		// 		var consistentBlocks = ["rrrbr","rrrbb","rrbrb","rbbrb","brrrr","bbrrb","bbbbr"];
+		// 		var inconsistentBlocks = ["rbrrr","rrbbb","bbrbr"];
+		// 		blickets = ["rrrbr","rrrbb","rrbrb","rbbrb","bbrbr"];
+		// 		localStorage["condition"] = "distant";
+		// 		localStorage["distractor"] = "complex"
+		// 	};
+		//
+		// 	//Distant condition, simple rule (B)
+		// 	if(c == 3) {
+		// 		// var consistentBlocks = ["rrbrb","bbrrb"];
+		// 		// var inconsistentBlocks = ["rrbbb","bbrbr"];
+		// 		// blickets = ["rrbrb","bbrbr"];
+		// 		// localStorage["condition"] = "distant";
+		// 		// localStorage["distractor"] = "red"
+		// 		var consistentBlocks = ["rrrbr","rrrbb","rrbrb","rrbbb","bbrrr","bbrrb","bbbbr"];
+		// 		var inconsistentBlocks = ["rbrrr","rbbbb","brrbr"];
+		// 		blickets = ["rrrbr","rrrbb","rrbrb","rrbbb","brrbr"];
+		// 		localStorage["condition"] = "distant";
+		// 		localStorage["distractor"] = "simple"
+		// 	};
 
 			//This loads the sound file. Note preloading does not work for iOS, so a loading function is attached to
 			//the nextButton() function.
@@ -153,19 +259,19 @@
 				if (blicketness == 1){
 					blicketNum += 1;
 					var blockID = "b"+blicketNum;
-					document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
+					// document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
 				}else{
 					nblicketNum += 1;
 					var blockID = "nb"+nblicketNum;
-					document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
+					// document.getElementById(blockID).src = "img/new_stimuli/"+currentBlock+".png";
 					}
-				if(blockIndex <= 8){
+				if(blockIndex <= 10){
 					document.getElementById("button").disabled = true
 					$('.drag').css('left',500);
 					$('.drag').css('top',-50);
 					//This might be the place to "Reset" the droppable() function.
 					blockIndex += 1;
-					blocksRemaining = 10 - blockIndex;
+					blocksRemaining = 12 - blockIndex;
 					document.getElementById("remaining").innerHTML = blocksRemaining;
 					currentBlock = blockList[blockIndex];
 					document.getElementById('current').src = "img/new_stimuli/"+currentBlock+".png";
@@ -191,30 +297,18 @@
 			}
 
 			}
-			//List shuffle function
-			function shuffle(array) {
-  				var currentIndex = array.length, temporaryValue, randomIndex;
-  				while (0 !== currentIndex) {
-    				randomIndex = Math.floor(Math.random() * currentIndex);
-    				currentIndex -= 1;
-				    temporaryValue = array[currentIndex];
-				    array[currentIndex] = array[randomIndex];
-				    array[randomIndex] = temporaryValue;
-  					}
-				return array;
-			}
 
-			//   Shuffles consistent/inconsistent block lists and concatenates them
-			consistentBlocks = shuffle(consistentBlocks);
-			inconsistentBlocks = shuffle(inconsistentBlocks);
-			blockList = consistentBlocks.concat(inconsistentBlocks);
+			// //   Shuffles consistent/inconsistent block lists and concatenates them
+			// consistentBlocks = shuffle(consistentBlocks);
+			// inconsistentBlocks = shuffle(inconsistentBlocks);
+			// blockList = consistentBlocks.concat(inconsistentBlocks);
 			for (block in blockList){
 				document.getElementById("block"+block).src = "img/new_stimuli/"+blockList[block]+".png";
 			}
 			var disX = 0;
 			var disY = 0;
 			blockIndex = 0;
-			blocksRemaining = 10;
+			blocksRemaining = 12;
 			instructions = true;
 			currentBlock = blockList[blockIndex];
 			blicketNum = 0;
@@ -370,10 +464,10 @@
 <!--This div contains the "these are the blocks" section -->
 		<div id="instructions" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
 		<p style="font-size:28px;">
-			Making the machine go
+			Activating the machine
 		</p>
 		<p style="font-size:18px;margin-top:-15px;">
-			These are the trays you will try:
+			These are the trays you will try out:
 		</p>
 		<div style="float:center;">
 			<img src="img/white.png" height=50 width=160 id="block0"/>
@@ -381,16 +475,18 @@
 			<img src="img/white.png" height=50 width=160 id="block2"/>
 			<img src="img/white.png" height=50 width=160 id="block3"/>
 			<img src="img/white.png" height=50 width=160 id="block4"/>
-			<br>
 			<img src="img/white.png" height=50 width=160 id="block5"/>
+			<br>
 			<img src="img/white.png" height=50 width=160 id="block6"/>
 			<img src="img/white.png" height=50 width=160 id="block7"/>
 			<img src="img/white.png" height=50 width=160 id="block8"/>
 			<img src="img/white.png" height=50 width=160 id="block9"/>
+			<img src="img/white.png" height=50 width=160 id="block10"/>
+			<img src="img/white.png" height=50 width=160 id="block11"/>
 			<br>
 		</div>
 		<p style="font-size:18px;">
-			Now, you are going to see how the machine works by dragging <b>trays</b> of blocks onto the machine one at a time! Each tray has some <b>blocks</b> on it. Your job is to try to figure out how to make it go.
+			In the next task, you are going to see some examples of how the machine works by dragging <b>trays</b> of blocks onto the machine one at a time. Each tray has some combination of <b>blocks</b> on the tray. Afterwards, you will try to figure out the rule (the necessary combinations of blocks on the tray) that makes the machine activate.
 			<br><br>
 			Click <span class=nexttext>NEXT</span> to continue
 		</p>
@@ -422,42 +518,42 @@
 				<div style="float:left;margin-left:0px;margin-top:0px;font-size:32px">
 					<p><a id="message"></a></p>
 				</div>
-				<div style="float:right;margin-left:615px;margin-top:70px;font-size:28px;width:340px">
-					<p>Made the machine go</p>
-				</div>
-				<div style="float:right;margin-left:595px;margin-top:310px;font-size:28px;width:340px">
-					<p>Didn't make it go</p>
-				</div>
-				<div style="float:right;margin-left:500px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b1"/>
-				</div>
-				<div style="float:right;margin-left:670px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b2"/>
-				</div>
-				<div style="float:right;margin-left:840px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b3"/>
-				</div>
-				<div style="float:right;margin-left:1010px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b4"/>
-				</div>
-				<div style="float:right;margin-left:1180px;margin-top:140px">
-					<img src="img/white.png" height=50 width=160 id="b5"/>
-				</div>
-				<div style="float:right;margin-left:500px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb1"/>
-				</div>
-				<div style="float:right;margin-left:670px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb2"/>
-				</div>
-				<div style="float:right;margin-left:840px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb3"/>
-				</div>
-				<div style="float:right;margin-left:1010px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb4"/>
-				</div>
-				<div style="float:right;margin-left:1180px;margin-top:380px">
-					<img src="img/white.png" height=50 width=160 id="nb5"/>
-				</div>
+<!--				<div style="float:right;margin-left:615px;margin-top:70px;font-size:28px;width:340px">-->
+<!--					<p>Machine <b>activated</b></p>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:595px;margin-top:310px;font-size:28px;width:340px">-->
+<!--					<p>Machine <b>didn't activate</b></p>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:500px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b1"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:670px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b2"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:840px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b3"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:1010px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b4"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:1180px;margin-top:140px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="b5"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:500px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb1"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:670px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb2"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:840px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb3"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:1010px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb4"/>-->
+<!--				</div>-->
+<!--				<div style="float:right;margin-left:1180px;margin-top:380px">-->
+<!--					<img src="img/white.png" height=50 width=160 id="nb5"/>-->
+<!--				</div>-->
 				<div id="remaining-text" style="float:left;margin-top:330px;margin-right:-100px;font-size:28px;">
 					<p><a id="remaining"></a> trays remaining<br>
 					<a id="nexttext"></a></p>
