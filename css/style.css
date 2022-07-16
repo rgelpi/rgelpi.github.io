@@ -317,6 +317,10 @@ h1, h2, h3, h4, h5,
   .blog-entry .post-meta img {
     width: 36px;
     border-radius: 50%; }
+    
+.my-name {
+  font-weight: 800;
+}
 
 /* Navbar */
 .site-navbar {
