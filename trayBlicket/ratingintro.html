@@ -10,14 +10,16 @@
 				display: block;
 				width: 25%;
 				border: none;
-				background-color: #797979;
+				background-color: #10797a;
 				padding: 14px 28px;
-				font-size: 16px;
+				font-size: 20px;
 				cursor: pointer;
 				text-align: center;
 				font-weight: bold;
+				font-family: Noto Sans;
 				color: #FFFFFF;
 				margin: auto;
+				border-radius: 20px;
 				-webkit-appearance: none;
 			}
 			.nextButton:disabled {
@@ -33,16 +35,18 @@
 			var url = new URL(url_string);
 			var c = url.searchParams.get("c");
 		</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto Sans&display=swap" rel="stylesheet">
 	</head>
 	<body>
-	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:Noto Sans;";>
 		<p style="font-size:28px;">
-			Tray Identification
+			What makes it go?
 		</p>
 		<p style="font-size:18px;margin-top:-15px;">
-You will now be shown a series of images of trays with different blocks on them and asked whether you think they <b>activate the machine</b>.
+			You put a bunch of trays on the machine. Now I'm going to show you some new trays, and I'm going to ask you which trays you think make it go.
 <br><br>
-Responses may range from <b>Definitely No</b> (you are sure that it will not activate the machine) to <b>Definitely Yes</b> (you are sure that it will activate the machine). Your response may be somewhere in-between.
 <br><br>
 Click <span class=nexttext>NEXT</span> to continue
 		</p>

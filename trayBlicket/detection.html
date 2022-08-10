@@ -10,14 +10,16 @@
 			display: block;
 			width: 25%;
 			border: none;
-			background-color: #797979;
+			background-color: #10797a;
 			padding: 14px 28px;
-			font-size: 16px;
+			font-size: 20px;
 			cursor: pointer;
 			text-align: center;
 			font-weight: bold;
 			color: #FFFFFF;
 			margin: auto;
+			font-family: Noto Sans;
+			border-radius: 20px;
 			-webkit-appearance: none;
 		}
 		.nextButton:disabled {
@@ -27,13 +29,15 @@
 			display: block;
 			width: 100%;
 			border: none;
-			background-color: #797979;
+			background-color: #10797a;
 			padding: 14px 28px;
 			font-size: 16px;
 			cursor: pointer;
 			text-align: center;
 			font-weight: bold;
 			color: #FFFFFF;
+			font-family: Noto Sans;
+			border-radius: 20px;
 			-webkit-appearance: none;
 		}
 		.otherNextButton:disabled {
@@ -45,7 +49,11 @@
 			right: 0;
 			width: 325px;
 			height: 101px;
-			background-color: transparent; }
+			background-color: transparent;
+		}
+
+
+
 		</style>
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -164,6 +172,7 @@
 					r_list[4], r_list[5]];
 				localStorage["condition"] = "block_feature";
 				localStorage["distractor"] = "null";
+				localStorage["blockList"] = JSON.stringify(blockList);
 			}
 			if(c == 1){
 				// True rule is alternation, distractor rule is A
@@ -176,6 +185,7 @@
 					b_list[5], r_list[5]];
 				localStorage["condition"] = "alternation";
 				localStorage["distractor"] = "null";
+				localStorage["blockList"] = JSON.stringify(blockList);
 			}
 			console.log(blockList);
 
@@ -238,6 +248,7 @@
 			//This loads the sound file. Note preloading does not work for iOS, so a loading function is attached to
 			//the nextButton() function.
 			var soundFile = document.getElementById('audio');
+			var sfWrong = document.getElementById('wrong');
 			//soundFile.preload = 'auto';
 
 		//Next button cycles through block list, then triggers "blickets are blocks..." message
@@ -249,8 +260,10 @@
 					instructions = false;
 					//iOS needs a click event to load a sound file.
 					soundFile.load();
+					sfWrong.load();
 					return;
 				}
+				$('.drag').animate({height: "101px", width: "325px"},speed = 1);
 				$('.true-box').css('z-index','2');
 				$('.false-box').css('z-index','10');
 				document.getElementById("detectionStatus").innerHTML = "";
@@ -275,23 +288,23 @@
 					currentBlock = blockList[blockIndex];
 					document.getElementById('current').src = "img/new_stimuli/"+currentBlock+".png";
 				}else{
-					$('.true-box').css('top',-20);
+					$('.true-box').css('top',30);
 					$('.true-box').css('left',515);
 					document.getElementById('trueBox').style.height = "94px";
 					document.getElementById('trueBox').style.width = "300px";
-					$('.false-box').css('top',220);
+					$('.false-box').css('top',270);
 					$('.false-box').css('left',515);
 					document.getElementById('falseBox').style.height = "94px";
 					document.getElementById('falseBox').style.width = "300px";
 					document.getElementById("remaining-text").innerHTML = "";
-					document.getElementById('message').innerHTML = 'Remember, only certain trays activate the machine.<br><br>Please click <span class="nexttext">Next</span> to continue.'
+					document.getElementById('message').innerHTML = 'Remember, only some trays make it go.<br><br>Click <span class="nexttext">NEXT</span> when you\'re ready to go on!';
 					$('.drag').css('top',-10000);
-					buttonurl = "location.href='./fcintro.html?c="+c+"'";
+					buttonurl = "location.href='./ratingintro.html?c="+c+"'";
 					document.getElementById('button').onclick = nextPage
 				}
 
 			function nextPage() {
-				np = "./fcintro.html?c="+getUrl[1]
+				np = "./ratingintro.html?c="+getUrl[1]
 				window.location.href = np
 			}
 
@@ -304,14 +317,13 @@
 			for (block in blockList){
 				document.getElementById("block"+block).src = "img/new_stimuli/"+blockList[block]+".png";
 			}
-			var disX = 0;
-			var disY = 0;
 			blockIndex = 0;
 			blocksRemaining = 12;
 			instructions = true;
 			currentBlock = blockList[blockIndex];
 			blicketNum = 0;
 			nblicketNum = 0;
+			var lefts = ["500px", "670px", "840px", "1010px", "1180px", "1350px", "1520px"];
 			$(document.getElementById("task")).hide();
 			document.getElementById('current').src = "img/new_stimuli/"+currentBlock+".png";
 			document.getElementById("remaining").innerHTML = blocksRemaining;
@@ -327,7 +339,7 @@
 			$('.droppable').css('left',126);
 			$('.droppable').css('top',12);
 			$('.drag').css('left',500);
-			$('.drag').css('top',0);
+			$('.drag').css('top',-100);
 			document.getElementById("begintask").onclick = nextButton;
 			document.getElementById("button").onclick = nextButton;
 			$('.drag').draggable();
@@ -343,6 +355,14 @@
 							$('.true-box').css('z-index','10');
 							document.getElementById("detectionStatus").innerHTML = "It activated!";
 							document.getElementById("detectionStatus").style.color = "green";
+							// determine animation location
+							var top_loc = "140px";
+
+							var left_loc = lefts[blicketNum];
+							console.log(top_loc);
+							console.log(left_loc);
+
+							$('.drag').animate({height: "50px", width: "160px", top: top_loc, left: left_loc},speed=1000);
 							//Ensures that the sound plays from the start even if another block
 							//is dragged over before the previous sound finishes its playback.
 							soundFile.currentTime = 0.1;
@@ -351,6 +371,14 @@
 							blicketness = 0;
 							document.getElementById("detectionStatus").innerHTML = "Nothing happened.";
 							document.getElementById("detectionStatus").style.color = "red";
+							// determine animation location
+							var top_loc = "380px";
+							var left_loc = lefts[nblicketNum];
+							console.log(top_loc);
+							console.log(left_loc);
+
+							$('.drag').animate({height: "50px", width: "160px", top: top_loc, left: left_loc},speed=1000);
+							sfWrong.play();
 						}
 				}
     		});
@@ -458,15 +486,18 @@
 			}) */
 		})
 	</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto Sans&display=swap" rel="stylesheet">
 	</head>
-	<body style="font-family:helvetica;" >
+	<body style="font-family: Noto Sans;" >
 <!--This div contains the "these are the blocks" section -->
-		<div id="instructions" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+		<div id="instructions" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:Noto Sans;";>
 		<p style="font-size:28px;">
-			Activating the machine
+			Let's try putting some trays on the machine!
 		</p>
 		<p style="font-size:18px;margin-top:-15px;">
-			These are the trays you will try out:
+			I have a bunch of <b>trays</b> here...
 		</p>
 		<div style="float:center;">
 			<img src="img/white.png" height=50 width=160 id="block0"/>
@@ -485,12 +516,12 @@
 			<br>
 		</div>
 		<p style="font-size:18px;">
-			In the next task, you are going to see some examples of how the machine works by dragging <b>trays</b> of blocks onto the machine one at a time. Each tray has some combination of <b>blocks</b> on the tray. Afterwards, you will try to figure out the rule (the necessary combinations of blocks on the tray) that makes the machine activate.
+			Let's find out what happens when we put them on the machine!
 			<br><br>
-			Click <span class=nexttext>NEXT</span> to continue
+			Click <span class=nexttext>NEXT</span> when you're ready to keep going.
 		</p>
 		</p>
-			<div align="center">
+			<div align="center" style="font-family:Noto Sans">
 				<button type="button" class="nextButton" id="begintask" onclick="">NEXT</button>
 			</div>
 		</div>
@@ -518,10 +549,10 @@
 					<p><a id="message"></a></p>
 				</div>
 				<div style="float:right;margin-left:615px;margin-top:70px;font-size:28px;width:340px">
-					<p>Machine <b>activated</b></p>
+					<img src="img/small_true.png" height="50" width="50">
 				</div>
-				<div style="float:right;margin-left:595px;margin-top:310px;font-size:28px;width:340px">
-					<p>Machine <b>didn't activate</b></p>
+				<div style="float:right;margin-left:615px;margin-top:310px;font-size:28px;width:340px">
+					<img src="img/small_false.png" height="50" width="50">
 				</div>
 				<div style="float:right;margin-left:500px;margin-top:140px">
 					<img src="img/white.png" height=50 width=160 id="b1"/>
@@ -573,6 +604,10 @@
 	<audio id="audio" hidden>
 		<source src="./vid/blicketsound.mp3" type="audio/mp3">
 		<source src="./vid/blicketsound.ogg" type="audio/ogg">
+	</audio>
+	<audio id="wrong" hidden>
+		<source src="./vid/wrongsound.mp3" type="audio/mp3">
+		<source src="./vid/wrongsound.ogg" type="audio/ogg">
 	</audio>
 	</body>
 </html>

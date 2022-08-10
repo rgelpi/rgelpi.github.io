@@ -25,6 +25,8 @@
         }
     </style>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto Sans&display=swap" rel="stylesheet">
     <script type="text/javascript">
         var wso = new WebSocket("wss://somata.inf.ed.ac.uk/chunks/ws");
         var sentData = 0;
@@ -84,7 +86,7 @@
 </head>
 
 <body style="background-color:#ccffff">
-    <div style="margin-left:10%;margin-right:10%;margin-top:25px;margin-bottom:25px;font-family:helvetica;background-color:#ffffff"
+    <div style="margin-left:10%;margin-right:10%;margin-top:25px;margin-bottom:25px;font-family:Noto Sans;background-color:#ffffff"
         class="boxed">
         <p style="text-align:center;font-size:18px;margin-left:25px;margin-right:25px;margin-top:25px;">
             <b>Thank you so much for participating in the Machine Study!</b>
@@ -96,7 +98,7 @@
         </p>
         <div id="codediv" style="text-align:center;font-size:18px">
             <p style="text-align:center;font-size:18px;margin-left:25px;margin-right:25px;"><b>Questions or Concerns?</b></p>
-            <p style="float:left;font-size:18px;margin-left:25px;margin-right:25px;">
+            <p style="font-size:18px;margin-left:25px;margin-right:25px;">
                 Was anything unclear or confusing about this experiment? Feel free to share any questions or comments you may have in the
                 space below.
                 <br><br>
@@ -109,7 +111,7 @@
                 or (416) 946-3273.
                 <br><br>
             </p>
-            <p style="text-align:center;font-size:18px;margin-left:25px;margin-right:25px;">
+            <p style="text-align:center;font-size:18px;margin-left:25px;margin-right:25px;display:block">
                 Press <span class="nexttext">NEXT</span> to record your responses and finish the survey.
                 <div style="text-align:center">
                     <button type="button" id="button" style="margin-bottom:35px;" onclick="">NEXT</button>

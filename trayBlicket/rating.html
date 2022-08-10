@@ -6,18 +6,36 @@
 		<link rel="stylesheet" type="text/css" href="css/index.css"/>
 		<style>
 			.nexttext { font-weight: bold; color: #002A5C; }
+
+			.image1 {
+				-webkit-animation:curtainfall 5s;
+				animation:curtainfall 5s;
+			}
+
+			@-webkit-keyframes curtainfall {
+				0%	{top:-200px;}
+				100%{top:0px;}
+			}
+
+			@keyframes curtainfall {
+				0%	{top:-200px;}
+				100%{top:0px;}
+			}
+
 			.nextButton {
 				display: block;
 				width: 25%;
 				border: none;
-				background-color: #797979;
+				background-color: #10797a;
 				padding: 14px 28px;
-				font-size: 16px;
+				font-size: 24px;
 				cursor: pointer;
 				text-align: center;
 				font-weight: bold;
 				color: #FFFFFF;
 				margin: auto;
+				font-family: Noto Sans;
+				border-radius: 20px;
 				-webkit-appearance: none;
 			}
 			.nextButton:disabled {
@@ -26,8 +44,98 @@
 			.radioSelect {
 				transform: scale(1.25);
 			}
+
+			.machines {
+				position: relative;
+				align-content: center;
+				margin: auto;
+				display: flex;
+				justify-content: center;
+			}
+
+			.image1 {
+				position: relative;
+				top: 0;
+				left: 0;
+				z-index: 1;
+			}
+
+			.image2 {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -200px;
+				z-index: 0;
+			}
+
+			#block1 {
+				z-index: 999;
+			}
+
+			.isBlicket {
+				position: relative;
+			}
+
+			.radioContainer input {
+				position: absolute;
+				display: inline-block;
+				opacity: 0;
+				cursor: pointer;
+				height: 0;
+				width: 0;
+				font-family: Helvetica;
+			}
+
+			/* Create a custom radio button */
+			.checkmark {
+				top: 0;
+				left: 0;
+				height: 50px;
+				width: 50px;
+				background-color: #eee;
+				border-radius: 50%;
+				display: inline-block;
+				position: relative;
+				line-height: 3;
+			}
+
+			/* On mouse-over, add a grey background color */
+			.radioContainer:hover input ~ .checkmark {
+				background-color: #ccc;
+			}
+
+			/* When the radio button is checked, add a blue background */
+			.radioContainer input:checked ~ .checkmark {
+				background-color: #7799f3;
+			}
+
+			/* Create the indicator (the dot/circle - hidden when not checked) */
+			.checkmark:after {
+				content: "";
+				display: none;
+			}
+
+			/* Show the indicator (dot/circle) when checked */
+			.radioContainer input:checked ~ .checkmark:after {
+			}
+
+			/* Style the indicator (dot/circle) */
+			.radioContainer .checkmark:after {
+				top: 9px;
+				left: 9px;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: white;
+			}
+
+
+
+
 		</style>
-		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="js/jquery.ui.touch-punch.min.js"></script>
 		<script type="text/javascript">
 		$(function(){
 			document.getElementById("isBlicket0").onclick = nextEnable;
@@ -36,14 +144,15 @@
 			document.getElementById("radio2").onclick = nextEnable;
 			document.getElementById("radio3").onclick = nextEnable;
 			document.getElementById("radio4").onclick = nextEnable;
-			document.getElementById("radio5").onclick = nextEnable;
-			document.getElementById("radio6").onclick = nextEnable;
-			document.getElementById("radio7").onclick = nextEnable;
+			// document.getElementById("radio5").onclick = nextEnable;
+			// document.getElementById("radio6").onclick = nextEnable;
+			// document.getElementById("radio7").onclick = nextEnable;
 			document.getElementById("button").onclick = nextButton;
-			blockNumber = 0
-			blocktionary = {}
-			taskName = "blicketness"
-			$(document.getElementById("howConfident")).hide()
+			blockNumber = 0;
+			blocktionary = {};
+			taskName = "blicketness";
+			$(document.getElementById("howConfident")).hide();
+			$(document.getElementById("blicketSelect")).hide();
 			//New GET parser...
 			getUrl = window.location.href.split("c=");
 			/*
@@ -52,63 +161,133 @@
 			var url_string = window.location.href;
 			var url = new URL(url_string);
 			var c = url.searchParams.get("c");
-			blockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr","bbbbb"];
-		//Near condition, complex rule
-			if(c == 0) {
-				var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
-				var seenInconsistentB = ["brbbb"];
-				var unseenConsistentB = ["rrbrb","rbbrr","rrbbr","rbbbb"];
-				var unseenInconsistentB = ["brrbr","brrbb","bbrbr","bbrbb","brbbr","bbbbr","bbbbb"];
-				var seenConsistentNB = ["brrrr","brrrb","bbbrr"];
-				var seenInconsistentNB = ["rbrrr","rbrbb"];
-				var unseenConsistentNB = ["bbrrr","bbrrb","brbrr","brbrb","bbbrb",];
-				var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
-			};
-		//Near condition, simple rule
-			if(c == 1) {
-				var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
-				var seenInconsistentB = ["brrbb"];
-				var unseenConsistentB = ["rbbbb", "rbbrr", "rrbbr", "rrbrb"];
-				var unseenInconsistentB = ["bbrbb", "bbrbr", "bbrrb", "bbrrr", "brrbr", "brrrb", "brrrr"];
-				var seenConsistentNB = ["brbrr","brbrb","bbbrr"];
-				var seenInconsistentNB = ["rbrrr","rbrbb"];
-				var unseenConsistentNB = ["bbbbb", "bbbbr", "bbbrb", "brbbb", "brbbr"];
-				var unseenInconsistentNB = ["rbrbr", "rbrrb", "rrrbb", "rrrbr", "rrrrb", "rrrrr"];
-				};
 
-			//Distant condition, complex rule
-			if(c == 2) {
-				var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rbbrb"];
-				var seenInconsistentB = ["bbrbr"];
-				var unseenConsistentB = ["rbrbr","rbrbb","rrbrr","rbbrr"];
-				var unseenInconsistentB = ["brrbr","brrbb","bbrbb","brbrr","brbrb","bbbrr","bbbrb"];
-				var seenConsistentNB = ["brrrr","bbrrb","bbbbr"];
-				var seenInconsistentNB = ["rbrrr","rrbbb"];
-				var unseenConsistentNB = ["brrrb","bbrrr","brbbr","brbbb","bbbbb"];
-				var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrbbr","rbbbr","rbbbb"];
-			};
-			//Distant condition, simple rule
-			if(c == 3) {
-				var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rrbbb"];
-				var seenInconsistentB = ["brrbr"];
-				var unseenConsistentB = ["rrbbr", "rrbrr", "rrrrb", "rrrrr"];
-				var unseenInconsistentB = ["brbbb", "brbbr", "brbrb", "brbrr", "brrbb", "brrrb", "brrrr"];
-				var seenConsistentNB = ["bbrrr","bbrrb","bbbbr"];
-				var seenInconsistentNB = ["rbrrr","rbbbb"];
-				var unseenConsistentNB = ["bbbbb", "bbbrb", "bbbrr", "bbrbb", "bbrbr"];
-				var unseenInconsistentNB = ["rbbbr", "rbbrb", "rbbrr", "rbrbb", "rbrbr", "rbrrb"];
-			};
+		function r_filter(x){
+			return x.slice(0,1) === 'r';
+		}
+
+		function b_filter(x){
+			return x.slice(0,1) === 'b';
+		}
+
+		function any_is_true(list, feature, truth_value){
+			return list.some(e => (e.slice(feature,feature+1) === 'r') === truth_value)
+		}
+
+		function get_random_subarray(arr, size) {
+			var shuffled = arr.slice(0), i = arr.length, temp, index;
+			while (i--) {
+				index = Math.floor((i + 1) * Math.random());
+				temp = shuffled[index];
+				shuffled[index] = shuffled[i];
+				shuffled[i] = temp;
+			}
+			return shuffled.slice(0, size);
+		}
+
+
+			totalBlockList = ["rrrrr","rrrrb","rrrbr","rrrbb","rrbrr","rrbrb","rrbbr","rrbbb","rbrrr","rbrrb","rbrbr","rbrbb","rbbrr","rbbrb","rbbbr","rbbbb","brrrr","brrrb","brrbr","brrbb","brbrr","brbrb","brbbr","brbbb","bbrrr","bbrrb","bbrbr","bbrbb","bbbrr","bbbrb","bbbbr"];
+			if(localStorage["blockList"] != null) {
+				seenBlocks = localStorage["blockList"].split(",");
+			}else{
+				var sampled_r_list = totalBlockList.filter(r_filter);
+				var sampled_b_list = totalBlockList.filter(b_filter);
+				seen_r = get_random_subarray(sampled_r_list, 6);
+				seen_b = get_random_subarray(sampled_b_list, 6);
+				seenBlocks = seen_r.concat(seen_b);
+			}
+			allBlockList = totalBlockList.filter(x => !seenBlocks.includes(x));
+		//Near condition, complex rule
+		// 	if(c == 0) {
+		// 		var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
+		// 		var seenInconsistentB = ["brbbb"];
+		// 		var unseenConsistentB = ["rrbrb","rbbrr","rrbbr","rbbbb"];
+		// 		var unseenInconsistentB = ["brrbr","brrbb","bbrbr","bbrbb","brbbr","bbbbr","bbbbb"];
+		// 		var seenConsistentNB = ["brrrr","brrrb","bbbrr"];
+		// 		var seenInconsistentNB = ["rbrrr","rbrbb"];
+		// 		var unseenConsistentNB = ["bbrrr","bbrrb","brbrr","brbrb","bbbrb",];
+		// 		var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrrbr","rrrbb","rbrbr"];
+		// 	};
+		// //Near condition, simple rule
+		// 	if(c == 1) {
+		// 		var seenConsistentB = ["rrbrr","rbbrb","rrbbb","rbbbr"];
+		// 		var seenInconsistentB = ["brrbb"];
+		// 		var unseenConsistentB = ["rbbbb", "rbbrr", "rrbbr", "rrbrb"];
+		// 		var unseenInconsistentB = ["bbrbb", "bbrbr", "bbrrb", "bbrrr", "brrbr", "brrrb", "brrrr"];
+		// 		var seenConsistentNB = ["brbrr","brbrb","bbbrr"];
+		// 		var seenInconsistentNB = ["rbrrr","rbrbb"];
+		// 		var unseenConsistentNB = ["bbbbb", "bbbbr", "bbbrb", "brbbb", "brbbr"];
+		// 		var unseenInconsistentNB = ["rbrbr", "rbrrb", "rrrbb", "rrrbr", "rrrrb", "rrrrr"];
+		// 		};
+		//
+		// 	//Distant condition, complex rule
+		// 	if(c == 2) {
+		// 		var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rbbrb"];
+		// 		var seenInconsistentB = ["bbrbr"];
+		// 		var unseenConsistentB = ["rbrbr","rbrbb","rrbrr","rbbrr"];
+		// 		var unseenInconsistentB = ["brrbr","brrbb","bbrbb","brbrr","brbrb","bbbrr","bbbrb"];
+		// 		var seenConsistentNB = ["brrrr","bbrrb","bbbbr"];
+		// 		var seenInconsistentNB = ["rbrrr","rrbbb"];
+		// 		var unseenConsistentNB = ["brrrb","bbrrr","brbbr","brbbb","bbbbb"];
+		// 		var unseenInconsistentNB = ["rrrrr","rrrrb","rbrrb","rrbbr","rbbbr","rbbbb"];
+		// 	};
+		// 	//Distant condition, simple rule
+		// 	if(c == 3) {
+		// 		var seenConsistentB = ["rrrbr","rrrbb","rrbrb","rrbbb"];
+		// 		var seenInconsistentB = ["brrbr"];
+		// 		var unseenConsistentB = ["rrbbr", "rrbrr", "rrrrb", "rrrrr"];
+		// 		var unseenInconsistentB = ["brbbb", "brbbr", "brbrb", "brbrr", "brrbb", "brrrb", "brrrr"];
+		// 		var seenConsistentNB = ["bbrrr","bbrrb","bbbbr"];
+		// 		var seenInconsistentNB = ["rbrrr","rbbbb"];
+		// 		var unseenConsistentNB = ["bbbbb", "bbbrb", "bbbrr", "bbrbb", "bbrbr"];
+		// 		var unseenInconsistentNB = ["rbbbr", "rbbrb", "rbbrr", "rbrbb", "rbrbr", "rbrrb"];
+		// 	};
+
+			var all_r_list = allBlockList.filter(r_filter);
+			var all_b_list = allBlockList.filter(b_filter);
+
+			var r_list = get_random_subarray(all_r_list, 4);
+			var b_list = get_random_subarray(all_b_list, 4);
+
+			sampleBlocks = [].concat(r_list[0], b_list[0], b_list[1], b_list[2], r_list[1], r_list[2], r_list[3], b_list[3])
+
+			if(c == 0){
+				// True rule is A, distractor rule is alternation
+				blickets = [true, false, false, false, true, true, true, false]
+			}
+			if(c == 1) {
+				// True rule is alternation, distractor rule is A
+				blickets = [true, false, true, false, true, false, true, false]
+				//this may have more than one answer
+			}
+
+			$('#block1').draggable();
+			$("#block1").data({
+				'originalLeft': $("#draggable").css('left'),
+				'originalTop': $("#draggable").css('top')
+		});
+			$('.image1').droppable({
+				drop: function( event, ui ) {
+					$(document.getElementById("blicketSelect")).show();
+				}
+					});
+
 
 				function changeImg() {
 					return function(){
 						document.getElementById('block1').src = source;
 						document.getElementById('block2').src = source;
+						$("#block1").css({
+							'left': 0,
+							'top': 0
+						});
 					}
+
 				}
 				function nextButton() {
-					document.getElementById('button').disabled = true
-					if(taskName == "blicketness"){
-						taskName = "confidence"
+					document.getElementById('button').disabled = true;
+					// if(taskName == "blicketness"){
+						// taskName = "confidence"
 						var radios = document.getElementsByName('blicketnesstask');
 						for (var i = 0, length = radios.length; i < length; i++) {
 							if (radios[i].checked) {
@@ -117,31 +296,33 @@
 								break;
 							}
 						}
-						$(document.getElementById("howConfident")).show();
-						$(document.getElementById("isBlicket")).hide();
-						if(selection == 1){
-							document.getElementById("confidencetext").innerHTML = "How confident are you that this tray <b>activates the machine</b>?";
-						}else{
-							document.getElementById("confidencetext").innerHTML = "How confident are you that this tray <b>does not activate the machine</b>?";
-						}
-					}else{
-						taskName = "blicketness";
+						// $(document.getElementById("howConfident")).show();
+						// $(document.getElementById("isBlicket")).hide();
+						// if(selection == 1){
+						// 	document.getElementById("confidencetext").innerHTML = "How sure are you that this tray <b>made it go</b>?";
+						// }else{
+						// 	document.getElementById("confidencetext").innerHTML = "How sure are you that this tray <b>made it go</b>?";
+						// }
+					// }else{
+					// 	taskName = "blicketness";
 						blockNumber += 1;
-						var radios = document.getElementsByName('confidencetask');
-						for (var i = 0, length = radios.length; i < length; i++) {
-							if (radios[i].checked) {
-								certainty = parseInt(radios[i].value);
-								document.getElementById('radio'+radios[i].value).checked = false;
-								break;
-							}
-						}
-						$(document.getElementById("howConfident")).hide();
-						$(document.getElementById("isBlicket")).show();
+						// var radios = document.getElementsByName('confidencetask');
+						// for (var i = 0, length = radios.length; i < length; i++) {
+						// 	if (radios[i].checked) {
+						// 		certainty = parseInt(radios[i].value);
+						// 		document.getElementById('radio'+radios[i].value).checked = false;
+						// 		break;
+						// 	}
+						// }
+						// $(document.getElementById("howConfident")).hide();
+						// $(document.getElementById("isBlicket")).show();
+						$(document.getElementById("blicketSelect")).hide();
+						$('#block1').animate({top: $('#block1').data('originalTop'), left: $('#block1').data('originalLeft')});
 						localStorage["rating_"+blockNumber+"_ID"] = currentBlock
 						localStorage["rating_"+blockNumber+"_IsBlicket"] = selection
-						localStorage["rating_"+blockNumber+"_Value"] = certainty
+						// localStorage["rating_"+blockNumber+"_Value"] = certainty
 
-						blocktionary[currentBlock] = selection.toString()+"/"+certainty.toString();
+						blocktionary[currentBlock] = selection.toString() //+"/"+certainty.toString();
 						console.log(blocktionary);
 						if (blockNumber <= 7){
 							currentBlock = sampleBlocks[blockNumber];
@@ -152,7 +333,7 @@
 						}else{
 							window.location.href = "./explanation.html?c="+getUrl[1];
 						}
-					}
+					// }
 				}
 				function nextEnable() {
 					document.getElementById('button').disabled = false;
@@ -168,58 +349,70 @@
 	  					}
 					return array;
 				}
-				seenConsistentB = shuffle(seenConsistentB)
-				seenInconsistentB = shuffle(seenInconsistentB)
-				unseenConsistentB = shuffle(unseenConsistentB)
-				unseenInconsistentB = shuffle(unseenInconsistentB)
-				seenConsistentNB = shuffle(seenConsistentNB)
-				seenInconsistentNB = shuffle(seenInconsistentNB)
-				unseenConsistentNB = shuffle(unseenConsistentNB)
-				unseenInconsistentNB = shuffle(unseenInconsistentNB)
-
-				sampleBlocks = [].concat(seenConsistentB[0],seenInconsistentB[0],unseenConsistentB[0],unseenInconsistentB[0],seenConsistentNB[0],seenInconsistentNB[0],unseenConsistentNB[0],unseenInconsistentNB[0])
-				console.log(sampleBlocks)
-				sampleBlocks = shuffle(sampleBlocks)
-				currentBlock = sampleBlocks[blockNumber]
+				// seenConsistentB = shuffle(seenConsistentB)
+				// seenInconsistentB = shuffle(seenInconsistentB)
+				// unseenConsistentB = shuffle(unseenConsistentB)
+				// unseenInconsistentB = shuffle(unseenInconsistentB)
+				// seenConsistentNB = shuffle(seenConsistentNB)
+				// seenInconsistentNB = shuffle(seenInconsistentNB)
+				// unseenConsistentNB = shuffle(unseenConsistentNB)
+				// unseenInconsistentNB = shuffle(unseenInconsistentNB)
+				//
+				// sampleBlocks = [].concat(seenConsistentB[0],seenInconsistentB[0],unseenConsistentB[0],unseenInconsistentB[0],seenConsistentNB[0],seenInconsistentNB[0],unseenConsistentNB[0],unseenInconsistentNB[0])
+				// console.log(sampleBlocks)
+				// sampleBlocks = shuffle(sampleBlocks)
+				currentBlock = sampleBlocks[blockNumber];
 				document.getElementById('block1').src = "img/new_stimuli/"+currentBlock+".png";
 				document.getElementById('block2').src = "img/new_stimuli/"+currentBlock+".png";
 		});
 
 		</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto Sans&display=swap" rel="stylesheet">
 	</head>
 	<body>
 	<!--In this section, participants rate whether blocks are blickets-->
-	<div id="isBlicket" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;font-size:18px;">
-		<p>
-			Does this tray <b>activate the machine</b>?
-		</p>
+	<div class="machines" style="text-align: center;margin-top:10%">
+		<img id="curtain" class="image1" src="img/curtain.png" width="400px"/>
+		<img id="machine" class="image2" src="img/new_stimuli/false.png" width="400px"/>
+	</div>
+	<div id="isBlicket" class="isBlicket" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:0%;font-family:Noto Sans;font-size:18px;">
 		<img src="" id="block1" width="300px"/>
 			<div class="radio" id="blicketSelect">
+				<p>
+					Do you think this tray <b>made it go</b>?
+				</p>
 				<form action="">
-					Yes
-  					<input class="radioSelect" type="radio" id="isBlicket0" name="blicketnesstask" value="1">
-  					No
-  					<input class="radioSelect" type="radio" id="isBlicket1" name="blicketnesstask" value="0">
+					<label class="radioContainer">
+						<input class="radioSelect" type="radio" id="isBlicket0" name="blicketnesstask" value="1"><span class="checkmark">YES</span></label>
+					<label class="radioContainer">
+						<input class="radioSelect" type="radio" id="isBlicket1" name="blicketnesstask" value="0"><span class="checkmark">NO</span></label>
 					</form>
 		</div>
 	</div>
 	<!--In this section, participants rate their confidence-->
-	<div id="howConfident" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;font-size:18px;">
+	<div id="howConfident" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:0%;font-family:Noto Sans;font-size:18px;">
 		<p id="confidencetext">
-			Does this tray <b>activate the machine</b>?
+			Does this tray <b>make the machine go</b>?
 		</p>
 		<img src="" id="block2" width="300px"/>
 			<div class="radio" id="confidenceSelect">
 				<form action="">
-					Just guessing
-  					<input class="radioSelect" type="radio" id="radio1" name="confidencetask" value="1">
-  					<input class="radioSelect" type="radio" id="radio2" name="confidencetask" value="2">
-  					<input class="radioSelect" type="radio" id="radio3" name="confidencetask" value="3">
-  					<input class="radioSelect" type="radio" id="radio4" name="confidencetask" value="4">
-  					<input class="radioSelect" type="radio" id="radio5" name="confidencetask" value="5">
-  					<input class="radioSelect" type="radio" id="radio6" name="confidencetask" value="6">
-  					<input class="radioSelect" type="radio" id="radio7" name="confidencetask" value="7">
-  					Completely certain
+					<label class="radioContainer">Just guessing
+						<input class="radioSelect" type="radio" id="radio1" name="confidencetask" value="1"><span class="checkmark"></span></label>
+					<label class="radioContainer"><input class="radioSelect" type="radio" id="radio2" name="confidencetask" value="2"><span class="checkmark"></span></label>
+					<label class="radioContainer"><input class="radioSelect" type="radio" id="radio3" name="confidencetask" value="3"><span class="checkmark"></span></label>
+					<label class="radioContainer">
+						<input class="radioSelect" type="radio" id="radio4" name="confidencetask" value="4"><span class="checkmark"></span></label>
+					<label class="radioContainer">Totally sure</label>
+
+
+
+
+<!--  					<input class="radioSelect" type="radio" id="radio5" name="confidencetask" value="5">-->
+<!--  					<input class="radioSelect" type="radio" id="radio6" name="confidencetask" value="6">-->
+<!--  					<input class="radioSelect" type="radio" id="radio7" name="confidencetask" value="7">-->
 					</form>
 		</div>
 	</div>

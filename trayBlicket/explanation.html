@@ -4,6 +4,7 @@
 		<meta charset="utf-8" />
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<link href="https://fonts.googleapis.com/css2?family=Noto Sans&display=swap" rel="stylesheet">
 		<style>
 		.nexttext { font-weight: bold; color: #002A5C; }
 		.textbox {width:100%;padding:1px;}
@@ -11,14 +12,16 @@
 			display: block;
 			width: 25%;
 			border: none;
-			background-color: #797979;
+			background-color: #10797a;
 			padding: 14px 28px;
-			font-size: 16px;
+			font-size: 20px;
 			cursor: pointer;
 			text-align: center;
 			font-weight: bold;
 			color: #FFFFFF;
 			margin: auto;
+			font-family: Noto Sans;
+			border-radius: 20px;
 			-webkit-appearance: none;
 		}
 		.nextButton:disabled {
@@ -46,15 +49,15 @@
 				var c = url.searchParams.get("c");
 				function nextButton() {
 					localStorage["explanation"] = document.getElementById("rule").value;
-					window.location.href = "./debrief.html?c="+c
+					window.location.href = "./attention.html?c="+c
 				}
 			})
 		</script>
 	</head>
 	<body>
-	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:helvetica;";>
+	<div style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:Noto Sans;";>
 		<p style="font-size:18px;margin-top:-15px;">
-What blocks do you think a tray needs in order to <b>make the machine go</b>?
+Why do you think the blocks you picked made the machine go?
 		</p>
 		<input type="text" class="textbox" id="rule" value="Enter rule here..." style="width: 25%; height=5%;"
 			   onfocus="if (this.value == 'Enter rule here...') {this.value = '';}"
