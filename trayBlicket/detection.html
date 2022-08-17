@@ -323,7 +323,9 @@
 			currentBlock = blockList[blockIndex];
 			blicketNum = 0;
 			nblicketNum = 0;
-			var lefts = ["500px", "670px", "840px", "1010px", "1180px", "1350px", "1520px"];
+			var lefts = ["500px", "670px", "840px", "500px", "670px", "840px", "1520px"];
+			var tops_b = ["140px", "140px", "140px", "200px", "200px", "200px"];
+			var tops_nb = ["380px", "380px", "380px", "440px", "440px", "440px"];
 			$(document.getElementById("task")).hide();
 			document.getElementById('current').src = "img/new_stimuli/"+currentBlock+".png";
 			document.getElementById("remaining").innerHTML = blocksRemaining;
@@ -346,7 +348,6 @@
 			$('.droppable').droppable({
 				drop: function( event, ui ) {
         			window.detected = true;
-					document.getElementById("button").disabled = false;
 					document.getElementById("draghere").innerHTML = "";
 					document.getElementById("nexttext").innerHTML = "Press NEXT to continue";
 						if(blickets.indexOf(currentBlock) !== -1){
@@ -356,13 +357,16 @@
 							document.getElementById("detectionStatus").innerHTML = "It activated!";
 							document.getElementById("detectionStatus").style.color = "green";
 							// determine animation location
-							var top_loc = "140px";
+							var top_loc = tops_b[blicketNum];
 
 							var left_loc = lefts[blicketNum];
 							console.log(top_loc);
 							console.log(left_loc);
 
-							$('.drag').animate({height: "50px", width: "160px", top: top_loc, left: left_loc},speed=1000);
+							$('.drag').delay(500).animate({height: "50px", width: "160px", top: top_loc, left: left_loc},speed=1000);
+							setTimeout(() => {
+								document.getElementById("button").disabled = false;
+							}, 700);
 							//Ensures that the sound plays from the start even if another block
 							//is dragged over before the previous sound finishes its playback.
 							soundFile.currentTime = 0.1;
@@ -372,12 +376,16 @@
 							document.getElementById("detectionStatus").innerHTML = "Nothing happened.";
 							document.getElementById("detectionStatus").style.color = "red";
 							// determine animation location
-							var top_loc = "380px";
+							var top_loc = tops_nb[nblicketNum];
 							var left_loc = lefts[nblicketNum];
 							console.log(top_loc);
 							console.log(left_loc);
 
-							$('.drag').animate({height: "50px", width: "160px", top: top_loc, left: left_loc},speed=1000);
+							$('.drag').delay(500).animate({height: "50px", width: "160px", top: top_loc, left: left_loc},speed=1000);
+							setTimeout(() => {
+								document.getElementById("button").disabled = false;
+							}, 700);
+
 							sfWrong.play();
 						}
 				}
@@ -563,13 +571,13 @@
 				<div style="float:right;margin-left:840px;margin-top:140px">
 					<img src="img/white.png" height=50 width=160 id="b3"/>
 				</div>
-				<div style="float:right;margin-left:1010px;margin-top:140px">
+				<div style="float:right;margin-left:500px;margin-top:200px">
 					<img src="img/white.png" height=50 width=160 id="b4"/>
 				</div>
-				<div style="float:right;margin-left:1180px;margin-top:140px">
+				<div style="float:right;margin-left:670px;margin-top:200px">
 					<img src="img/white.png" height=50 width=160 id="b5"/>
 				</div>
-				<div style="float:right;margin-left:1350px;margin-top:140px">
+				<div style="float:right;margin-left:840px;margin-top:200px">
 					<img src="img/white.png" height=50 width=160 id="b6"/>
 				</div>
 				<div style="float:right;margin-left:500px;margin-top:380px">
@@ -581,13 +589,13 @@
 				<div style="float:right;margin-left:840px;margin-top:380px">
 					<img src="img/white.png" height=50 width=160 id="nb3"/>
 				</div>
-				<div style="float:right;margin-left:1010px;margin-top:380px">
+				<div style="float:right;margin-left:500px;margin-top:440px">
 					<img src="img/white.png" height=50 width=160 id="nb4"/>
 				</div>
-				<div style="float:right;margin-left:1180px;margin-top:380px">
+				<div style="float:right;margin-left:670px;margin-top:440px">
 					<img src="img/white.png" height=50 width=160 id="nb5"/>
 				</div>
-				<div style="float:right;margin-left:1350px;margin-top:380px">
+				<div style="float:right;margin-left:840px;margin-top:440px">
 					<img src="img/white.png" height=50 width=160 id="nb6"/>
 				</div>
 				<div id="remaining-text" style="float:left;margin-top:330px;margin-right:-100px;font-size:28px;">

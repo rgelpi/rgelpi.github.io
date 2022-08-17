@@ -42,7 +42,7 @@
 				color: #bebebe;
 			}
 			.radioSelect {
-				transform: scale(1.25);
+				transform: scale(2);
 			}
 
 			.machines {
@@ -51,6 +51,14 @@
 				margin: auto;
 				display: flex;
 				justify-content: center;
+			}
+
+			.image3 {
+				position: absolute;
+				top: 0%;
+				left: 50%;
+				margin-left: -100px;
+				z-index: 999;
 			}
 
 			.image1 {
@@ -69,7 +77,7 @@
 			}
 
 			#block1 {
-				z-index: 999;
+				z-index: 3;
 			}
 
 			.isBlicket {
@@ -127,6 +135,11 @@
 				height: 8px;
 				border-radius: 50%;
 				background: white;
+			}
+
+			/* CHECKED STYLES */
+			[type=radio]:checked + img {
+				outline: 5px solid #f0f;
 			}
 
 
@@ -331,7 +344,7 @@
 							setTimeout(changeImg(), 100);
 							source = "img/new_stimuli/"+currentBlock+".png";
 						}else{
-							window.location.href = "./explanation.html?c="+getUrl[1];
+							window.location.href = "./debrief.html?c="+getUrl[1];
 						}
 					// }
 				}
@@ -376,6 +389,7 @@
 	<div class="machines" style="text-align: center;margin-top:10%">
 		<img id="curtain" class="image1" src="img/curtain.png" width="400px"/>
 		<img id="machine" class="image2" src="img/new_stimuli/false.png" width="400px"/>
+		<img id="mute" class="image3" src="img/mute.png" width="200px" height="200px"/>
 	</div>
 	<div id="isBlicket" class="isBlicket" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:0%;font-family:Noto Sans;font-size:18px;">
 		<img src="" id="block1" width="300px"/>
@@ -385,9 +399,14 @@
 				</p>
 				<form action="">
 					<label class="radioContainer">
-						<input class="radioSelect" type="radio" id="isBlicket0" name="blicketnesstask" value="1"><span class="checkmark">YES</span></label>
+						<input class="radioSelect" type="radio" id="isBlicket0" name="blicketnesstask" value="1">
+						<img class="imageButton" src="img/small_true.png" alt="YES">
+					</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;
 					<label class="radioContainer">
-						<input class="radioSelect" type="radio" id="isBlicket1" name="blicketnesstask" value="0"><span class="checkmark">NO</span></label>
+						<input class="radioSelect" type="radio" id="isBlicket1" name="blicketnesstask" value="0">
+						<img class="imageButton" src="img/small_false.png" alt="NO">
+					</label>
 					</form>
 		</div>
 	</div>
