@@ -65,7 +65,7 @@
 				position: relative;
 				top: 0;
 				left: 0;
-				z-index: 1;
+				z-index: 3;
 			}
 
 			.image2 {
@@ -77,7 +77,7 @@
 			}
 
 			#block1 {
-				z-index: 3;
+				z-index: 1;
 			}
 
 			.isBlicket {
@@ -276,12 +276,15 @@
 
 			$('#block1').draggable();
 			$("#block1").data({
-				'originalLeft': $("#draggable").css('left'),
-				'originalTop': $("#draggable").css('top')
+				'originalLeft': $("#block1").css('left'),
+				'originalTop': $("#block1").css('top')
 		});
 			$('.image1').droppable({
 				drop: function( event, ui ) {
 					$(document.getElementById("blicketSelect")).show();
+					var top_loc = $("#block1").data('originalTop');
+					var left_loc = $("#block1").data('originalLeft');
+					$("#block1").delay(800).animate({top: top_loc, left: left_loc},speed=1000);
 				}
 					});
 
@@ -402,7 +405,9 @@
 						<input class="radioSelect" type="radio" id="isBlicket0" name="blicketnesstask" value="1">
 						<img class="imageButton" src="img/small_true.png" alt="YES">
 					</label>
-					&nbsp;&nbsp;&nbsp;&nbsp;
+					<label>
+						<img src="img/white.png" width="100">
+					</label>
 					<label class="radioContainer">
 						<input class="radioSelect" type="radio" id="isBlicket1" name="blicketnesstask" value="0">
 						<img class="imageButton" src="img/small_false.png" alt="NO">
@@ -436,7 +441,7 @@
 		</div>
 	</div>
 	<div class="next" style="text-align:center;margin-left:15%;margin-right:15%;" align="center">
-		<button type="button" class="nextButton" id="button" style="margin-top:5px" onclick="" disabled="true">NEXT</button>
+		<button type="button" class="nextButton" id="button" style="margin-top:5px" onclick="" disabled="true">NEXT ▶▶▶</button>
 	</div>
 	</body>
 </html>
