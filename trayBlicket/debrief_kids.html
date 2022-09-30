@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <style>
+        .nexttext { font-weight: bold; color: #002A5C; }
+        .nextButton {
+            display: block;
+            width: 25%;
+            border: none;
+            background-color: #10797a;
+            padding: 14px 28px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin: auto;
+            font-family: Noto Sans;
+            border-radius: 20px;
+            -webkit-appearance: none;
+        }
+        .nextButton:disabled {
+            color: #bebebe;
+        }
+
+        .greyedout {
+            color: #777777;
+        }
+
+        .boxed {
+            border: 2px solid black;
+        }
+
+        .textbox {
+            width: 100%;
+            padding: 1px;
+        }
+    </style>
+    <script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto Sans&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        var wso = new WebSocket("wss://somata.inf.ed.ac.uk/chunks/ws");
+        var sentData = 0;
+        var wsError = 0; // Keeps track of whether any websocket errors have occurred
+        var prolificCode = "2D12D249";
+        wso.onopen = function () {
+            /*Send a small message to the console once the connection is established */
+            console.log('chunk ws connection open.');
+        }
+
+        wso.onmessage = function (event) {
+            message = JSON.parse(event.data);
+            console.log('webSocket message: ' + event.data);
+            if (sentData == 1) {
+                console.log('Data sent.')
+            }
+        }
+
+        wso.onerror = function (error) {
+            console.log('webSocket error detected: ' + JSON.stringify(error, ["message", "arguments", "type", "name"]));
+            wsError = 1;
+        }
+    </script>
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            function nextButton() {
+                var currentDate = new Date();
+                localStorage["submitDateTime"] = currentDate.toUTCString();
+                localStorage["timezoneOffset"] = currentDate.getTimezoneOffset().toString();
+                // experimentId & sessionId set in index
+                // isComplete allows the server to record completion, but is optional
+                localStorage["isComplete"] = true;
+                var dataStr = JSON.stringify(localStorage);
+                if (sentData == 0) {
+                    wso.send(dataStr);
+                    sentData = 1;
+                }
+                // console.log(dataStr)
+                //$.ajax({
+                //	url: './data.php',
+                //	type: 'post',
+                //	contentType:'application/json',
+                //	data: JSON.stringify(data),
+                //	dataType:'json'
+                //});
+                // Could also wait to see if storage is successful...
+                //window.location.href = "./code.html"
+                $(document.getElementById('instructions')).hide();
+                $(document.getElementById('hooray')).show();
+            };
+            document.getElementById("button").onclick = nextButton;
+        })
+    </script>
+</head>
+<body>
+<div id="instructions" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:Noto Sans;">
+    <p style="font-size:28px;">
+        One more question!
+    </p>
+    <div align="center" style="font-family:Noto Sans">
+        <button type="button" class="nextButton" id="button" onclick="">NEXT ▶▶▶</button>
+    </div>
+</div>
+<div id="hooray" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:Noto Sans;" hidden="true">
+    <p style="font-size:28px;">
+        Thanks for playing!
+    </p>
+    <p>
+        <img src="./img/hooray.png">
+    </p>
+</div>
+</body>
+</html>

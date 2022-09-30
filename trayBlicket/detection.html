@@ -263,6 +263,7 @@
 					sfWrong.load();
 					return;
 				}
+				$('.drag').draggable('enable');
 				$('.drag').animate({height: "101px", width: "325px"},speed = 1);
 				$('.true-box').css('z-index','2');
 				$('.false-box').css('z-index','10');
@@ -367,6 +368,7 @@
 							setTimeout(() => {
 								document.getElementById("button").disabled = false;
 							}, 700);
+							$('.drag').draggable('disable');
 							//Ensures that the sound plays from the start even if another block
 							//is dragged over before the previous sound finishes its playback.
 							soundFile.currentTime = 0.1;

@@ -140,6 +140,7 @@
 			/* CHECKED STYLES */
 			[type=radio]:checked + img {
 				outline: 5px solid #f0f;
+
 			}
 
 
@@ -285,6 +286,7 @@
 					var top_loc = $("#block1").data('originalTop');
 					var left_loc = $("#block1").data('originalLeft');
 					$("#block1").delay(800).animate({top: top_loc, left: left_loc},speed=1000);
+					$("#block1").draggable('disable');
 				}
 					});
 
@@ -304,6 +306,7 @@
 					document.getElementById('button').disabled = true;
 					// if(taskName == "blicketness"){
 						// taskName = "confidence"
+					$("#block1").draggable('enable');
 						var radios = document.getElementsByName('blicketnesstask');
 						for (var i = 0, length = radios.length; i < length; i++) {
 							if (radios[i].checked) {
@@ -347,7 +350,7 @@
 							setTimeout(changeImg(), 100);
 							source = "img/new_stimuli/"+currentBlock+".png";
 						}else{
-							window.location.href = "./debrief.html?c="+getUrl[1];
+							window.location.href = "./debrief_kids.html?c="+getUrl[1];
 						}
 					// }
 				}
