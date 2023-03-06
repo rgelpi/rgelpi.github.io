@@ -341,6 +341,11 @@
 						localStorage["rating_"+blockNumber+"_IsBlicket"] = selection
 						// localStorage["rating_"+blockNumber+"_Value"] = certainty
 
+						storeValue = selection === 1 ? "img/small_true.png" : "img/small_false.png";
+						storeBlicket = "img/new_stimuli/" + currentBlock + ".png";
+						document.getElementById('choice' + blockNumber).src = storeValue;
+						document.getElementById('stim' + blockNumber).src = storeBlicket;
+
 						blocktionary[currentBlock] = selection.toString() //+"/"+certainty.toString();
 						console.log(blocktionary);
 						if (blockNumber <= 7){
@@ -392,6 +397,34 @@
 	</head>
 	<body>
 	<!--In this section, participants rate whether blocks are blickets-->
+	<div style="position: relative; text-align: left; margin-top:10%; margin-left:5%; width: 0px; height: 0px;">
+		<div style="position: absolute; width: 500px">
+			<img id="choice1" class="choice" src="img/white.png" height="75px" width="75px"/>
+			<img id="stim1" class="stimulus" src="img/white.png" height="75px" width="240.15px"/>
+			<br>
+			<img id="choice2" class="choice" src="img/white.png" height="75px" width="75px"/>
+			<img id="stim2" class="stimulus" src="img/white.png" height="75px" width="240.15px"/>
+			<br>
+			<img id="choice3" class="choice" src="img/white.png" height="75px" width="75px"/>
+			<img id="stim3" class="stimulus" src="img/white.png" height="75px" width="240.15px"/>
+			<br>
+			<img id="choice4" class="choice" src="img/white.png" height="75px" width="75px"/>
+			<img id="stim4" class="stimulus" src="img/white.png" height="75px" width="240.15px"/>
+			<br>
+			<img id="choice5" class="choice" src="img/white.png" height="75px" width="75px"/>
+			<img id="stim5" class="stimulus" src="img/white.png" height="75px" width="240.15px"/>
+			<br>
+			<img id="choice6" class="choice" src="img/white.png" height="75px" width="75px"/>
+			<img id="stim6" class="stimulus" src="img/white.png" height="75px" width="240.15px"/>
+			<br>
+			<img id="choice7" class="choice" src="img/white.png" height="75px" width="75px"/>
+			<img id="stim7" class="stimulus" src="img/white.png" height="75px" width="240.15px">
+			<br>
+			<img id="choice8" class="choice" src="img/white.png" height="75px" width="75px"/>
+			<img id="stim8" class="stimulus" src="img/white.png" height="75px" width="240.15px"/>
+			<br>
+		</div>
+	</div>
 	<div class="machines" style="text-align: center;margin-top:10%">
 		<img id="curtain" class="image1" src="img/curtain.png" width="400px"/>
 		<img id="machine" class="image2" src="img/new_stimuli/false.png" width="400px"/>
