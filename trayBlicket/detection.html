@@ -359,7 +359,7 @@
 							blicketness = 1;
 							$('.false-box').css('z-index','2');
 							$('.true-box').css('z-index','10');
-							document.getElementById("detectionStatus").innerHTML = "It activated!";
+							document.getElementById("detectionStatus").innerHTML = "It made a check!";
 							document.getElementById("detectionStatus").style.color = "green";
 							// determine animation location
 							var top_loc = tops_b[blicketNum];
@@ -379,7 +379,7 @@
 							soundFile.play();
 						}else{
 							blicketness = 0;
-							document.getElementById("detectionStatus").innerHTML = "Nothing happened.";
+							document.getElementById("detectionStatus").innerHTML = "It made an X.";
 							document.getElementById("detectionStatus").style.color = "red";
 							// determine animation location
 							var top_loc = tops_nb[nblicketNum];
@@ -540,7 +540,7 @@
 			</div>
 		</div>
 <!--This div contains the blicket detector task -->
-		<div id="task" class="drag-bg" style="margin-left:-100px;">
+		<div id="task" class="drag-bg" style="margin-left:-200px; margin-top:50px;">
 			<div class="img-box">
 			<div class="drag-con">
 			</div>
