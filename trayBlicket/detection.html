@@ -304,7 +304,12 @@
 					//This might be the place to "Reset" the droppable() function.
 					blockIndex += 1;
 					blocksRemaining = 12 - blockIndex;
-					document.getElementById("remaining").innerHTML = blocksRemaining;
+					if(blocksRemaining == 1){
+						document.getElementById("remaining").innerHTML = "Last tray!"
+					}else{
+						document.getElementById("remaining").innerHTML = blocksRemaining + " trays left";
+					}
+					
 					currentBlock = blockList[blockIndex];
 					document.getElementById('current').src = "img/new_stimuli/"+currentBlock+".png";
 				}else{
@@ -386,7 +391,7 @@
 							$('.drag').delay(500).animate({height: "50px", width: "160px", top: top_loc, left: left_loc},speed=1000);
 							setTimeout(() => {
 								document.getElementById("button").disabled = false;
-							}, 1000);
+							}, 1600);
 							$('.drag').draggable('disable');
 							//Ensures that the sound plays from the start even if another block
 							//is dragged over before the previous sound finishes its playback.
@@ -405,7 +410,7 @@
 							$('.drag').delay(500).animate({height: "50px", width: "160px", top: top_loc, left: left_loc},speed=1000);
 							setTimeout(() => {
 								document.getElementById("button").disabled = false;
-							}, 1000);
+							}, 1600);
 
 // 							sfWrong.play();
 						}
@@ -571,7 +576,7 @@
 				<div class="droppable">
 					<p style="margin-left:100px;margin-top:80px;font-size:32px;text-align:center"></p>
 				</div>
-				<div>
+				<div class="little">
 					<p style="margin-left:45px;margin-top:-150px;font-size:32px;text-align:center"><a id="draghere">Drag the<br>tray here!<br>↓</a></p>
 				</div>
 				<div style="float:left;margin-left:0px;margin-top:0px;font-size:32px">
@@ -619,8 +624,8 @@
 				<div style="float:right;margin-left:840px;margin-top:440px">
 					<img src="img/white.png" height=50 width=160 id="nb6"/>
 				</div>
-				<div id="remaining-text" style="float:left;margin-top:330px;margin-right:-100px;font-size:28px;">
-					<p><a id="remaining"></a> trays left<br>
+				<div class="little" id="remaining-text" style="float:left;margin-top:330px;margin-right:-100px;font-size:28px;">
+					<p><a id="remaining"></a><br>
 					<a id="nexttext"></a></p>
 				</div>
 				<div class="next" style="margin-top:430px; width:150px" align="center">
