@@ -81,6 +81,7 @@
 
         $(function () {
         
+        	document.getElementById('button').disabled = true;
         	
             function nextButton() {
                 var currentDate = new Date();
@@ -108,6 +109,14 @@
                 $(document.getElementById('hooray')).show();
             };
             document.getElementById("button").onclick = nextButton;
+            
+            window.onload = function() {
+            	window.setTimeout(nextEnable, 10000);
+            }
+            
+            function nextEnable() {
+            	document.getElementById('button').disabled = false;
+            }
             
 			
 			
