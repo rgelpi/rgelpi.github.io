@@ -71,6 +71,8 @@
     <script type="text/javascript">
 
         $(function () {
+        
+        	
             function nextButton() {
                 var currentDate = new Date();
                 localStorage["submitDateTime"] = currentDate.toUTCString();
@@ -97,16 +99,19 @@
                 $(document.getElementById('hooray')).show();
             };
             document.getElementById("button").onclick = nextButton;
+            
+			
+			
         })
     </script>
 </head>
 <body>
 <div id="instructions" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:Noto Sans;">
     <p style="font-size:28px;">
-        One more question!
+        One more question... why did you pick those trays?
     </p>
     <div align="center" style="font-family:Noto Sans">
-        <button type="button" class="nextButton" id="button" onclick="">NEXT ▶▶▶</button>
+        <button type="button" class="nextButton" id="button" onclick="">FINISH! ▶▶▶</button>
     </div>
 </div>
 <div id="hooray" style="text-align:center;margin-left:15%;margin-right:15%;margin-top:10%;font-family:Noto Sans;" hidden="true">
