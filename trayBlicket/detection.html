@@ -375,8 +375,8 @@
 							$('.drag').draggable('disable');
 							//Ensures that the sound plays from the start even if another block
 							//is dragged over before the previous sound finishes its playback.
-							soundFile.currentTime = 0.1;
-							soundFile.play();
+// 							soundFile.currentTime = 0.1;
+// 							soundFile.play();
 						}else{
 							blicketness = 0;
 							document.getElementById("detectionStatus").innerHTML = "It made an X.";
@@ -392,7 +392,7 @@
 								document.getElementById("button").disabled = false;
 							}, 700);
 
-							sfWrong.play();
+// 							sfWrong.play();
 						}
 				}
     		});
