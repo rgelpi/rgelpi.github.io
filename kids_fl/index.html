@@ -11,7 +11,19 @@ $(document).ready(function(){
 	// default = 5 bars
 		var clicked = 5
 	}
+	barsChosen = []
+	var allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+	var numApples = [1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1]
 	document.getElementById('howmany').innerHTML = clicked + " bars left"
+	
+	$('.button').hide()
+	$('.button').click(function() {
+	  var remainingBars = allBars.filter(value => !barsChosen.includes(value))
+	  console.log(remainingBars)
+	  document.getElementById('howmany').innerHTML = "Time to predict..."
+	  $('.button').addClass('disabled')
+	})
+	
     $('.bar').click(function() {
       if(clicked > 0){
       	$(this).toggleClass("clicked");
@@ -25,9 +37,16 @@ $(document).ready(function(){
       }else{
     	document.getElementById('howmany').innerHTML = "No more bars!"
       }
-    });
+      barsChosen.push($('.bar').index( this ))
+      
+      
+      if(clicked == 0){
+        $('.button').show()
+      }
+		
     
-
+      
+    });
     
 });
 
@@ -38,6 +57,7 @@ $(document).ready(function(){
 	text-align: center;
 	margin-top: 20px;
 }
+
 .bar {
 	margin-left: 10px;
 	width: 50px;
@@ -53,6 +73,7 @@ $(document).ready(function(){
 
 .bar.clicked {
 	background-color: white;
+	pointer-events: none;
 }
 
 .apple {
@@ -60,17 +81,42 @@ $(document).ready(function(){
 	bottom: 0;
 }
 
-.text {
+.text, .end {
 	text-align: center;
 	width: 1400px;
 	font-family: Noto, Geneva, Sans-serif;
 	font-size: 36px;
 }
 
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #2C8F30; /* Green */
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.disabled:hover {
+  background-color: #4CAF50; /* Green */
+}
+
 </style>
 </head>
 <body>
-<div class="container">
+<div id="container" class="container">
 
 		<div class="bar">
 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
@@ -186,6 +232,8 @@ $(document).ready(function(){
 </div>
 <div class='text'>
  	<p><a id="howmany"></a></p>
-</div>  
+</div>
+<div class='end'>
+	<button class="button" id="button">Predict!</button>
 </body>
 </html>
