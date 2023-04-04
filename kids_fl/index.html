@@ -4,10 +4,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+	const urlParams = new URLSearchParams(window.location.search)
+	if(urlParams.has('c')){
+		var clicked = parseInt(urlParams.get('c'))
+	}else{
+	// default = 5 bars
+		var clicked = 5
+	}
+	document.getElementById('howmany').innerHTML = clicked + " bars left"
     $('.bar').click(function() {
-      $(this).toggleClass("clicked");
-      $(this).children('img').toggle("show")
+      if(clicked > 0){
+      	$(this).toggleClass("clicked");
+        $(this).children('img').toggle("show")
+      }
+      clicked -= 1
+      if(clicked > 1){
+    	document.getElementById('howmany').innerHTML = clicked + " bars left"    
+      }else if(clicked == 1){
+    	document.getElementById('howmany').innerHTML = "Last bar!"
+      }else{
+    	document.getElementById('howmany').innerHTML = "No more bars!"
+      }
     });
+    
+
+    
 });
 
 </script>
@@ -24,12 +45,26 @@ $(document).ready(function(){
 	padding: 20px 20px;
 	border: 5px #fff;
 	text-align: center;
+	display: flex;
 	background-color: lightblue;
-    align-items: flex-end;
+	justify-content: flex-end;
+    flex-direction: column;
 }
 
 .bar.clicked {
 	background-color: white;
+}
+
+.apple {
+	position: relative;
+	bottom: 0;
+}
+
+.text {
+	text-align: center;
+	width: 1400px;
+	font-family: Noto, Geneva, Sans-serif;
+	font-size: 36px;
 }
 
 </style>
@@ -38,116 +73,119 @@ $(document).ready(function(){
 <div class="container">
 
 		<div class="bar">
-			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
 		</div>
 		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div>
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div>
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div>
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div>
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div>
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div> 		 		 		 		
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div>
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div> 
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div> 
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div> 
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div> 
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
  		</div> 
  		
  		<div class="bar">
- 			<img hidden src="https://openclipart.org/image/400px/1951" width=50px height=50px>
+ 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
  			
- 		</div>  		 		 		 		
+ 		</div>		 		 		 		
  			
- </div>
+</div>
+<div class='text'>
+ 	<p><a id="howmany"></a></p>
+</div>  
 </body>
 </html>
