@@ -21,6 +21,7 @@
 				font-size: 100px;
 				margin: auto;
 				-webkit-appearance: none;
+				touch-action: manipulation;				
 
 			}
 			.nextButton {
@@ -36,6 +37,7 @@
 				color: #FFFFFF;
 				margin: auto;
 				-webkit-appearance: none;
+				touch-action: manipulation;	
 			}
 			.nextButton:disabled {
 				color: #bebebe;
@@ -54,17 +56,22 @@
 				var queryDict = {}
 				location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
 
-				$('.block').on('click', function () {
-					var ding = document.createElement('audio');
-					ding.src = './vid/ding.mp3';
-					ding.load();
-					ding.currentTime = 0.3;
-					ding.play();
+// 				$('.block').on('click', function () {
+// 					var ding = document.createElement('audio');
+// 					ding.src = './vid/ding.mp3';
+// 					ding.load();
+// 					ding.currentTime = 0.3;
+// 					ding.play();
+// 					document.getElementById('button').disabled = false;
+// 					document.getElementById("button").onclick = nextButton;
+// 				});
+
+				$('.block').draggable({
+				start: function() {
 					document.getElementById('button').disabled = false;
 					document.getElementById("button").onclick = nextButton;
+				}
 				});
-
-				$('.block').draggable();
 				sessionId = queryDict["sessionId"];
                 console.log(sessionId);
 				localStorage["sessionId"] = sessionId;
@@ -104,7 +111,8 @@
 	</head>
 	<body style="background-color:#fff; text-align:center; margin:auto">
 	<div style="margin-top: 5%">
-		<p style="font-size:28px;">
+		<p style="font-size:28px; touch-action: manipulation;	
+			font-family: Noto Sans; ">
 			Try dragging the block!
 		</p>
 	</div>
