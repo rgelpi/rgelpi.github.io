@@ -3,7 +3,11 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
+
 $(document).ready(function(){
+
+	const controller = new AbortController();
 
 	const urlParams = new URLSearchParams(window.location.search)
 	if(urlParams.has('c')){
@@ -17,14 +21,21 @@ $(document).ready(function(){
 	var allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 	var numApples = [1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1]
 	
+	var addApples = allBars.map((c) => {
+		var bar = c+1
+		var whichbar = '.container :nth-child('+bar+')'
+		var apples = numApples[c]
+		for (let i = 0; i < apples; i++){
+			$(whichbar).append('<img hidden class="apple" src="img/apple.png" width=50px height=50px>')
+		}
+	});
+	
 	document.getElementById('howmany').innerHTML = clicked + " bars left"
 	
 	$('.button').hide()
 	$('.button').click(function() {
-	  var remainingBars = allBars.filter(value => !barsChosen.includes(value))
-	  console.log(remainingBars)
-	  document.getElementById('howmany').innerHTML = "Time to predict..."
-	  $('.button').addClass('disabled')
+	  var predictions = JSON.stringify(barsChosen)
+	  window.location.href = './predict.html?predict=' + predictions;
 	})
 	
     $('.bar').click(function() {
@@ -39,18 +50,21 @@ $(document).ready(function(){
     	document.getElementById('howmany').innerHTML = "Last bar!"
       }else{
     	document.getElementById('howmany').innerHTML = "No more bars!"
+		controller.abort();
       }
       barsChosen.push($('.bar').index( this ))
       
       
       if(clicked == 0){
         $('.button').show()
+        var remainingBars = allBars.filter(value => !barsChosen.includes(value))
+	    console.log(remainingBars)
+	    localStorage['barsChosen'] = barsChosen
+	    localStorage['remainingBars'] = remainingBars
       }
        
     });
     
-});
-
 function isTouchDevice() {
   try {
     //We try to create TouchEvent. It would fail for desktops and throw error
@@ -73,14 +87,19 @@ const move = (e) => {
   monkey.style.left = x + 50 + "px";
 //   monkey.style.top = y + 50 + "px";
 };
+
 //For mouse
 document.addEventListener("mousemove", (e) => {
   move(e);
-});
+}, { signal: controller.signal });
 //For touch
 document.addEventListener("touchmove", (e) => {
   move(e);
+}, { signal: controller.signal });
+
 });
+
+
 
 </script>
 <style>
@@ -156,115 +175,60 @@ document.addEventListener("touchmove", (e) => {
 <div id="container" class="container">
 
 		<div class="bar">
-			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
+		
 		</div>
 		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div>
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div>
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div>
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div>
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div>
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div> 		 		 		 		
+		<div class="bar">
+		
+		</div>	 		 		 		
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div>
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div> 
+		<div class="bar">
+		
+		</div> 
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div> 
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div> 
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div> 
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div> 
+		<div class="bar">
+		
+		</div>
  		
- 		<div class="bar">
- 			<img class="apple" hidden src="img/apple.png" width=50px height=50px>
- 			
- 		</div>		 		 		 		
+		<div class="bar">
+		
+		</div>	 		 		 		
  			
 </div>
 <div class='text'>
@@ -274,7 +238,7 @@ document.addEventListener("touchmove", (e) => {
 	<img src="img/monkey.png" width=100px>
 </div>
 <div class='end'>
-	<button class="button" id="button">Predict!</button>
+	<button class="button" id="button">I'm ready to predict!</button>
 </div>
 
 

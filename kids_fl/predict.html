@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+
+$(document).ready(function(){
+
+	const urlParams = new URLSearchParams(window.location.search)
+	if(urlParams.has('predict')){
+		var predictions = JSON.parse(urlParams.get('predict'))
+	}else{
+		var predictions = [1, 3, 4, 6, 9]
+	}
+	
+	const allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+	const numApples = [1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1]
+	
+	var barsChosen = predictions
+	
+	var remainingBars = allBars.filter(value => !barsChosen.includes(value))
+	var unselectedBars = remainingBars.filter((v,i) => { return (i%2)} )
+	var selectedBars = remainingBars.filter((v,i) => { return !(i%2)} )
+	
+	console.log(unselectedBars)
+	
+	var applesAtBarsChosen = barsChosen.map((c) => { return numApples[c] })
+	
+	var addApples = barsChosen.map((c) => {
+		var bar = c+1
+		var whichbar = '.container :nth-child('+bar+')'
+		var apples = numApples[c]
+		$(whichbar).toggleClass("clicked");
+		for (let i = 0; i < apples; i++){
+			$(whichbar).append('<img class="apple" src="img/apple.png" width=50px height=50px>')
+		}
+		
+	});
+	
+	var disableBars = unselectedBars.map((c) => {
+		var bar = c+1
+		var whichbar = '.container :nth-child('+bar+')'
+		$(whichbar).toggleClass("unselected");
+	});
+	
+	
+	
+	
+    $('.bar').click(function() {
+      $(this).append('<img class="apple" src="img/apple.png" width=50px height=50px>');
+      	if(selectedBars.map(element => {
+            var bar = element+1
+            var whichbar = '.container :nth-child('+bar+')'
+            return $(whichbar).children('img').length > 0
+        }).every((v) => v === true)){
+			$('.button').removeClass('disabled');
+		}
+    });
+
+	$('.button').click(function() {
+		var appsoluteError = selectedBars.map((c) => {
+			var bar = c+1
+			var whichbar = '.container :nth-child('+bar+')'
+			var trueApples = numApples[c]
+			var guessedApples = $(whichbar).children('img').length
+			
+			return Math.abs(trueApples - guessedApples)
+			
+		});
+		
+		document.getElementById('error').innerHTML = "Your error was: " + appsoluteError.reduce((a, b) => a + b, 0)
+	});
+
+});
+
+
+
+
+
+
+</script>
+<style>
+.container {
+	display: flex;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.bar {
+	margin-left: 10px;
+	width: 50px;
+	height: 500px;
+	padding: 20px 20px;
+	border: 5px #fff;
+	text-align: center;
+	display: flex;
+	background-color: lightblue;
+	justify-content: flex-end;
+    flex-direction: column;
+}
+
+.bar.clicked {
+	background-color: white;
+	pointer-events: none;
+}
+
+.bar.unselected {
+	background-color: lightgrey;
+	pointer-events: none;
+}
+
+.apple {
+	position: relative;
+	bottom: 0;
+}
+
+.text, .end {
+	text-align: center;
+	width: 1400px;
+	font-family: Noto, Geneva, Sans-serif;
+	font-size: 36px;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #2C8F30; /* Green */
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.disabled:hover {
+  background-color: #4CAF50; /* Green */
+}
+
+.monkey {
+  position: absolute;
+  margin-top: -290px;
+  margin-left: 1400px;
+}
+
+</style>
+</head>
+<body>
+<div id="container" class="container">
+
+ 		<div class="bar">
+ 			
+ 		</div> 	
+		
+ 		<div class="bar">
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 		 		 		 		
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div>
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 		 		 		 		
+ 			
+</div>
+<div class='text'>
+ 	<p>Predict the <span style='color: #72bcd4;'>blue</span> bars...</p>
+</div>
+<div class='monkey' id='monkey'>
+	<img src="img/monkey.png" width=100px>
+</div>
+<div class='end'>
+	<button class="button disabled" id="button">Make my predictions!</button>
+</div>
+<div class='text'>
+<p><a id="error"></a></p>
+</div>
+
+
+</body>
+</html>
