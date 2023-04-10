@@ -51,10 +51,14 @@ $(document).ready(function(){
 		$(whichbar).toggleClass("unselected");
 	});
 	
+	var clickableBars = selectedBars.map((c) => {
+		var bar = c+1
+		var whichbar = '.container :nth-child('+bar+')'
+		$(whichbar).addClass('clickable');
+	});
 	
 	
-	
-    $('.bar').click(function() {
+    $('.clickable').click(function() {
       $(this).append('<img class="apple" src="img/clear_apple.png" width=50px height=50px>');
       	if(selectedBars.map(element => {
             var bar = element+1
@@ -62,7 +66,7 @@ $(document).ready(function(){
             return $(whichbar).children('img').length > 0
         }).every((v) => v === true)){
 			$('.button').removeClass('disabled');
-		}
+		}  
     });
 
 	$('.button').click(function() {
@@ -85,14 +89,16 @@ $(document).ready(function(){
 			for (let i = 0; i < apples; i++){
 				$(whichbar).append('<img class="apple" src="img/apple.png" width=50px height=50px>')
 				$(whichbar).children('img').addClass('ghostapple');
+				$(whichbar).children('img').css('cursor', 'not-allowed');
+				$('.container :nth-child('+bar+')').removeClass('clickable');
+				$('.container :nth-child('+bar+')').children('img').css('cursor', 'not-allowed');
+				$('.container :nth-child('+bar+')').children('img').css('pointer-events', 'none');
 			}
+		});
+		
 		$('.ghostbars').show();
 		
-		var disableBars = allBars.map((c) => {
-			var bar = c+1
-			var whichbar = '.ghostbars :nth-child('+bar+')'
-		})
-	});
+		
 		
 		document.getElementById('error').innerHTML = "Your error was: " + appsoluteError.reduce((a, b) => a + b, 0) + " apples!"
 	});
@@ -110,6 +116,10 @@ $(document).ready(function(){
 	display: flex;
 	text-align: center;
 	margin-top: 20px;
+}
+
+.clickable {
+	
 }
 
 .bar {
