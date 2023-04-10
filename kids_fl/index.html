@@ -10,12 +10,9 @@ $(document).ready(function(){
 	const controller = new AbortController();
 
 	const urlParams = new URLSearchParams(window.location.search)
-	if(urlParams.has('c')){
-		var clicked = parseInt(urlParams.get('c'))
-	}else{
-	// default = 5 bars
-		var clicked = 1
-	}
+
+	var clicked = 1
+	
 	barsChosen = []
 	
 	var allBars = [0]
@@ -39,7 +36,7 @@ $(document).ready(function(){
 	$('.button').hide()
 	$('.button').click(function() {
 	  var predictions = JSON.stringify(barsChosen)
-	  window.location.href = './sample.html'
+	  window.location.href = './sample.html?c=' + urlParams.get('c') + '&function=' + urlParams.get('function')
 	})
 	
     $('.bar').click(function() {
@@ -64,37 +61,37 @@ $(document).ready(function(){
        
     });
     
-function isTouchDevice() {
-  try {
-    //We try to create TouchEvent. It would fail for desktops and throw error
-    document.createEvent("TouchEvent");
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-const move = (e) => {
-	let monkey = document.getElementById('monkey')
-  //Try, catch to avoid any errors for touch screens (Error thrown when user doesn't move his finger)
-  try {
-    //PageX and PageY return the position of client's cursor from top left of screen
-    var x = !isTouchDevice() ? e.pageX : e.touches[0].pageX;
-    var y = !isTouchDevice() ? e.pageY : e.touches[0].pageY;
-  } catch (e) {}
-  //set left and top of div based on mouse position
-  monkey.style.left = x + 50 + "px";
-//   monkey.style.top = y + 50 + "px";
-};
-
-//For mouse
-document.addEventListener("mousemove", (e) => {
-  move(e);
-}, { signal: controller.signal });
-//For touch
-document.addEventListener("touchmove", (e) => {
-  move(e);
-}, { signal: controller.signal });
+// function isTouchDevice() {
+//   try {
+//     //We try to create TouchEvent. It would fail for desktops and throw error
+//     document.createEvent("TouchEvent");
+//     return true;
+//   } catch (e) {
+//     return false;
+//   }
+// }
+// 
+// const move = (e) => {
+// 	let monkey = document.getElementById('monkey')
+//   //Try, catch to avoid any errors for touch screens (Error thrown when user doesn't move his finger)
+//   try {
+//     //PageX and PageY return the position of client's cursor from top left of screen
+//     var x = !isTouchDevice() ? e.pageX : e.touches[0].pageX;
+//     var y = !isTouchDevice() ? e.pageY : e.touches[0].pageY;
+//   } catch (e) {}
+//   //set left and top of div based on mouse position
+//   monkey.style.left = x + 50 + "px";
+// //   monkey.style.top = y + 50 + "px";
+// };
+// 
+// //For mouse
+// document.addEventListener("mousemove", (e) => {
+//   move(e);
+// }, { signal: controller.signal });
+// //For touch
+// document.addEventListener("touchmove", (e) => {
+//   move(e);
+// }, { signal: controller.signal });
 
 });
 
