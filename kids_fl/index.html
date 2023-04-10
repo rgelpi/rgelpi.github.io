@@ -10,24 +10,43 @@ $(document).ready(function(){
 	const controller = new AbortController();
 
 	const urlParams = new URLSearchParams(window.location.search)
-
+	
+	// How many samples?
 	var clicked = 1
-	
-	barsChosen = []
-	
-	var allBars = [0]
-	var numApples = [5]
-	
-	for(let i = 0; i < 1; i++){
-		$('.trees').append('<img class="tree" src="img/tree.png" width=70px height=70px>')
+	// change defaults
+	if(urlParams.get('c') !== 'null' && urlParams.has('c')){
+		clicked = parseInt(urlParams.get('c'))
 	}
+	
+	// Apple function
+	var numApples = [0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0]
+	
+	var allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+	
+	var hiddenBars = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12]
+	
+	var disableBars = hiddenBars.map((c) => {
+		var bar = c+1
+		var whichbar = '.container :nth-child('+bar+')'
+		$(whichbar).toggleClass("clicked");
+	});
+	
+	for(let i = 0; i < 13; i++){
+		if(i !== 6){
+			$('.trees').append('<div class="tree" style="opacity: 0"><img src="img/tree.png"></div>')
+		}else{
+			$('.trees').append('<div class="tree"><img src="img/tree.png"></div>')
+		}
+		
+	}
+	
 	
 	var addApples = allBars.map((c) => {
 		var bar = c+1
 		var whichbar = '.container :nth-child('+bar+')'
 		var apples = numApples[c]
 		for (let i = 0; i < apples; i++){
-			$(whichbar).append('<img hidden class="apple" src="img/apple.png" width=50px height=50px>')
+			$(whichbar).append('<img hidden class="apple" src="img/apple.png">')
 		}
 	});
 	
@@ -35,8 +54,7 @@ $(document).ready(function(){
 	
 	$('.button').hide()
 	$('.button').click(function() {
-	  var predictions = JSON.stringify(barsChosen)
-	  window.location.href = './sample.html?c=' + urlParams.get('c') + '&function=' + urlParams.get('function')
+	  window.location.href = './sample.html?c=' + urlParams.get('c') + '&function=' + urlParams.get('function');
 	})
 	
     $('.bar').click(function() {
@@ -44,21 +62,7 @@ $(document).ready(function(){
       	$(this).toggleClass("clicked");
         $(this).children('img').toggle("show")
       }
-      clicked -= 1
-      if(clicked < 1){
-		controller.abort();
-      }
-      barsChosen.push($('.bar').index( this ))
-      
-      
-      if(clicked == 0){
-        $('.button').show()
-        var remainingBars = allBars.filter(value => !barsChosen.includes(value))
-	    console.log(remainingBars)
-	    localStorage['barsChosen'] = barsChosen
-	    localStorage['remainingBars'] = remainingBars
-      }
-       
+      $('.button').show()
     });
     
 // function isTouchDevice() {
@@ -101,14 +105,17 @@ $(document).ready(function(){
 <style>
 .container {
 	display: flex;
+	height: calc(100vh - 300px);
+	width: 100%;
 	text-align: center;
 	margin-top: 20px;
 }
 
 .bar {
-	margin-left: 610px;
-	width: 50px;
-	height: 500px;
+	margin-left: 0.5%;
+	margin-right: 0.5%;
+	flex: 1 1 0px;
+	flex-grow: 1;
 	padding: 20px 20px;
 	border: 5px #fff;
 	text-align: center;
@@ -130,20 +137,21 @@ $(document).ready(function(){
 
 .text, .end {
 	text-align: center;
-	width: 1400px;
+	flex: 1 1 0px;
+	max-width: 100%;
 	font-family: Noto, Geneva, Sans-serif;
-	font-size: 36px;
+	font-size: 30px;
 }
 
 .button {
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 10px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 24px;
   transition-duration: 0.4s;
 }
 
@@ -168,7 +176,8 @@ $(document).ready(function(){
 }
 
 .trees {
-	width: 1400px;
+	width: 100%;
+	flex: 1 1 0px;
 	height: 100px;
 	text-align: center;
 	display: flex;
@@ -177,12 +186,20 @@ $(document).ready(function(){
 }
 
 .tree {
-	margin-left: 610px;
-	padding: 10px 10px;
+	position: relative;
+	flex: 1 1 0px;
+	margin-left: 0.5%;
+	margin-right: 0.5%;
+	padding: 5px 5px;
 }
 
 body {
 	touch-action: manipulation;
+}
+
+img {
+	max-width: 100%;
+	aspect-ratio: 1/1;
 }
 
 </style>
@@ -192,7 +209,56 @@ body {
 
 		<div class="bar">
 		
+		</div>
+		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
 		</div>	 		 		 		
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div> 
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 			 		 		 		
  			
 </div>
 
@@ -209,7 +275,7 @@ body {
 </div>
  -->
 <div class='end'>
-	<button class="button" id="button">I'm ready to play!</button>
+	<button class="button" id="button">Ok, I got it!</button>
 </div>
 
 
