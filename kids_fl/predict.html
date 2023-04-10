@@ -14,6 +14,9 @@ $(document).ready(function(){
 		var predictions = [1, 3, 4, 6, 9]
 	}
 	
+	$('.ghostbars').hide();
+	$('.ghostbars').children('div').css('background-color','rgba(255, 255, 255, 0)')
+	
 	const allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 	const numApples = [1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1]
 	
@@ -38,6 +41,10 @@ $(document).ready(function(){
 		
 	});
 	
+	for(let i = 0; i < 14; i++){
+		$('.trees').append('<img class="tree" src="img/tree.png" width=70px height=70px>')
+	}
+	
 	var disableBars = unselectedBars.map((c) => {
 		var bar = c+1
 		var whichbar = '.container :nth-child('+bar+')'
@@ -48,7 +55,7 @@ $(document).ready(function(){
 	
 	
     $('.bar').click(function() {
-      $(this).append('<img class="apple" src="img/apple.png" width=50px height=50px>');
+      $(this).append('<img class="apple" src="img/clear_apple.png" width=50px height=50px>');
       	if(selectedBars.map(element => {
             var bar = element+1
             var whichbar = '.container :nth-child('+bar+')'
@@ -69,7 +76,25 @@ $(document).ready(function(){
 			
 		});
 		
-		document.getElementById('error').innerHTML = "Your error was: " + appsoluteError.reduce((a, b) => a + b, 0)
+		var applesAtBarsSelected = selectedBars.map((c) => { return numApples[c] })
+	
+		var addSelectedApples = selectedBars.map((c) => {
+			var bar = c+1
+			var whichbar = '.ghostbars :nth-child('+bar+')'
+			var apples = numApples[c]
+			for (let i = 0; i < apples; i++){
+				$(whichbar).append('<img class="apple" src="img/apple.png" width=50px height=50px>')
+				$(whichbar).children('img').addClass('ghostapple');
+			}
+		$('.ghostbars').show();
+		
+		var disableBars = allBars.map((c) => {
+			var bar = c+1
+			var whichbar = '.ghostbars :nth-child('+bar+')'
+		})
+	});
+		
+		document.getElementById('error').innerHTML = "Your error was: " + appsoluteError.reduce((a, b) => a + b, 0) + " apples!"
 	});
 
 });
@@ -115,6 +140,10 @@ $(document).ready(function(){
 	bottom: 0;
 }
 
+.ghostapple {
+	opacity: 0.3;
+}
+
 .text, .end {
 	text-align: center;
 	width: 1400px;
@@ -153,9 +182,105 @@ $(document).ready(function(){
   margin-left: 1400px;
 }
 
+.trees {
+	width: 1400px;
+	height: 100px;
+	text-align: center;
+	display: flex;
+	background-color: white;
+    flex-direction: row;
+}
+
+.tree {
+	margin-left: 10px;
+	padding: 10px 10px;
+}
+
+.ghostbars {
+	position: absolute;
+	display: flex;
+	text-align: center;
+	margin-top: 0px;
+	margin-left: 0px;
+	cursor: not-allowed;
+	
+}
+
 </style>
 </head>
 <body>
+
+<div hidden id="ghostbars" class="ghostbars">
+
+ 		<div class="bar">
+ 			
+ 		</div> 	
+		
+ 		<div class="bar">
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 		 		 		 		
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div>
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 	
+ 		
+ 		<div class="bar">
+
+ 			
+ 		</div> 		 		 		 		
+ 			
+</div>
+
 <div id="container" class="container">
 
  		<div class="bar">
@@ -226,8 +351,13 @@ $(document).ready(function(){
  		</div> 		 		 		 		
  			
 </div>
+
+<div class="trees">
+
+</div>
+
 <div class='text'>
- 	<p>Predict the <span style='color: #72bcd4;'>blue</span> bars...</p>
+ 	<p><a id="error">Predict the <span style='color: #72bcd4;'>blue</span> bars...</a></p>
 </div>
 <div class='monkey' id='monkey'>
 	<img src="img/monkey.png" width=100px>

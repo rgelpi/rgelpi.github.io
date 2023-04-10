@@ -14,14 +14,14 @@ $(document).ready(function(){
 		var clicked = parseInt(urlParams.get('c'))
 	}else{
 	// default = 5 bars
-		var clicked = 1
+		var clicked = 5
 	}
 	barsChosen = []
 	
-	var allBars = [0]
-	var numApples = [5]
+	var allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+	var numApples = [1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1]
 	
-	for(let i = 0; i < 1; i++){
+	for(let i = 0; i < 14; i++){
 		$('.trees').append('<img class="tree" src="img/tree.png" width=70px height=70px>')
 	}
 	
@@ -34,12 +34,12 @@ $(document).ready(function(){
 		}
 	});
 	
-	document.getElementById('howmany').innerHTML = "Click the bar!"
+	document.getElementById('howmany').innerHTML = clicked + " bars left"
 	
 	$('.button').hide()
 	$('.button').click(function() {
 	  var predictions = JSON.stringify(barsChosen)
-	  window.location.href = './sample.html'
+	  window.location.href = './predict.html?predict=' + predictions;
 	})
 	
     $('.bar').click(function() {
@@ -48,7 +48,12 @@ $(document).ready(function(){
         $(this).children('img').toggle("show")
       }
       clicked -= 1
-      if(clicked < 1){
+      if(clicked > 1){
+    	document.getElementById('howmany').innerHTML = clicked + " bars left"    
+      }else if(clicked == 1){
+    	document.getElementById('howmany').innerHTML = "Last bar!"
+      }else{
+    	document.getElementById('howmany').innerHTML = "No more bars!"
 		controller.abort();
       }
       barsChosen.push($('.bar').index( this ))
@@ -109,7 +114,7 @@ document.addEventListener("touchmove", (e) => {
 }
 
 .bar {
-	margin-left: 610px;
+	margin-left: 10px;
 	width: 50px;
 	height: 500px;
 	padding: 20px 20px;
@@ -180,7 +185,7 @@ document.addEventListener("touchmove", (e) => {
 }
 
 .tree {
-	margin-left: 610px;
+	margin-left: 10px;
 	padding: 10px 10px;
 }
 
@@ -189,6 +194,58 @@ document.addEventListener("touchmove", (e) => {
 <body>
 <div id="container" class="container">
 
+		<div class="bar">
+		
+		</div>
+		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>	 		 		 		
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div> 
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
+		<div class="bar">
+		
+		</div>
+ 		
 		<div class="bar">
 		
 		</div>	 		 		 		
@@ -206,7 +263,7 @@ document.addEventListener("touchmove", (e) => {
 	<img src="img/monkey.png" width=100px>
 </div>
 <div class='end'>
-	<button class="button" id="button">I'm ready to play!</button>
+	<button class="button" id="button">I'm ready to predict!</button>
 </div>
 
 
