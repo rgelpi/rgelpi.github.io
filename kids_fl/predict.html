@@ -38,7 +38,7 @@ $(document).ready(function(){
 	var applesAtBarsChosen = barsChosen.map((c) => { return numApples[c] })
 	
 	var addApples = barsChosen.map((c) => {
-		var bar = c+2
+		var bar = c+1
 		var whichbar = '.container :nth-child('+bar+')'
 		var apples = numApples[c]
 		$(whichbar).toggleClass("clicked");
@@ -48,20 +48,18 @@ $(document).ready(function(){
 		
 	});
 	
-	$('.trees').append('<div class="whitespace"></div>')
 	for(let i = 0; i < 14; i++){
 		$('.trees').append('<div class="tree"><img src="img/tree.png"></div>')
 	}
-	$('.trees').append('<div class="whitespace"></div>')
 	
 	var disableBars = unselectedBars.map((c) => {
-		var bar = c+2
+		var bar = c+1
 		var whichbar = '.container :nth-child('+bar+')'
 		$(whichbar).toggleClass("unselected");
 	});
 	
 	var clickableBars = selectedBars.map((c) => {
-		var bar = c+2
+		var bar = c+1
 		var whichbar = '.container :nth-child('+bar+')'
 		$(whichbar).addClass('clickable');
 	});
@@ -84,7 +82,7 @@ $(document).ready(function(){
 	$('.button').click(function() {
 		if(!done){
 		var appsoluteError = selectedBars.map((c) => {
-			var bar = c+2
+			var bar = c+1
 			var whichbar = '.container :nth-child('+bar+')'
 			var trueApples = numApples[c]
 			var guessedApples = $(whichbar).children('div').children('img').length
@@ -96,7 +94,7 @@ $(document).ready(function(){
 		var applesAtBarsSelected = selectedBars.map((c) => { return numApples[c] })
 	
 		var addSelectedApples = selectedBars.map((c) => {
-			var bar = c+2
+			var bar = c+1
 			var whichbar = '.ghostbars :nth-child('+bar+')'
 			var apples = numApples[c]
 			for (let i = 0; i < apples; i++){
@@ -137,7 +135,8 @@ $(document).ready(function(){
 .container {
 	display: flex;
 	height: calc(100vh - 300px);
-	width: 100%;
+	width: 90%;
+	margin-left: 5%;
 	text-align: center;
 	margin-top: 20px;
 }
@@ -157,18 +156,10 @@ $(document).ready(function(){
 }
 
 .whitespace {
-	margin-left: 0.5%;
-	margin-right: 0.5%;
-	width: 3%;
+
+	width: 5%;
 	height: auto;
-	padding: 20px 20px;
-	border: 5px #fff;
-	text-align: center;
-	display: flex;
-	justify-content: flex-end;
-    flex-direction: column;
-    background-color: white;
-	pointer-events: none;
+
 }
 
 .bar.clicked {
@@ -231,7 +222,8 @@ $(document).ready(function(){
 }
 
 .trees {
-	width: 100%;
+	width: 90%;
+	margin-left: 5%;
 	flex: 1 1 0px;
 	height: 100px;
 	text-align: center;
@@ -252,7 +244,8 @@ $(document).ready(function(){
 	position: absolute;
 	height: calc(100vh - 300px);
 	display: flex;
-	width: 100%;
+	width: 90%;
+	margin-left: 5%;
 	text-align: center;
 	cursor: not-allowed;
 	
@@ -272,10 +265,6 @@ body {
 <body>
 
 <div hidden id="ghostbars" class="ghostbars">
-
-		<div class="whitespace">
-		
-		</div>
 
  		<div class="bar">
  			
@@ -344,19 +333,11 @@ body {
  			
  		</div> 
  		
- 		<div class="whitespace">
-		
-		</div>
- 		
  		<div style="width:16px;"></div>		 		 		 		
  			
 </div>
 
 <div id="container" class="container">
-
- 		<div class="whitespace">
-		
-		</div>
 
  		<div class="bar">
  			
@@ -423,11 +404,7 @@ body {
  		<div class="bar">
 
  			
- 		</div> 		 	
- 		
- 		<div class="whitespace">
-		
-		</div>	 		 		
+ 		</div> 		 		 		 		
  			
 </div>
 
