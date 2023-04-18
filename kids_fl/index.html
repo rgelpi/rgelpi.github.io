@@ -46,7 +46,7 @@ $(document).ready(function(){
 		var whichbar = '.container :nth-child('+bar+')'
 		var apples = numApples[c]
 		for (let i = 0; i < apples; i++){
-			$(whichbar).append('<img hidden class="apple" src="img/apple.png">')
+			$(whichbar).append('<div class="img"><img hidden class="apple" src="img/apple.png"></div>')
 		}
 	});
 	
@@ -60,7 +60,7 @@ $(document).ready(function(){
     $('.bar').click(function() {
       if(clicked > 0){
       	$(this).toggleClass("clicked");
-        $(this).children('img').toggle("show")
+        $(this).children('div').children('img').toggle("show")
       }
       $('.button').show()
     });

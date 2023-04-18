@@ -43,7 +43,7 @@ $(document).ready(function(){
 		var apples = numApples[c]
 		$(whichbar).toggleClass("clicked");
 		for (let i = 0; i < apples; i++){
-			$(whichbar).append('<img class="apple" src="img/apple.png">')
+			$(whichbar).append('<div class="img"><img class="apple" src="img/apple.png"></div>')
 		}
 		
 	});
@@ -66,13 +66,13 @@ $(document).ready(function(){
 	
 	
     $('.clickable').click(function() {
-        if($(this).children('img').length < 14){
-        	$(this).append('<img class="apple" src="img/clear_apple.png">');
+        if($(this).children('div').children('img').length < 14){
+        	$(this).append('<div class="img"><img class="apple" src="img/clear_apple.png"></div>');
         }
       	if(selectedBars.map(element => {
             var bar = element+1
             var whichbar = '.container :nth-child('+bar+')'
-            return $(whichbar).children('img').length > 0
+            return $(whichbar).children('div').children('img').length > 0
         }).every((v) => v === true)){
 			$('.button').removeClass('disabled');
 		}  
@@ -85,7 +85,7 @@ $(document).ready(function(){
 			var bar = c+1
 			var whichbar = '.container :nth-child('+bar+')'
 			var trueApples = numApples[c]
-			var guessedApples = $(whichbar).children('img').length
+			var guessedApples = $(whichbar).children('div').children('img').length
 			
 			return Math.abs(trueApples - guessedApples)
 			
@@ -98,12 +98,12 @@ $(document).ready(function(){
 			var whichbar = '.ghostbars :nth-child('+bar+')'
 			var apples = numApples[c]
 			for (let i = 0; i < apples; i++){
-				$(whichbar).append('<img class="apple" src="img/apple.png">')
-				$(whichbar).children('img').addClass('ghostapple');
-				$(whichbar).children('img').css('cursor', 'not-allowed');
+				$(whichbar).append('<div class="img"><img class="apple" src="img/apple.png"></div>')
+				$(whichbar).children('div').children('img').addClass('ghostapple');
+				$(whichbar).children('div').children('img').css('cursor', 'not-allowed');
 				$('.container :nth-child('+bar+')').removeClass('clickable');
-				$('.container :nth-child('+bar+')').children('img').css('cursor', 'not-allowed');
-				$('.container :nth-child('+bar+')').children('img').css('pointer-events', 'none');
+				$('.container :nth-child('+bar+')').children('div').children('img').css('cursor', 'not-allowed');
+				$('.container :nth-child('+bar+')').children('div').children('img').css('pointer-events', 'none');
 			}
 		});
 		

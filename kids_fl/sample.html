@@ -55,7 +55,7 @@ $(document).ready(function(){
     $('.bar').click(function() {
       if(clicked > 0){
       	$(this).toggleClass("clicked");
-        $(this).children('img').toggle("show")
+        $(this).children('div').children('img').toggle("show")
         barsChosen.push($('.bar').index( this ))
       }
       clicked -= 1
