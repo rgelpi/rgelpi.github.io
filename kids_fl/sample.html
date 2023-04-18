@@ -31,12 +31,14 @@ $(document).ready(function(){
 	
 	var allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 	
+	$('.trees').append('<div class="whitespace"></div>')
 	for(let i = 0; i < 14; i++){
 		$('.trees').append('<div class="tree"><img src="img/tree.png"></div>')
 	}
+	$('.trees').append('<div class="whitespace"></div>')
 	
 	var addApples = allBars.map((c) => {
-		var bar = c+1
+		var bar = c+2
 		var whichbar = '.container :nth-child('+bar+')'
 		var apples = numApples[c]
 		for (let i = 0; i < apples; i++){
@@ -121,6 +123,21 @@ $(document).ready(function(){
 	width: 100%;
 	text-align: center;
 	margin-top: 20px;
+}
+
+.whitespace {
+	margin-left: 0.5%;
+	margin-right: 0.5%;
+	width: 5%;
+	height: auto;
+	padding: 20px 20px;
+	border: 5px #fff;
+	text-align: center;
+	display: flex;
+	justify-content: flex-end;
+    flex-direction: column;
+    background-color: white;
+	pointer-events: none;
 }
 
 .bar {
@@ -220,6 +237,10 @@ img {
 <body>
 <div id="container" class="container">
 
+ 		<div class="whitespace">
+		
+		</div>
+
 		<div class="bar">
 		
 		</div>
@@ -273,6 +294,10 @@ img {
 		</div>
  		
 		<div class="bar">
+		
+		</div>
+		
+		<div class="whitespace">
 		
 		</div>	 		 		 		
  			

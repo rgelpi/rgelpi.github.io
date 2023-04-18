@@ -26,13 +26,13 @@ $(document).ready(function(){
 	var hiddenBars = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12]
 	
 	var disableBars = hiddenBars.map((c) => {
-		var bar = c+1
+		var bar = c+2
 		var whichbar = '.container :nth-child('+bar+')'
 		$(whichbar).toggleClass("clicked");
 	});
 	
-	for(let i = 0; i < 13; i++){
-		if(i !== 6){
+	for(let i = 0; i < 15; i++){
+		if(i !== 7){
 			$('.trees').append('<div class="tree" style="opacity: 0"><img src="img/tree.png"></div>')
 		}else{
 			$('.trees').append('<div class="tree"><img src="img/tree.png"></div>')
@@ -109,6 +109,21 @@ $(document).ready(function(){
 	width: 100%;
 	text-align: center;
 	margin-top: 20px;
+}
+
+.whitespace {
+	margin-left: 0.5%;
+	margin-right: 0.5%;
+	width: 5%;
+	height: auto;
+	padding: 20px 20px;
+	border: 5px #fff;
+	text-align: center;
+	display: flex;
+	justify-content: flex-end;
+    flex-direction: column;
+    background-color: white;
+	pointer-events: none;
 }
 
 .bar {
@@ -207,6 +222,8 @@ img {
 <body>
 <div id="container" class="container">
 
+		<div class="whitespace"></div>
+
 		<div class="bar">
 		
 		</div>
@@ -258,6 +275,8 @@ img {
 		<div class="bar">
 		
 		</div>
+		
+		<div class="whitespace"></div>
  			 		 		 		
  			
 </div>
