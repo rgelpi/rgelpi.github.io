@@ -56,6 +56,7 @@ $(document).ready(function(){
       if(clicked > 0){
       	$(this).toggleClass("clicked");
         $(this).children('img').toggle("show")
+        barsChosen.push($('.bar').index( this ))
       }
       clicked -= 1
       if(clicked > 1){
@@ -66,9 +67,6 @@ $(document).ready(function(){
     	document.getElementById('howmany').innerHTML = "No more bars!"
 		controller.abort();
       }
-      barsChosen.push($('.bar').index( this ))
-      
-      
       if(clicked == 0){
         $('.button').show()
         var remainingBars = allBars.filter(value => !barsChosen.includes(value))
@@ -213,6 +211,7 @@ body {
 
 img {
 	max-width: 100%;
+	max-height: 100%;
 	aspect-ratio: 1/1;
 }
 
