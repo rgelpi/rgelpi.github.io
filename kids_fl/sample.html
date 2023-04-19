@@ -42,7 +42,12 @@ $(document).ready(function(){
 		var whichbar = '.container :nth-child('+bar+')'
 		var apples = numApples[c]
 		for (let i = 0; i < apples; i++){
-			$(whichbar).append('<div class="img"><img hidden class="apple" src="img/apple.png"></div>')
+			$(whichbar).each(function(idx, li) {
+				var obj = $(li);
+				if(obj.hasClass('bar')){
+					obj.append('<div class="img"><img hidden class="apple" src="img/apple.png"></div>')
+				}
+			});
 		}
 	});
 	
