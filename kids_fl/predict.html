@@ -41,9 +41,15 @@ $(document).ready(function(){
 		var bar = c+1
 		var whichbar = '.container :nth-child('+bar+')'
 		var apples = numApples[c]
+		console.log('Bar: ' + bar + '; Number of apples: ' + numApples[c])
 		$(whichbar).toggleClass("clicked");
 		for (let i = 0; i < apples; i++){
-			$(whichbar).append('<div class="img"><img class="apple" src="img/apple.png"></div>')
+			$(whichbar).each(function(idx, li) {
+				var obj = $(li);
+				if(obj.hasClass('bar')){
+					obj.append('<div class="img"><img class="apple" src="img/apple.png"></div>')
+				}
+			});
 		}
 		
 	});
