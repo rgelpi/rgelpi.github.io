@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-	$('.button').data('mode', 'sample');
+	$('.button').data('mode', 'practice');
 	
 	$('.button').click(function() {
 		if(this.id == 'default-button') {
