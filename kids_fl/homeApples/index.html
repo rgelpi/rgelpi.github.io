@@ -1,0 +1,53 @@
+<!-- perhaps the "home" page can specify the default clikcs and default function -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- web sockets -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script src="index.js"></script>
+        <link rel="stylesheet" href="../index.css" />
+    </head>
+
+    <body>
+
+        <div class="text">
+            <p>
+            	<label for="c">
+            		Enter the number of samples desired:
+            	</label>
+            	<input 
+            		type="text" 
+            		id="c" 
+            		class="c"
+            		placeholder="Number (default: 5)" />
+            </p>
+            <p>
+            	<label for="button">
+            		Mode:
+            	</label>
+            	<button class="button" id="add-button" style="font-size: 2vw;">
+            		<span class="button-text">Sample + predict</span>
+            	</button>
+            </p>
+        </div>
+
+        <div class="end">
+            <button class="default-button" id="default-button-gaussian">
+                Gaussian
+    		</button>
+    		<button class="default-button" id="default-button-neglin">
+                Neglin
+    		</button>
+    		<button class="default-button" id="default-button-expon">
+                Expon
+    		</button>
+    		<button class="default-button" id="default-button-linpred">
+                Linpred
+    		</button>
+    		<button class="default-button" id="default-button-exppred">
+                Exppred
+    		</button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,202 @@
+@font-face {
+    font-family: JockeyOne;
+    src: local(JockeyOne),
+        url("../fonts/Jockey_One/JockeyOne-Regular.ttf") format("truetype");
+}
+
+* {
+    font-family: JockeyOne, Noto, Geneva, Sans-serif;
+    text-align: center;
+}
+
+html {
+    display: table;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    touch-action: manipulation;
+
+    margin: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    background-color: #f9f7f7;
+}
+
+img {
+    max-width: 100%;
+}
+
+input[type=text] {
+	border-radius: 20px;
+	display: inline-block;
+	padding: 0.5%;
+	font-size: 16px;
+}
+
+.text {
+    font-size: 24px;
+    padding: 1.5%;
+}
+
+/* BARS */
+.container {
+    display: flex;
+    height: 55vh;
+    width: 90vw;
+    margin: auto;
+}
+
+.bar {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    flex: 1 1 0px;
+    flex-grow: 1;
+    padding: 1% 1%;
+    display: flex;
+    background-color: #9ec4e7;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.bar.clicked {
+    background-color: #f9f7f7;
+    pointer-events: none;
+}
+
+.bar.unselected {
+    background-color: lightgrey;
+    pointer-events: none;
+}
+
+.ghost-bars {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    height: 55vh;
+    width: 90vw;
+    margin: auto;
+
+    cursor: not-allowed;
+}
+
+/* DECORATIONS */
+.apple {
+    position: relative;
+    bottom: 0;
+}
+
+.ghost-apple {
+    opacity: 0.5;
+}
+
+.trees {
+    margin: auto;
+    width: 90vw;
+    flex: 1 1 0px;
+    text-align: center;
+    display: flex;
+    background-color: #f9f7f7;
+    flex-direction: row;
+}
+
+.tree {
+    position: relative;
+    flex: 1 1 0px;
+    padding-left: 0.75%;
+    padding-right: 0.75%;
+}
+
+.lines {
+    width: 90vw;
+    margin: auto;
+    flex: 1 1 0px;
+    text-align: center;
+    display: flex;
+    background-color: #f9f7f7;
+    flex-direction: row;
+    object-fit: contain;
+}
+
+.time {
+    padding-bottom: 1.5%;
+}
+
+/* BUTTONS */
+button {
+    transition-duration: 0.4s;
+
+    align-items: center;
+    margin-right: 24px;
+    margin-left: 24px;
+
+    text-align: center;
+    font-size: 2.75vw;
+
+    border-radius: 25px;
+    background-color: #79acff;
+    padding: 15px 25px 15px 25px;
+    color: #ffffff;
+
+    outline: none;
+    border: none;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#default-button {
+    background-color: #0079ff; /* Blue */
+}
+
+#default-button:hover {
+    background-color: #0056b8; /* Dark Blue */
+}
+
+#add-button {
+    background-color: #00dfa2; /* Green */
+}
+
+#add-button:hover {
+    background-color: #00b887; /* Dark Green */
+}
+
+#subtract-button {
+    background-color: #ff0060; /* Red */
+}
+
+#subtract-button:hover {
+    background-color: #b80046; /* Dark Red */
+}
+
+/* MODES */
+.add-mode {
+    /* background-color: #85ffde; */
+    background-color: rgba(133, 255, 222, 0.5); /* Light Green */
+}
+
+.subtract-mode {
+    /* background-color: #ff85b4; */
+    background-color: rgba(255, 133, 180, 0.5); /* Light Red */
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
