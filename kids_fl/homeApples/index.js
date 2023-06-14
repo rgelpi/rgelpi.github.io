@@ -3,14 +3,18 @@ $(document).ready(function () {
 	$('.button').data('mode', 'sample');
 	
 	$('.button').click(function() {
-		if(this.id == 'add-button') {
+		if(this.id == 'default-button') {
 			$('.button').prop('id', 'subtract-button');
 			$('span', this).text('Predict only');
 			$('.button').data('mode', 'predict');
-		}else{
+		}else if(this.id == 'subtract-button'){
 			$('.button').prop('id', 'add-button');
 			$('span', this).text('Sample + predict');
 			$('.button').data('mode', 'sample');
+		}else{
+			$('.button').prop('id', 'default-button');
+			$('span', this).text('Practice');
+			$('.button').data('mode', 'practice');
 		}
 	});
     
