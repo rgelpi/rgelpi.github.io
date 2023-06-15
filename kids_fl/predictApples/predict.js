@@ -6,7 +6,7 @@ $(document).ready(function () {
         var predictions = JSON.parse(urlParams.get("predict"));
     } else {
         // default clicked bars
-        var predictions = [0, 3, 6, 9, 13];
+        var predictions = [3, 5, 7, 9, 11];
     }
 
     $(".ghost-bars").hide();
@@ -15,22 +15,24 @@ $(document).ready(function () {
         .css("background-color", "rgba(255, 255, 255, 0)");
 
     // apple function
-    var numApples = [1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1];
+    var numApples = [];
 
     // specify which function
     if (urlParams.get("function") === "gaussian") {
-        numApples = [1, 2, 5, 8, 11, 13, 14, 14, 13, 11, 8, 5, 2, 1];
-    } else if (urlParams.get("function") === "neglin") {
-        numApples = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-    } else if (urlParams.get("function") === "expon") {
-        numApples = [1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 6, 9, 14];
-    } else if (urlParams.get("function") === "linpred") {
-        numApples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-    } else if (urlParams.get("function") === "exppred") {
-        numApples = [14, 9, 6, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1];
+        numApples = [1, 2, 5, 8, 11, 13, 14, 15, 14, 13, 11, 8, 5, 2, 1];
+    } else if (urlParams.get("function") === "positive-linear") {
+        numApples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    } else if (urlParams.get("function") === "negative-linear") {
+        numApples = [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+    } else if (urlParams.get("function") === "positive-exponential") {
+        numApples = [1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 5, 6, 9, 15];
+    } else if (urlParams.get("function") === "negative-exponential") {
+        numApples = [15, 9, 6, 5, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1];
+    } else {
+        numApples = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     }
 
-    const allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    const allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     var barsChosen = predictions;
 
     // choose which bars to predict apples from
@@ -58,15 +60,16 @@ $(document).ready(function () {
     });
 
     // add trees
-    for (let i = 0; i < 14; i++) {
+    for (let i = 0; i < 15; i++) {
         $(".trees").append(
             '<div class="tree"><img src="../images/tree.png"></div>'
         );
-        $(".lines").append(
-            '<div class="line">' +
-                (i + 1) +
-                '<img src="../images/time.png"></div>'
-        );
+        // $(".lines").append(
+        //     '<div class="line">' +
+        //         (i + 1) +
+        //         '<img src="../images/time.png"></div>'
+        // );
+        $(".lines").append('<div class="line text">' + (i + 1) + "</div>");
     }
 
     // mark clickable bars

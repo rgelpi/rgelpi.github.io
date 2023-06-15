@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script src="home.js"></script>
+        <link rel="stylesheet" href="../index.css" />
+    </head>
+
+    <body>
+        <div class="text">Trials:</div>
+        <div class="buttons">
+            <button class="trial-button" id="practice-button">Practice</button>
+        </div>
+
+        <div class="buttons">
+            <button class="trial-button" id="sample-button">
+                Sample + Predict
+            </button>
+            <button class="trial-button" id="prediction-button">
+                Predict Only
+            </button>
+        </div>
+
+        <div class="text">Functions:</div>
+
+        <div class="buttons">
+            <button class="function-button disabled" id="gaussian">
+                Gaussian
+            </button>
+        </div>
+
+        <div class="buttons">
+            <button class="function-button disabled" id="positive-linear">
+                Positive Linear
+            </button>
+            <button class="function-button disabled" id="negative-linear">
+                Negative Linear
+            </button>
+        </div>
+
+        <div class="buttons">
+            <button class="function-button disabled" id="positive-exponential">
+                Positive Exponential
+            </button>
+            <button class="function-button disabled" id="negative-exponential">
+                Negative Exponential
+            </button>
+        </div>
+
+        <div class="text"></div>
+
+        <div class="buttons">
+            <div class="text">Number of Samples:</div>
+            <input
+                type="number"
+                name="clicks"
+                min="1"
+                max="15"
+                value="5"
+                required
+            />
+
+            <button id="next-button">Next Trial...</button>
+            <button id="finish-button">Finished!</button>
+        </div>
+    </body>
+</html>

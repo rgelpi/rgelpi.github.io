@@ -32,23 +32,23 @@ img {
     max-width: 100%;
 }
 
-input[type=text] {
-	border-radius: 20px;
-	display: inline-block;
-	padding: 0.5%;
-	font-size: 16px;
+input {
+    padding: 5px;
+    border: 2px solid #3381fe;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 }
 
 .text {
     font-size: 24px;
-    padding: 1.5%;
+    padding: 1.25%;
 }
 
 /* BARS */
 .container {
     display: flex;
     height: 55vh;
-    width: 90vw;
+    width: 85vw;
     margin: auto;
 }
 
@@ -81,7 +81,7 @@ input[type=text] {
 
     display: flex;
     height: 55vh;
-    width: 90vw;
+    width: 85vw;
     margin: auto;
 
     cursor: not-allowed;
@@ -91,15 +91,17 @@ input[type=text] {
 .apple {
     position: relative;
     bottom: 0;
+    max-width: 47.5%;
 }
 
 .ghost-apple {
     opacity: 0.5;
+    max-width: 47.5%;
 }
 
 .trees {
     margin: auto;
-    width: 90vw;
+    width: 85vw;
     flex: 1 1 0px;
     text-align: center;
     display: flex;
@@ -115,7 +117,7 @@ input[type=text] {
 }
 
 .lines {
-    width: 90vw;
+    width: 85vw;
     margin: auto;
     flex: 1 1 0px;
     text-align: center;
@@ -125,8 +127,11 @@ input[type=text] {
     object-fit: contain;
 }
 
-.time {
-    padding-bottom: 1.5%;
+.line {
+    position: relative;
+    flex: 1 1 0px;
+    padding-left: 0.75%;
+    padding-right: 0.75%;
 }
 
 /* BUTTONS */
@@ -138,7 +143,7 @@ button {
     margin-left: 24px;
 
     text-align: center;
-    font-size: 2.75vw;
+    font-size: 1.8vw;
 
     border-radius: 25px;
     background-color: #79acff;
@@ -157,22 +162,28 @@ button {
 .buttons {
     display: flex;
     flex-direction: row;
+
     justify-content: center;
+    padding: 0.5%;
 }
 
-#default-button {
+#default-button,
+#next-button {
     background-color: #0079ff; /* Blue */
 }
 
-#default-button:hover {
+#default-button:hover,
+#next-button:hover {
     background-color: #0056b8; /* Dark Blue */
 }
 
-#add-button {
+#add-button,
+#finish-button {
     background-color: #00dfa2; /* Green */
 }
 
-#add-button:hover {
+#add-button:hover,
+#finish-button:hover {
     background-color: #00b887; /* Dark Green */
 }
 
@@ -182,6 +193,31 @@ button {
 
 #subtract-button:hover {
     background-color: #b80046; /* Dark Red */
+}
+
+.trial-button {
+    background-color: #4942e4; /* Dark Purple */
+}
+
+.trial-button:hover {
+    background-color: #3229e0; /* Darker Dark Purple */
+}
+
+.function-button {
+    background-color: #8696fe; /* Light Purple */
+}
+
+.function-button:hover {
+    background-color: #5d73fd; /* Darker Light Purple */
+}
+
+.pressed,
+.pressed:hover {
+    background: #e5e5e5;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+    outline: none;
 }
 
 /* MODES */
