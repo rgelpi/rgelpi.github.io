@@ -9,6 +9,8 @@ $(document).ready(function () {
         var predictions = [3, 5, 7, 9, 11];
     }
 
+    localStorage["chosenSamples"] = predictions;
+
     $(".ghost-bars").hide();
     $(".ghost-bars")
         .children("div")
@@ -64,12 +66,21 @@ $(document).ready(function () {
         $(".trees").append(
             '<div class="tree"><img src="../images/tree.png"></div>'
         );
+
         // $(".lines").append(
         //     '<div class="line">' +
         //         (i + 1) +
         //         '<img src="../images/time.png"></div>'
         // );
-        $(".lines").append('<div class="line text">' + (i + 1) + "</div>");
+
+        // $(".lines").append('<div class="line text">' + (i + 1) + "</div>");
+        // let calendar = <img src="../images/tree.png"></img>;
+
+        $(".lines").append(
+            '<div class="line"><img src="../images/calendar/cal' +
+                (i + 1) +
+                '.jpg"></img></div>'
+        );
     }
 
     // mark clickable bars
@@ -80,7 +91,7 @@ $(document).ready(function () {
         // $(".bar").addClass("add-mode");
     });
 
-    let isAddingMode;
+    let isAddingMode = true;
 
     // update display of apples being clicked and status of prediction button
     $(".clickable").click(function () {
@@ -111,10 +122,16 @@ $(document).ready(function () {
         }
     });
 
-    $("#add-button").click(function () {
+    let curMode = "add";
+
+    $(".add-button").click(function () {
         isAddingMode = true;
 
-        $(".bar").removeClass("subtract-mode").addClass("add-mode");
+        // $(".bar").removeClass("subtract-mode").addClass("add-mode");
+        if (curMode !== "add") {
+            $(".add-button").toggleClass("pressed");
+            $(".subtract-button").toggleClass("pressed");
+        }
 
         // enable button if there's at least one apple in each "selected" bar
         if (
@@ -132,12 +149,18 @@ $(document).ready(function () {
         } else {
             $("#default-button").addClass("disabled");
         }
+
+        curMode = "add";
     });
 
-    $("#subtract-button").click(function () {
+    $(".subtract-button").click(function () {
         isAddingMode = false;
 
-        $(".bar").removeClass("add-mode").addClass("subtract-mode");
+        // $(".bar").removeClass("add-mode").addClass("subtract-mode");
+        if (curMode !== "subtract") {
+            $(".subtract-button").toggleClass("pressed");
+            $(".add-button").toggleClass("pressed");
+        }
 
         // enable button if there's at least one apple in each "selected" bar
         if (
@@ -155,11 +178,17 @@ $(document).ready(function () {
         } else {
             $("#default-button").addClass("disabled");
         }
+
+        curMode = "subtract";
     });
 
     // update number of errors with the number of apples clicked
     var isDone = false;
     $("#default-button").click(function () {
+        // disable add and subtract buttons
+        $(".add-button").toggleClass("disabled");
+        $(".subtract-button").toggleClass("disabled");
+
         if (!isDone) {
             // calculate number of unclicked apples per bar
             var absoluteError = remainingBars.map((c) => {
@@ -229,19 +258,19 @@ $(document).ready(function () {
                 }
             });
 
-            localStorage["guessedApples"] = JSON.stringify(guessedApples);
+            localStorage["guessApples"] = JSON.stringify(guessedApples);
             localStorage["trueApples"] = JSON.stringify(trueApples);
+            localStorage["errorApples"] = absoluteError
+                .reduce((a, b) => a + b, 0)
+                .toString();
 
             console.log(localStorage);
 
             $(".ghost-bars").show();
             isDone = true;
 
-            // get total number of errors for each bar
             document.getElementById("error").innerHTML =
-                "Your Error is " +
-                absoluteError.reduce((a, b) => a + b, 0) +
-                " Apples!";
+                "This is How Many Apples There Really Were!";
 
             document.getElementById("buttontext").innerHTML = "Finish!";
         } else {

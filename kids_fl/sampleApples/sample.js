@@ -38,12 +38,20 @@ $(document).ready(function () {
         $(".trees").append(
             '<div class="tree"><img src="../images/tree.png"></div>'
         );
+
         // $(".lines").append(
         //     '<div class="line">' +
         //         (i + 1) +
         //         '<img src="../images/time.png"></div>'
         // );
-        $(".lines").append('<div class="line text">' + (i + 1) + "</div>");
+
+        // $(".lines").append('<div class="line text">' + (i + 1) + "</div>");
+
+        $(".lines").append(
+            '<div class="line"><img src="../images/calendar/cal' +
+                (i + 1) +
+                '.jpg"></img></div>'
+        );
     }
     $(".trees").append('<div class="whitespace"></div>');
 
@@ -99,12 +107,6 @@ $(document).ready(function () {
             var remainingBars = allBars.filter(
                 (value) => !barsChosen.includes(value)
             );
-
-            console.log(barsChosen, "CLICKED BARS");
-            console.log(remainingBars, "REMAINING BARS");
-
-            localStorage["barsChosen"] = barsChosen;
-            localStorage["remainingBars"] = remainingBars;
         }
     });
 

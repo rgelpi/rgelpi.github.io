@@ -177,21 +177,21 @@ button {
     background-color: #0056b8; /* Dark Blue */
 }
 
-#add-button,
+.add-button,
 #finish-button {
     background-color: #00dfa2; /* Green */
 }
 
-#add-button:hover,
+.add-button:hover,
 #finish-button:hover {
     background-color: #00b887; /* Dark Green */
 }
 
-#subtract-button {
+.subtract-button {
     background-color: #ff0060; /* Red */
 }
 
-#subtract-button:hover {
+.subtract-button:hover {
     background-color: #b80046; /* Dark Red */
 }
 
@@ -221,15 +221,6 @@ button {
 }
 
 /* MODES */
-.add-mode {
-    /* background-color: #85ffde; */
-    background-color: rgba(133, 255, 222, 0.5); /* Light Green */
-}
-
-.subtract-mode {
-    /* background-color: #ff85b4; */
-    background-color: rgba(255, 133, 180, 0.5); /* Light Red */
-}
 
 .disabled {
     opacity: 0.5;

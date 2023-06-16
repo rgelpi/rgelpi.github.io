@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    localStorage.clear();
+
     let curTrial = "";
     let curFunction = "";
 
@@ -98,7 +100,7 @@ $(document).ready(function () {
     // PAGE NAVIGATION
     $("#next-button").click(function () {
         // switch statement based on trial
-        let trialLink = "../";
+        let trialLink = "";
 
         switch (curTrial) {
             case "sample":
@@ -119,11 +121,11 @@ $(document).ready(function () {
         }
 
         // get number of samples
-        let samplesLink = "?c=";
+        let samplesLink = "";
         samplesLink += document.querySelector("input").value;
 
         // switch statement based on function
-        let functionLink = "&function=";
+        let functionLink = "";
 
         switch (curFunction) {
             case "gaussian":
@@ -151,6 +153,15 @@ $(document).ready(function () {
                 break;
         }
 
-        window.location.href = trialLink + samplesLink + functionLink;
+        localStorage["familyFunction"] = functionLink;
+        localStorage["numSamples"] = samplesLink;
+
+        window.location.href =
+            "../" +
+            trialLink +
+            "?c=" +
+            samplesLink +
+            "&function=" +
+            functionLink;
     }); // use web sockets to go to next page
 });
