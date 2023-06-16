@@ -226,9 +226,10 @@ $(document).ready(function () {
                 for (let i = 0; i < apples; i++) {
                     $(whichbar).each(function (idx, li) {
                         var obj = $(li);
+
                         if (obj.hasClass("bar")) {
                             obj.append(
-                                '<div class="img"><img class="apple" src="../images/clear_apple.png"></div>'
+                                '<div class="img"><img class="apple" src="../images/clear_apple_5.png"></div>'
                             );
                         }
                     });
@@ -241,6 +242,49 @@ $(document).ready(function () {
                         .css("cursor", "not-allowed");
 
                     $(whichbar).css("background-color", "#9ec4e7");
+
+                    $(".container :nth-child(" + bar + ")").removeClass(
+                        "clickable"
+                    );
+
+                    $(".container :nth-child(" + bar + ")")
+                        .children("div")
+                        .children("img")
+                        .css("cursor", "not-allowed");
+
+                    $(".container :nth-child(" + bar + ")")
+                        .children("div")
+                        .children("img")
+                        .css("pointer-events", "none");
+                }
+            });
+
+            // reveal actual apples in the chosen bars
+            var addApples = barsChosen.map((c) => {
+                var bar = c + 1;
+                var whichbar = ".ghost-bars :nth-child(" + bar + ")";
+                var apples = numApples[c];
+
+                // $(whichbar).toggleClass("");
+
+                // adding apples up column
+                for (let i = 0; i < apples; i++) {
+                    $(whichbar).each(function (idx, li) {
+                        var obj = $(li);
+
+                        if (obj.hasClass("bar")) {
+                            obj.append(
+                                '<div class="img"><img class="clear-apple" src="../images/clear_apple_5.png"></div>'
+                            );
+                        }
+                    });
+
+                    $(whichbar).children("div").children("img");
+
+                    $(whichbar)
+                        .children("div")
+                        .children("img")
+                        .css("cursor", "not-allowed");
 
                     $(".container :nth-child(" + bar + ")").removeClass(
                         "clickable"

@@ -99,6 +99,13 @@ input {
     max-width: 47.5%;
 }
 
+.clear-apple {
+    position: relative;
+    bottom: 0;
+    max-width: 47.5%;
+    z-index: 2;
+}
+
 .trees {
     margin: auto;
     width: 85vw;
