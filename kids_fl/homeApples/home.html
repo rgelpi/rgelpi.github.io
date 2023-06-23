@@ -8,59 +8,77 @@
     </head>
 
     <body>
-        <div class="text">Trials:</div>
-        <div class="buttons">
-            <button class="trial-button" id="practice-button">Practice</button>
+        <div class="left">
+            <div class="text">Curriculum:</div>
+            <div id="curriculum-list"></div>
+            <button id="clear-button">Clear</button>
         </div>
 
-        <div class="buttons">
-            <button class="trial-button" id="sample-button">
-                Sample + Predict
-            </button>
-            <button class="trial-button" id="prediction-button">
-                Predict Only
-            </button>
-        </div>
+        <div class="right">
+            <div class="text">Trials:</div>
+            <div class="buttons">
+                <button class="trial-button" id="practice-button">
+                    Practice
+                </button>
+            </div>
 
-        <div class="text">Functions:</div>
+            <div class="buttons">
+                <button class="trial-button" id="sample-button">
+                    Sample + Predict
+                </button>
+                <button class="trial-button" id="prediction-button">
+                    Predict Only
+                </button>
+            </div>
 
-        <div class="buttons">
-            <button class="function-button disabled" id="gaussian">Gaus</button>
-        </div>
+            <div class="text">Functions:</div>
 
-        <div class="buttons">
-            <button class="function-button disabled" id="positive-linear">
-                PosLin
-            </button>
-            <button class="function-button disabled" id="negative-linear">
-                NegLin
-            </button>
-        </div>
+            <div class="buttons">
+                <button class="function-button disabled" id="gaussian">
+                    Gaus
+                </button>
+            </div>
 
-        <div class="buttons">
-            <button class="function-button disabled" id="positive-exponential">
-                PosExp
-            </button>
-            <button class="function-button disabled" id="negative-exponential">
-                NegExp
-            </button>
-        </div>
+            <div class="buttons">
+                <button class="function-button disabled" id="positive-linear">
+                    PosLin
+                </button>
+                <button class="function-button disabled" id="negative-linear">
+                    NegLin
+                </button>
+            </div>
 
-        <div class="text"></div>
+            <div class="buttons">
+                <button
+                    class="function-button disabled"
+                    id="positive-exponential"
+                >
+                    PosExp
+                </button>
+                <button
+                    class="function-button disabled"
+                    id="negative-exponential"
+                >
+                    NegExp
+                </button>
+            </div>
 
-        <div class="buttons">
-            <div class="text">Number of Samples:</div>
-            <input
-                type="number"
-                name="clicks"
-                min="1"
-                max="15"
-                value="5"
-                required
-            />
+            <div class="text"></div>
 
-            <button id="next-button">Next Trial...</button>
-            <button id="finish-button">Finished!</button>
+            <div class="buttons">
+                <div class="text">Number of Samples:</div>
+                <input
+                    required
+                    type="number"
+                    name="clicks"
+                    min="1"
+                    max="15"
+                    value="5"
+                />
+
+                <button class="disabled" id="next-button">Next Trial...</button>
+                <button class="disabled" id="finish-button">Finished!</button>
+            </div>
         </div>
     </body>
 </html>

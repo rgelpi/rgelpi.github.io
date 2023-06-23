@@ -1,25 +1,33 @@
 $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
 
-    if (urlParams.has("predict")) {
-        // get clicked bars
-        var predictions = JSON.parse(urlParams.get("predict"));
-    } else {
-        // default clicked bars
-        var predictions = [3, 5, 7, 9, 11];
+    let currentTrial = localStorage.getItem("currentTrial");
+    let curriculumMap = JSON.parse(localStorage.getItem("curriculumMap"));
+    let curriculumSize = localStorage.getItem("curriculumSize");
+
+    // choose tree image
+    let treeImageNum = currentTrial;
+
+    if (treeImageNum > 6) {
+        treeImageNum = treeImageNum % 6;
     }
 
-    localStorage["chosenSamples"] = predictions;
+    // update defaults (sampled bars) based on URL link
+    let chosenSamples = [3, 5, 7, 9, 11];
 
+    if (urlParams.has("predict")) {
+        chosenSamples = JSON.parse(urlParams.get("predict"));
+    }
+
+    // hide ghost bars
     $(".ghost-bars").hide();
     $(".ghost-bars")
         .children("div")
         .css("background-color", "rgba(255, 255, 255, 0)");
 
     // apple function
-    var numApples = [];
+    let numApples = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-    // specify which function
     if (urlParams.get("function") === "gaussian") {
         numApples = [1, 2, 5, 8, 11, 13, 14, 15, 14, 13, 11, 8, 5, 2, 1];
     } else if (urlParams.get("function") === "positive-linear") {
@@ -30,28 +38,28 @@ $(document).ready(function () {
         numApples = [1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 5, 6, 9, 15];
     } else if (urlParams.get("function") === "negative-exponential") {
         numApples = [15, 9, 6, 5, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1];
-    } else {
-        numApples = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     }
 
     const allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-    var barsChosen = predictions;
 
     // choose which bars to predict apples from
-    var remainingBars = allBars.filter((value) => !barsChosen.includes(value));
+    const remainingBars = allBars.filter(
+        (index) => !chosenSamples.includes(index)
+    );
 
     // add "shown" apples to clicked bars
-    var addApples = barsChosen.map((c) => {
-        var bar = c + 1;
-        var whichbar = ".container :nth-child(" + bar + ")";
-        var apples = numApples[c];
+    chosenSamples.map((index) => {
+        const curBar = index + 1;
+        const childBar = ".container :nth-child(" + curBar + ")";
+        const curApples = numApples[index];
 
-        $(whichbar).toggleClass("clicked");
+        $(childBar).toggleClass("clicked");
 
         // adding apples up column
-        for (let i = 0; i < apples; i++) {
-            $(whichbar).each(function (idx, li) {
-                var obj = $(li);
+        for (let i = 0; i < curApples; i++) {
+            $(childBar).each(function (index, li) {
+                const obj = $(li);
+
                 if (obj.hasClass("bar")) {
                     obj.append(
                         '<div class="img"><img class="apple" src="../images/apple.png"></div>'
@@ -61,35 +69,50 @@ $(document).ready(function () {
         }
     });
 
-    // add trees
+    // add all decorations
     for (let i = 0; i < 15; i++) {
+        // add trees
+        const treeImagePath = "../images/trees/tree" + treeImageNum + ".png";
+
         $(".trees").append(
-            '<div class="tree"><img src="../images/tree.png"></div>'
+            '<div class="tree"><img src=' + treeImagePath + "></div>"
         );
 
-        // $(".lines").append(
-        //     '<div class="line">' +
-        //         (i + 1) +
-        //         '<img src="../images/time.png"></div>'
-        // );
-
-        // $(".lines").append('<div class="line text">' + (i + 1) + "</div>");
-        // let calendar = <img src="../images/tree.png"></img>;
-
-        $(".lines").append(
-            '<div class="line"><img src="../images/calendar/cal' +
+        // add calendar times
+        $(".calendars").append(
+            '<div class="calendar"><img src="../images/calendar/cal' +
                 (i + 1) +
                 '.jpg"></img></div>'
         );
     }
 
     // mark clickable bars
-    remainingBars.map((c) => {
-        var bar = c + 1;
-        var whichbar = ".container :nth-child(" + bar + ")";
-        $(whichbar).addClass("clickable");
-        // $(".bar").addClass("add-mode");
+    remainingBars.map((index) => {
+        const curBar = index + 1;
+        const childBar = ".container :nth-child(" + curBar + ")";
+
+        $(childBar).addClass("clickable");
     });
+
+    // ADDING AND SUBTRACTING MODE
+    const checkIfDone = function () {
+        // enable button if there's at least one apple in each "selected" bar
+        if (
+            remainingBars
+                .map((element) => {
+                    const curBar = element + 1;
+                    const childBar = ".container :nth-child(" + curBar + ")";
+                    return (
+                        $(childBar).children("div").children("img").length > 0
+                    );
+                })
+                .every((v) => v === true)
+        ) {
+            $("#default-button").removeClass("disabled");
+        } else {
+            $("#default-button").addClass("disabled");
+        }
+    };
 
     let isAddingMode = true;
 
@@ -104,223 +127,257 @@ $(document).ready(function () {
             $(this).children(".img").last().remove();
         }
 
-        // enable button if there's at least one apple in each "selected" bar
-        if (
-            remainingBars
-                .map((element) => {
-                    var bar = element + 1;
-                    var whichbar = ".container :nth-child(" + bar + ")";
-                    return (
-                        $(whichbar).children("div").children("img").length > 0
-                    );
-                })
-                .every((v) => v === true)
-        ) {
-            $("#default-button").removeClass("disabled");
-        } else {
-            $("#default-button").addClass("disabled");
-        }
+        checkIfDone();
     });
 
-    let curMode = "add";
+    let curMode = "add"; // checks which mode
 
     $(".add-button").click(function () {
         isAddingMode = true;
 
-        // $(".bar").removeClass("subtract-mode").addClass("add-mode");
         if (curMode !== "add") {
             $(".add-button").toggleClass("pressed");
             $(".subtract-button").toggleClass("pressed");
         }
 
-        // enable button if there's at least one apple in each "selected" bar
-        if (
-            remainingBars
-                .map((element) => {
-                    var bar = element + 1;
-                    var whichbar = ".container :nth-child(" + bar + ")";
-                    return (
-                        $(whichbar).children("div").children("img").length > 0
-                    );
-                })
-                .every((v) => v === true)
-        ) {
-            $("#default-button").removeClass("disabled");
-        } else {
-            $("#default-button").addClass("disabled");
-        }
-
+        checkIfDone();
         curMode = "add";
     });
 
     $(".subtract-button").click(function () {
         isAddingMode = false;
 
-        // $(".bar").removeClass("add-mode").addClass("subtract-mode");
         if (curMode !== "subtract") {
             $(".subtract-button").toggleClass("pressed");
             $(".add-button").toggleClass("pressed");
         }
 
-        // enable button if there's at least one apple in each "selected" bar
-        if (
-            remainingBars
-                .map((element) => {
-                    var bar = element + 1;
-                    var whichbar = ".container :nth-child(" + bar + ")";
-                    return (
-                        $(whichbar).children("div").children("img").length > 0
-                    );
-                })
-                .every((v) => v === true)
-        ) {
-            $("#default-button").removeClass("disabled");
-        } else {
-            $("#default-button").addClass("disabled");
-        }
-
+        checkIfDone();
         curMode = "subtract";
     });
 
     // update number of errors with the number of apples clicked
-    var isDone = false;
+    let isAllDone = false;
+
     $("#default-button").click(function () {
         // disable add and subtract buttons
         $(".add-button").toggleClass("disabled");
         $(".subtract-button").toggleClass("disabled");
 
-        if (!isDone) {
+        if (!isAllDone) {
             // calculate number of unclicked apples per bar
-            var absoluteError = remainingBars.map((c) => {
-                var bar = c + 1;
-                var whichbar = ".container :nth-child(" + bar + ")";
+            const guessedApples = remainingBars.map((index) => {
+                const curBar = index + 1;
+                const childBar = ".container :nth-child(" + curBar + ")";
 
-                var trueApples = numApples[c];
-                var guessedApples = $(whichbar)
-                    .children("div")
-                    .children("img").length;
-
-                return Math.abs(trueApples - guessedApples);
-            });
-
-            var guessedApples = remainingBars.map((c) => {
-                var bar = c + 1;
-                var whichbar = ".container :nth-child(" + bar + ")";
-                var guessedApples = $(whichbar)
+                const guessedApples = $(childBar)
                     .children("div")
                     .children("img").length;
 
                 return guessedApples;
             });
 
-            var trueApples = remainingBars.map((c) => {
-                return numApples[c];
+            const trueApples = remainingBars.map((index) => {
+                return numApples[index];
+            });
+
+            const absoluteError = remainingBars.map((index) => {
+                const curBar = index + 1;
+                const childBar = ".container :nth-child(" + curBar + ")";
+
+                const trueApples = numApples[index];
+                const guessedApples = $(childBar)
+                    .children("div")
+                    .children("img").length;
+
+                return Math.abs(trueApples - guessedApples);
             });
 
             // reveal unclicked apples in the clickable bars
-            remainingBars.map((c) => {
-                var bar = c + 1;
-                var whichbar = ".ghost-bars :nth-child(" + bar + ")";
-                var apples = numApples[c];
+            remainingBars.map((index) => {
+                const curBar = index + 1;
+                const childBar = ".ghost-bars :nth-child(" + curBar + ")";
+                const curApples = numApples[index];
 
-                for (let i = 0; i < apples; i++) {
-                    $(whichbar).each(function (idx, li) {
-                        var obj = $(li);
+                const realBar = ".container :nth-child(" + curBar + ")";
+                const guessedApples = $(realBar)
+                    .children("div")
+                    .children("img").length;
 
-                        if (obj.hasClass("bar")) {
-                            obj.append(
-                                '<div class="img"><img class="apple" src="../images/clear_apple_5.png"></div>'
-                            );
-                        }
-                    });
+                if (guessedApples - curApples < 0) {
+                    // underpredict (Os)
+                    for (let i = guessedApples; i < curApples; i++) {
+                        $(childBar).each(function (index, li) {
+                            const obj = $(li);
 
-                    $(whichbar).children("div").children("img");
+                            if (obj.hasClass("bar")) {
+                                obj.append(
+                                    '<div class="img"><img class="apple" src="../images/apple.png"><img class="circle-apple" src="../images/apple-circle.png"></div>'
+                                );
+                            }
+                        });
+                    }
 
-                    $(whichbar)
-                        .children("div")
-                        .children("img")
-                        .css("cursor", "not-allowed");
+                    for (let i = 0; i < guessedApples; i++) {
+                        $(childBar).each(function (index, li) {
+                            const obj = $(li);
 
-                    $(whichbar).css("background-color", "#9ec4e7");
+                            if (obj.hasClass("bar")) {
+                                obj.append(
+                                    '<div class="img"><img class="apple" src="../images/apple.png"></div>'
+                                );
+                            }
+                        });
+                    }
+                } else if (guessedApples - curApples > 0) {
+                    // overpredict (Xs)
+                    for (let i = curApples; i < guessedApples; i++) {
+                        $(childBar).each(function (index, li) {
+                            const obj = $(li);
 
-                    $(".container :nth-child(" + bar + ")").removeClass(
-                        "clickable"
-                    );
+                            if (obj.hasClass("bar")) {
+                                obj.append(
+                                    '<div class="img"><img class="apple" src="../images/apple-cross.png"></div>'
+                                );
+                            }
+                        });
+                    }
 
-                    $(".container :nth-child(" + bar + ")")
-                        .children("div")
-                        .children("img")
-                        .css("cursor", "not-allowed");
+                    for (let i = 0; i < curApples; i++) {
+                        $(childBar).each(function (index, li) {
+                            const obj = $(li);
 
-                    $(".container :nth-child(" + bar + ")")
-                        .children("div")
-                        .children("img")
-                        .css("pointer-events", "none");
+                            if (obj.hasClass("bar")) {
+                                obj.append(
+                                    '<div class="img"><img class="apple" src="../images/apple.png"></div>'
+                                );
+                            }
+                        });
+                    }
+                } else {
+                    // correct amount
+                    for (let i = 0; i < curApples; i++) {
+                        $(childBar).each(function (index, li) {
+                            const obj = $(li);
+
+                            if (obj.hasClass("bar")) {
+                                obj.append(
+                                    '<div class="img"><img class="apple" src="../images/apple.png"></div>'
+                                );
+                            }
+                        });
+                    }
                 }
+
+                $(childBar).children("div").children("img");
+
+                $(childBar)
+                    .children("div")
+                    .children("img")
+                    .css("cursor", "not-allowed");
+
+                $(".container :nth-child(" + curBar + ")").removeClass(
+                    "clickable"
+                );
+
+                $(".container :nth-child(" + curBar + ")")
+                    .children("div")
+                    .children("img")
+                    .css("cursor", "not-allowed");
+
+                $(".container :nth-child(" + curBar + ")")
+                    .children("div")
+                    .children("img")
+                    .css("pointer-events", "none");
+                // }
             });
 
             // reveal actual apples in the chosen bars
-            var addApples = barsChosen.map((c) => {
-                var bar = c + 1;
-                var whichbar = ".ghost-bars :nth-child(" + bar + ")";
-                var apples = numApples[c];
-
-                // $(whichbar).toggleClass("");
+            chosenSamples.map((index) => {
+                const curBar = index + 1;
+                const childBar = ".ghost-bars :nth-child(" + curBar + ")";
+                const apples = numApples[index];
 
                 // adding apples up column
                 for (let i = 0; i < apples; i++) {
-                    $(whichbar).each(function (idx, li) {
-                        var obj = $(li);
+                    $(childBar).each(function (index, li) {
+                        const obj = $(li);
 
-                        if (obj.hasClass("bar")) {
-                            obj.append(
-                                '<div class="img"><img class="clear-apple" src="../images/clear_apple_5.png"></div>'
-                            );
-                        }
+                        // if (obj.hasClass("bar")) {
+                        //     obj.append;
+                        //     ('<div class="img"><img class="clear-apple" src="../images/clear_apple_5.png"></div>');
+                        // }
                     });
 
-                    $(whichbar).children("div").children("img");
+                    $(childBar).children("div").children("img");
 
-                    $(whichbar)
+                    $(childBar)
                         .children("div")
                         .children("img")
                         .css("cursor", "not-allowed");
 
-                    $(".container :nth-child(" + bar + ")").removeClass(
+                    $(".container :nth-child(" + curBar + ")").removeClass(
                         "clickable"
                     );
 
-                    $(".container :nth-child(" + bar + ")")
+                    $(".container :nth-child(" + curBar + ")")
                         .children("div")
                         .children("img")
                         .css("cursor", "not-allowed");
 
-                    $(".container :nth-child(" + bar + ")")
+                    $(".container :nth-child(" + curBar + ")")
                         .children("div")
                         .children("img")
                         .css("pointer-events", "none");
                 }
             });
 
+            // update local storage components
+            localStorage["curriculumTrial"] = JSON.stringify(
+                curriculumMap[currentTrial - 1]
+            );
+            localStorage["chosenSamples"] = JSON.stringify(chosenSamples);
             localStorage["guessApples"] = JSON.stringify(guessedApples);
             localStorage["trueApples"] = JSON.stringify(trueApples);
             localStorage["errorApples"] = absoluteError
                 .reduce((a, b) => a + b, 0)
                 .toString();
 
-            console.log(localStorage);
+            // add trial component to local storage
+            const trial = `Trial #${currentTrial - 1}`;
+            const map = new Map();
 
-            $(".ghost-bars").show();
-            isDone = true;
+            map.set("statusTrial", "valid");
+            map.set("curriculumTrial", localStorage.getItem("curriculumTrial"));
+            map.set("chosenSamples", localStorage.getItem("chosenSamples"));
+            map.set("guessApples", localStorage.getItem("guessApples"));
+            map.set("trueApples", localStorage.getItem("trueApples"));
+            map.set("errorApples", localStorage.getItem("errorApples"));
+
+            localStorage[trial] = JSON.stringify(Array.from(map.entries()));
 
             document.getElementById("error").innerHTML =
                 "This is How Many Apples There Really Were!";
 
-            document.getElementById("buttontext").innerHTML = "Finish!";
+            if (currentTrial >= 1) {
+                $("#default-button").text("Continue!");
+            }
+
+            if (currentTrial > curriculumSize) {
+                $("#default-button").text("Finish!");
+            }
+
+            // reveal correct apples
+            $(".ghost-bars").show();
+            isAllDone = true;
         } else {
-            // show ending page
-            $("div").hide();
-            $("#hooray").show();
+            if (currentTrial > curriculumSize) {
+                // completed last trial
+                window.location.href = "../finishApples/finish.html";
+            } else {
+                // still have trials to complete
+                window.location.href = "../startApples/start.html";
+            }
         }
     });
 });
