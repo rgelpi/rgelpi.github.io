@@ -65,7 +65,7 @@ $(document).ready(function () {
 
                 if (obj.hasClass("bar")) {
                     obj.append(
-                        '<div class="img"><img hidden class="apple" src="../images/apple.png"></div>'
+                        '<div class="img"><img hidden class="apple" src="../images/apples/apple.png"></div>'
                     );
                 }
             });

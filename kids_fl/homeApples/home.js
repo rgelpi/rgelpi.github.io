@@ -1,8 +1,13 @@
 $(document).ready(function () {
+
+	const urlParams = new URLSearchParams(window.location.search);
+	
+	const sessionId = urlParams.get('sessionId');
+	
     // restart curriculum and reset local storage
     $("#clear-button").click(function () {
         localStorage.clear();
-        window.location.href = "../homeApples/home.html";
+        window.location.href = "../homeApples/home.html?sessionId=" + sessionId;
     });
 
     // key: trial number; value: [trial type, function type, number of samples]
@@ -321,6 +326,7 @@ $(document).ready(function () {
     $("#finish-button").click(function () {
         localStorage["curriculumMap"] = JSON.stringify(curriculumMap);
         localStorage["currentTrial"] = 1; // start curriculum
+        localStorage['sessionId'] = sessionId;
 
         window.location.href = "../startApples/start.html";
     }); // use web sockets to go to next page

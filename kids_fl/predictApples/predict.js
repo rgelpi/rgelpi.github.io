@@ -62,7 +62,7 @@ $(document).ready(function () {
 
                 if (obj.hasClass("bar")) {
                     obj.append(
-                        '<div class="img"><img class="apple" src="../images/apple.png"></div>'
+                        '<div class="img"><img class="apple" src="../images/apples/apple.png"></div>'
                     );
                 }
             });
@@ -121,7 +121,7 @@ $(document).ready(function () {
         // display "clicked" apples to know how many are clicked already per bar
         if (isAddingMode) {
             $(this).append(
-                '<div class="img"><img class="ghost-apple" src="../images/apple.png"></div>'
+                '<div class="img"><img class="ghost-apple" src="../images/apples/apple.png"></div>'
             );
         } else {
             $(this).children(".img").last().remove();
@@ -212,7 +212,7 @@ $(document).ready(function () {
 
                             if (obj.hasClass("bar")) {
                                 obj.append(
-                                    '<div class="img"><img class="apple" src="../images/apple.png"><img class="circle-apple" src="../images/apple-circle.png"></div>'
+                                    '<div class="img"><img class="apple" src="../images/apples/apple.png"><img class="circle-apple" src="../images/apples/circle.png"></div>'
                                 );
                             }
                         });
@@ -224,7 +224,7 @@ $(document).ready(function () {
 
                             if (obj.hasClass("bar")) {
                                 obj.append(
-                                    '<div class="img"><img class="apple" src="../images/apple.png"></div>'
+                                    '<div class="img"><img class="apple" src="../images/apples/apple.png"></div>'
                                 );
                             }
                         });
@@ -237,7 +237,7 @@ $(document).ready(function () {
 
                             if (obj.hasClass("bar")) {
                                 obj.append(
-                                    '<div class="img"><img class="apple" src="../images/apple-cross.png"></div>'
+                                    '<div class="img"><img class="apple" src="../images/apples/cross.png"></div>'
                                 );
                             }
                         });
@@ -249,7 +249,7 @@ $(document).ready(function () {
 
                             if (obj.hasClass("bar")) {
                                 obj.append(
-                                    '<div class="img"><img class="apple" src="../images/apple.png"></div>'
+                                    '<div class="img"><img class="apple" src="../images/apples/apple.png"></div>'
                                 );
                             }
                         });
@@ -262,7 +262,7 @@ $(document).ready(function () {
 
                             if (obj.hasClass("bar")) {
                                 obj.append(
-                                    '<div class="img"><img class="apple" src="../images/apple.png"></div>'
+                                    '<div class="img"><img class="apple" src="../images/apples/apple.png"></div>'
                                 );
                             }
                         });
@@ -289,47 +289,6 @@ $(document).ready(function () {
                     .children("div")
                     .children("img")
                     .css("pointer-events", "none");
-                // }
-            });
-
-            // reveal actual apples in the chosen bars
-            chosenSamples.map((index) => {
-                const curBar = index + 1;
-                const childBar = ".ghost-bars :nth-child(" + curBar + ")";
-                const apples = numApples[index];
-
-                // adding apples up column
-                for (let i = 0; i < apples; i++) {
-                    $(childBar).each(function (index, li) {
-                        const obj = $(li);
-
-                        // if (obj.hasClass("bar")) {
-                        //     obj.append;
-                        //     ('<div class="img"><img class="clear-apple" src="../images/clear_apple_5.png"></div>');
-                        // }
-                    });
-
-                    $(childBar).children("div").children("img");
-
-                    $(childBar)
-                        .children("div")
-                        .children("img")
-                        .css("cursor", "not-allowed");
-
-                    $(".container :nth-child(" + curBar + ")").removeClass(
-                        "clickable"
-                    );
-
-                    $(".container :nth-child(" + curBar + ")")
-                        .children("div")
-                        .children("img")
-                        .css("cursor", "not-allowed");
-
-                    $(".container :nth-child(" + curBar + ")")
-                        .children("div")
-                        .children("img")
-                        .css("pointer-events", "none");
-                }
             });
 
             // update local storage components

@@ -48,7 +48,7 @@ $(document).ready(function () {
         // adding apples up column
         for (let i = 0; i < curApples; i++) {
             $(childBar).append(
-                '<div class="img"><img hidden class="apple" src="../images/apple.png"></div>'
+                '<div class="img"><img hidden class="apple" src="../images/apples/apple.png"></div>'
             );
         }
     });

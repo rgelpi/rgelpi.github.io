@@ -1,6 +1,7 @@
+const curriculumData = JSON.parse(localStorage.getItem("curriculumMap"));
+
 $(document).ready(function () {
     // restructure curriculum map
-    const curriculumData = JSON.parse(localStorage.getItem("curriculumMap"));
     const curriculumMap = new Map();
 
     for (const [curTrial, curData] of Object.entries(curriculumData)) {
