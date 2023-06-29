@@ -13,7 +13,7 @@ $(document).ready(function () {
     }
 
     // update defaults (sampled bars) based on URL link
-    let chosenSamples = [3, 5, 7, 9, 11];
+    let chosenSamples = [1, 4, 7, 10, 13];
 
     if (urlParams.has("predict")) {
         chosenSamples = JSON.parse(urlParams.get("predict"));
