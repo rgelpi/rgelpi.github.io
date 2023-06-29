@@ -35,9 +35,9 @@ $(document).ready(function () {
     } else if (urlParams.get("function") === "negative-linear") {
         numApples = [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     } else if (urlParams.get("function") === "positive-exponential") {
-        numApples = [1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 5, 6, 9, 15];
+        numApples = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4, 7, 13, 23];
     } else if (urlParams.get("function") === "negative-exponential") {
-        numApples = [15, 9, 6, 5, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1];
+        numApples = [23, 13, 7, 4, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1];
     }
 
     const allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
