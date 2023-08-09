@@ -101,8 +101,12 @@ $(document).ready(function () {
         let functionLink = "";
 
         switch (curFunction) {
-            case "gaussian":
-                functionLink = "gaussian";
+            case "gaussian-one":
+                functionLink = "gaussian-one";
+                break;
+
+            case "gaussian-two":
+                functionLink = "gaussian-two";
                 break;
 
             case "positive-linear":
@@ -136,6 +140,8 @@ $(document).ready(function () {
             "?c=" +
             samplesLink +
             "&function=" +
-            functionLink;
+            functionLink +
+            "&sampleType=" +
+            curData[3];
     }); // use web sockets to go to next page
 });

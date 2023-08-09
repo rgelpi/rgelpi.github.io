@@ -3,6 +3,7 @@ $(document).ready(function () {
     localStorage.removeItem("curriculumMap");
     localStorage.removeItem("curriculumTrial");
     localStorage.removeItem("chosenSamples");
+    localStorage.removeItem("sampleToApples");
     localStorage.removeItem("guessApples");
     localStorage.removeItem("trueApples");
     localStorage.removeItem("errorApples");
@@ -42,9 +43,9 @@ $(document).ready(function () {
         console.log(JSON.parse(finalData), "FINAL");
 
         if (!isError) {
-             console.log("Sending Data...");
-             webSocket.send(finalData);
-             console.log("Data Transfer Complete!");
+            console.log("Sending Data...");
+            webSocket.send(finalData);
+            console.log("Data Transfer Complete!");
         }
 
         if (isOpen) {

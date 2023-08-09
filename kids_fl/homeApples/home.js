@@ -1,9 +1,8 @@
 $(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
 
-	const urlParams = new URLSearchParams(window.location.search);
-	
-	const sessionId = urlParams.get('sessionId');
-	
+    const sessionId = urlParams.get("sessionId");
+
     // restart curriculum and reset local storage
     $("#clear-button").click(function () {
         localStorage.clear();
@@ -98,14 +97,35 @@ $(document).ready(function () {
     });
 
     // FUNCTIONS
-    // gaussian function
-    $("#gaussian").click(function () {
+    // gaussian function one
+    $("#gaussian-one").click(function () {
         if (curFunction) {
             // current function is "unpressed," so reset
             curFunction = "";
             $("#next-button").toggleClass("disabled");
         } else {
-            curFunction = "gaussian";
+            curFunction = "gaussian-one";
+        }
+
+        // press all other functions
+        $(".function-button").toggleClass("pressed");
+        $(this).toggleClass("pressed");
+
+        // disable all other functions
+        $(".function-button").toggleClass("disabled");
+        $(this).toggleClass("disabled");
+
+        updateNextStatus();
+    });
+
+    // gaussian function two
+    $("#gaussian-two").click(function () {
+        if (curFunction) {
+            // current function is "unpressed," so reset
+            curFunction = "";
+            $("#next-button").toggleClass("disabled");
+        } else {
+            curFunction = "gaussian-two";
         }
 
         // press all other functions
@@ -166,7 +186,7 @@ $(document).ready(function () {
         if (curFunction) {
             // current function is "unpressed," so reset
             curFunction = "";
-            $("#next-button").toggleClass("disabled");
+            $("#next-button").addClass("disabled");
         } else {
             curFunction = "positive-exponential";
         }
@@ -179,7 +199,15 @@ $(document).ready(function () {
         $(".function-button").toggleClass("disabled");
         $(this).toggleClass("disabled");
 
-        updateNextStatus();
+        // allow different samples ONLY for exponential functions
+        if (curTrial === "prediction") {
+            $(".sample-button").toggleClass("disabled");
+        }
+
+        // must choose type of sample
+        if (curTrial !== "prediction") {
+            updateNextStatus();
+        }
     });
 
     // negative linear function
@@ -187,7 +215,7 @@ $(document).ready(function () {
         if (curFunction) {
             // current function is "unpressed," so reset
             curFunction = "";
-            $("#next-button").toggleClass("disabled");
+            $("#next-button").addClass("disabled");
         } else {
             curFunction = "negative-exponential";
         }
@@ -200,12 +228,60 @@ $(document).ready(function () {
         $(".function-button").toggleClass("disabled");
         $(this).toggleClass("disabled");
 
-        updateNextStatus();
+        // allow different samples ONLY for exponential functions
+        if (curTrial === "prediction") {
+            $(".sample-button").toggleClass("disabled");
+        }
+
+        // must choose type of sample
+        if (curTrial !== "prediction") {
+            updateNextStatus();
+        }
     });
+
+    // exponential sample buttons
+    let curExpSample = "";
+
+    $("#old-sample").click(function () {
+        if (curExpSample) {
+            // current sample is "unpressed," so reset next button
+            curExpSample = "";
+            $("#next-button").addClass("disabled");
+        } else {
+            curExpSample = "old";
+            $("#next-button").removeClass("disabled");
+        }
+
+        $("#new-sample").toggleClass("pressed");
+        $("#new-sample").toggleClass("disabled");
+    });
+
+    $("#new-sample").click(function () {
+        if (curExpSample) {
+            // current sample is "unpressed," so reset next button
+            curExpSample = "";
+            $("#next-button").addClass("disabled");
+        } else {
+            curExpSample = "new";
+            $("#next-button").removeClass("disabled");
+        }
+
+        $("#old-sample").toggleClass("pressed");
+        $("#old-sample").toggleClass("disabled");
+    });
+
+    if (!curExpSample) {
+        $("#next-button").addClass("disabled");
+    }
 
     // if a function is pressed, disable previous pressed trial
     $(".function-button").click(function () {
         $("#" + curTrial + "-button").toggleClass("disabled");
+    });
+
+    // if a function is pressed, disable previous pressed trial
+    $(".sample-button").click(function () {
+        $("#" + curFunction).toggleClass("disabled");
     });
 
     // CURRICULUM SCROLL LIST
@@ -238,8 +314,12 @@ $(document).ready(function () {
         let functionList = "N/A";
 
         switch (curFunction) {
-            case "gaussian":
-                functionList = "Gaussian";
+            case "gaussian-one":
+                functionList = "Gaussian-One";
+                break;
+
+            case "gaussian-two":
+                functionList = "Gaussian-Two";
                 break;
 
             case "positive-linear":
@@ -265,7 +345,12 @@ $(document).ready(function () {
 
         // update curriculum map
         curCounter += 1;
-        curriculumMap[curCounter] = [curTrial, curFunction, curSamples];
+        curriculumMap[curCounter] = [
+            curTrial,
+            curFunction,
+            curSamples,
+            curExpSample,
+        ];
 
         // update finish button status
         if (curCounter === 1) {
@@ -285,7 +370,14 @@ $(document).ready(function () {
 
         // create the function subitem
         const functionItem = document.createElement("p");
-        functionItem.innerHTML = `<em>Function:</em> ${functionList}`;
+
+        if (curExpSample) {
+            functionItem.innerHTML = `<em>Function:</em> ${functionList} (${curExpSample})
+            `;
+        } else {
+            functionItem.innerHTML = `<em>Function:</em> ${functionList}`;
+        }
+
         listItem.appendChild(functionItem);
 
         // create the number of samples subitem
@@ -307,6 +399,18 @@ $(document).ready(function () {
             $(".function-button").toggleClass("pressed");
         }
 
+        if (
+            curTrial === "prediction" &&
+            (curFunction === "negative-exponential" ||
+                curFunction === "positive-exponential")
+        ) {
+            $(".sample-button").addClass("disabled");
+            $(".sample-button").removeClass("pressed");
+        }
+
+        $(".function-button").addClass("disabled");
+        $(".function-button").removeClass("pressed");
+
         $("#" + curTrial + "-button").toggleClass("pressed");
         $(".trial-button").toggleClass("disabled");
 
@@ -318,6 +422,7 @@ $(document).ready(function () {
 
         curFunction = "";
         curTrial = "";
+        curExpSample = "";
 
         $("#next-button").toggleClass("disabled");
     });
@@ -326,7 +431,7 @@ $(document).ready(function () {
     $("#finish-button").click(function () {
         localStorage["curriculumMap"] = JSON.stringify(curriculumMap);
         localStorage["currentTrial"] = 1; // start curriculum
-        localStorage['sessionId'] = sessionId;
+        localStorage["sessionId"] = sessionId;
 
         window.location.href = "../startApples/start.html";
     }); // use web sockets to go to next page

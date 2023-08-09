@@ -15,6 +15,13 @@ $(document).ready(function () {
     // update defaults (sampled bars) based on URL link
     let chosenSamples = [1, 4, 7, 10, 13];
 
+    // change exponential sample (if needed)
+    if (urlParams.has("sampleType")) {
+        if (urlParams.get("sampleType") === "new") {
+            chosenSamples = [2, 3, 8, 13, 14];
+        }
+    }
+
     if (urlParams.has("predict")) {
         chosenSamples = JSON.parse(urlParams.get("predict"));
     }
@@ -28,19 +35,23 @@ $(document).ready(function () {
     // apple function
     let numApples = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-    if (urlParams.get("function") === "gaussian") {
-        numApples = [1, 2, 5, 8, 11, 13, 14, 15, 14, 13, 11, 8, 5, 2, 1];
+    if (urlParams.get("function") === "gaussian-one") {
+        numApples = [3, 4, 6, 7, 8, 8, 9, 9, 9, 8, 8, 7, 6, 4, 3];
+    } else if (urlParams.get("function") === "gaussian-two") {
+        numApples = [1, 1, 2, 3, 6, 9, 13, 15, 13, 9, 6, 3, 2, 1, 1];
     } else if (urlParams.get("function") === "positive-linear") {
         numApples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     } else if (urlParams.get("function") === "negative-linear") {
         numApples = [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     } else if (urlParams.get("function") === "positive-exponential") {
-        numApples = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4, 7, 13, 23];
+        numApples = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4, 7, 11, 21];
     } else if (urlParams.get("function") === "negative-exponential") {
-        numApples = [23, 13, 7, 4, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1];
+        numApples = [21, 11, 7, 4, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1];
     }
 
     const allBars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    // const sampleToApples = new Map(); // key: sample index; value: actual apples
+    const sampleToApples = [];
 
     // choose which bars to predict apples from
     const remainingBars = allBars.filter(
@@ -52,6 +63,8 @@ $(document).ready(function () {
         const curBar = index + 1;
         const childBar = ".container :nth-child(" + curBar + ")";
         const curApples = numApples[index];
+
+        sampleToApples.push(curApples);
 
         $(childBar).toggleClass("clicked");
 
@@ -295,7 +308,9 @@ $(document).ready(function () {
             localStorage["curriculumTrial"] = JSON.stringify(
                 curriculumMap[currentTrial - 1]
             );
+
             localStorage["chosenSamples"] = JSON.stringify(chosenSamples);
+            localStorage["sampleToApples"] = JSON.stringify(sampleToApples);
             localStorage["guessApples"] = JSON.stringify(guessedApples);
             localStorage["trueApples"] = JSON.stringify(trueApples);
             localStorage["errorApples"] = absoluteError
@@ -308,7 +323,8 @@ $(document).ready(function () {
 
             map.set("statusTrial", "valid");
             map.set("curriculumTrial", localStorage.getItem("curriculumTrial"));
-            map.set("chosenSamples", localStorage.getItem("chosenSamples"));
+            map.set("sampleIndices", localStorage.getItem("chosenSamples"));
+            map.set("sampleValues", localStorage.getItem("sampleToApples"));
             map.set("guessApples", localStorage.getItem("guessApples"));
             map.set("trueApples", localStorage.getItem("trueApples"));
             map.set("errorApples", localStorage.getItem("errorApples"));
