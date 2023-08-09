@@ -18,7 +18,7 @@ $(document).ready(function () {
     // change exponential sample (if needed)
     if (urlParams.has("sampleType")) {
         if (urlParams.get("sampleType") === "new") {
-            chosenSamples = [2, 3, 8, 13, 14];
+            chosenSamples = [1, 2, 7, 12, 13];
         }
     }
 
