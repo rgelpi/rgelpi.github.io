@@ -34,8 +34,8 @@ body {
 }
 .cell {
   height: var(--cell-size); /* Use variable for cell size */
-  width: calc((48vw - 6px) / 6); /* Calculate cell width based on available space in viewport and border widths (6x6 grid) */
-  border: 1px solid black;
+  width: calc((48vw - 12px) / 6); /* Calculate cell width based on available space in viewport and border widths (6x6 grid) */
+  border: 2px solid white;
   box-sizing: border-box;
 }
 #rewards-list {
@@ -74,19 +74,19 @@ body {
 
 .orange {
   background-size: cover;
-  background-image: url("./assets/orange.png")
+  background-image: url("./assets/orange.png"), linear-gradient(to right, #c4def5, #c4def5);
 }
 .watermelon {
   background-size: cover;
-  background-image: url("./assets/watermelon.png")
+  background-image: url("./assets/watermelon.png"), linear-gradient(to right, #c4def5, #c4def5);
 }
 .apple {
   background-size: cover;
-  background-image: url("./assets/apple.png")
+  background-image: url("./assets/apple.png"), linear-gradient(to right, #c4def5, #c4def5);
 }
 .grapes {
   background-size: cover;
-  background-image: url("./assets/grapes.png")
+  background-image: url("./assets/grapes.png"), linear-gradient(to right, #c4def5, #c4def5);
 }
 
 .reward-item {
