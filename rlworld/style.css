@@ -1,0 +1,53 @@
+body {
+  font-family: "Roboto Mono", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
+
+#col {
+  margin-top: 10px;
+  display: flex;
+}
+
+#total-turns, #average-reward {
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  padding: 5px;
+}
+
+#grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+}
+.cell {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+.orange {
+  background-size: cover;
+  background-image: url("./assets/orange.png")
+}
+.watermelon {
+  background-size: cover;
+  background-image: url("./assets/watermelon.png")
+}
+.apple {
+  background-size: cover;
+  background-image: url("./assets/apple.png")
+}
+.grapes {
+  background-size: cover;
+  background-image: url("./assets/grapes.png")
+}
+
+#rewards-list {
+  width: 300px;
+  min-height: 300px;
+  max-height: 700px;
+  overflow-y: auto;
+}
+.reward-item {
+  padding: 5px;
+  border-bottom: 1px solid lightgray;
+}
