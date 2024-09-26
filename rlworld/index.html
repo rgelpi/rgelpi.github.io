@@ -13,10 +13,10 @@
     window.onload = function() {
     var grid = document.getElementById('grid');
     var objectTypes = [
-        { type: 'orange', rewardRange: [-10, 20], color: "orange" }, // Average reward: 5
-        { type: 'watermelon', rewardRange: [-5, 30], color: "forestgreen" }, // Average reward: 12.5
+        { type: 'orange', rewardRange: [-20, 20], color: "orange" }, // Average reward: 0
+        { type: 'watermelon', rewardRange: [-5, 25], color: "forestgreen" }, // Average reward: 10
         { type: 'apple', rewardRange: [-10, 10], color: "crimson" }, // Average reward: 0
-        { type: 'grapes', rewardRange: [-30, 40], color: "purple" } // Average reward: 5
+        { type: 'grapes', rewardRange: [-30, 10], color: "purple" } // Average reward: -10 (+20 after 40 turns)
     ];
 
     function getRandomInt(min, max) {
@@ -37,6 +37,7 @@
             cell.classList.add(objectType.type); // Add the class of this object to the cell
             cell.onclick = function(objectType) {
               var reward = getRandomInt(...objectType.rewardRange); // Get a reward within the range for this object type
+              if((numTurns >= 40) & (objectType.type === "grapes")){ reward += 30 }; // Grapes ripen towards the end.
               totalReward += reward; // Add the reward to the total reward
               numTurns++; // Increment the number of turns
               var averageReward = (totalReward / numTurns).toFixed(2); // Calculate the average reward per turn
@@ -64,6 +65,7 @@
         <div id="average-reward">Reward/turn: 0</div>
       </div>
       <div id="grid"></div>
+      <div id="average-reward">Instructions: Try to do at least 100 trials!</div>
       <div id="rewards-list"></div>
     </div>
 </body>
