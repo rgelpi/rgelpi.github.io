@@ -4,7 +4,8 @@
   <title>Rebekah Gelpi &mdash; University of Toronto</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>  
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -52,7 +53,7 @@
             <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
               <li><a href="index.html">Home</a></li>
               <li><a href="research.html">Research</a></li>
-              <li><a href="links.html">Links</a></li>
+              <!-- <li><a href="links.html">Links</a></li> -->
               <li class="active"><a href="contact.html">Contact</a></li></li>
             </ul>
           </nav>
@@ -67,28 +68,40 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6" data-aos="fade-up">
-        <div id="map"></div>
+        <div id="osm-map"></div>
         <script>
-          // Initialize and add the map
-          function initMap() {
-            // The location of Uluru
-            var sid_smith = {lat: 43.6624078, lng: -79.398642};
-            // The map, centered at Uluru
-            var map = new google.maps.Map(
-                    document.getElementById('map'), {zoom: 16, center: sid_smith});
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({position: sid_smith, map: map});
-          }
-        </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2k6vLKdHKdz3WFmIy4S7ddX-i8sgGMNw&callback=initMap">
+          // Where you want to render the map.
+          var element = document.getElementById('osm-map');
+
+          // Height has to be set. You can do this in CSS too.
+          element.style = 'height:300px;';
+
+          // Create Leaflet map on map element.
+          var map = L.map(element);
+
+          // Add OSM tile layer to the Leaflet map.
+          L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+
+          // Target's GPS coordinates.
+          var target = L.latLng('43.6624078', '-79.398642');
+
+          // Set map's center to target with zoom 14.
+          map.setView(target, 14);
+
+          // Place a marker on the same location.
+          L.marker(target).addTo(map);
         </script>
 
       </div>
       <div class="col-md-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
         <div class="p-4 mb-3">
           <p class="mb-0 font-weight-bold text-secondary text-uppercase mb-3">Address</p>
-          <p class="mb-4">100 St. George Street, <br \>Toronto, ON M5S 3G3, Canada</p>
+          <p class="mb-4">Department of Psychology,<br \>
+            University of Toronto<br \>
+            100 St. George Street, <br \>
+            Toronto, ON M5S 3G3, Canada</p>
 
           <p class="mb-0 font-weight-bold text-secondary text-uppercase mb-3">Contact</p>
           <p class="mb-0">

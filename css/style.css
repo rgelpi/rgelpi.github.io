@@ -319,7 +319,8 @@ h1, h2, h3, h4, h5,
     border-radius: 50%; }
     
 .my-name {
-  font-weight: 800;
+  font-weight: 1000;
+  color: #000;
 }
 
 /* Navbar */
