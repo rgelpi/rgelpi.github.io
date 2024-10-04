@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Rebekah Gelpi &mdash; University of Toronto</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+          type="image/png"
+          href="images/uoft.png">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        let baseURL = "https://rgelpi.github.io/trayBlicket/index.html"; // replace with your site's URL
+        let urlParams = {};
+
+        $('#urlGenerator button').on('click', function() {
+          let param = $(this).data('param');
+          let value = $(this).val();
+          urlParams[param] = value;
+          updateURLDisplay();
+        });
+
+        // listen for changes in the text inputs
+        $('#customValue').on('input', function() {
+          // let param = $('#customParam').val();
+          let param = $('#customValue').data('param');
+          let value = $('#customValue').val();
+
+          if (param !== '' && value !== '') {
+            urlParams[param] = value;
+          } else {
+            delete urlParams[param]; // remove the parameter if either input is empty
+          }
+          updateURLDisplay();    
+        });
+        
+        function updateURLDisplay() {
+          let paramsString = $.param(urlParams); // convert object to URL parameters
+          let fullURL = baseURL + '?' + paramsString;
+          $('#urlLink').text(fullURL).attr('href', fullURL); // set text and href attribute
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="site-wrap">
+      <div class="container-fluid">
+        <div id="urlGenerator">
+          <p></p>
+          <p><button data-param="c" value="0">Feature</button>
+          <button data-param="c" value="1">Alternation</button></p>
+          <!-- <input type="text" id="customParam" placeholder="Custom parameter name"> -->
+          <p>Participant ID: <input type="text" data-param="sessionId" id="customValue" placeholder="Custom value"></p>
+          <p>Generated URL: <a id="urlLink" target="_blank"></a></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
