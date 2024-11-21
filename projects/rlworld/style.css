@@ -1,0 +1,96 @@
+body {
+  font-family: "Roboto Mono", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
+
+#col {
+  margin-top: 10px;
+  display: flex;
+}
+
+#total-turns, #average-reward {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  padding: 5px;
+}
+
+:root {
+  --cell-size: 8vw; /* Define a variable for cell size */
+}
+
+#content {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 48vw; /* Make grid fill the full width of the viewport */
+}
+.cell {
+  height: var(--cell-size); /* Use variable for cell size */
+  width: calc((48vw - 12px) / 6); /* Calculate cell width based on available space in viewport and border widths (6x6 grid) */
+  border: 2px solid white;
+  box-sizing: border-box;
+}
+#rewards-list {
+  width: calc(48vw);
+  min-height: 300px;
+  max-height: 700px;
+  overflow-y: auto;
+}
+.reward-item {
+  font-size: 24px;
+  padding: 5px;
+  border-bottom: 1px solid lightgray;
+}
+
+@media screen and (max-width: 800px) { /* If the screen is smaller than 600px wide, adjust cell sizes to fit better */
+  :root {
+      --cell-size: 15vw; /* Make cells take up 33.33% of the viewport width (3x3 grid) */
+  }
+  #grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90vw; /* Make grid fill the full width of the viewport */
+  }
+  .cell {
+      width: calc((90vw - 6px) / 6); /* Calculate cell width based on available space in viewport and border widths (6x6 grid) */
+  }
+  #rewards-list {
+    width: calc(90vw);
+    min-height: 300px;
+    max-height: 700px;
+    overflow-y: auto;
+  }
+}
+/* Add more media queries as needed to adjust sizes for even smaller screens */
+
+
+.orange {
+  background-size: cover;
+  background-image: url("./assets/orange.png"), linear-gradient(to right, #c4def5, #c4def5);
+}
+.watermelon {
+  background-size: cover;
+  background-image: url("./assets/watermelon.png"), linear-gradient(to right, #c4def5, #c4def5);
+}
+.apple {
+  background-size: cover;
+  background-image: url("./assets/apple.png"), linear-gradient(to right, #c4def5, #c4def5);
+}
+.grapes {
+  background-size: cover;
+  background-image: url("./assets/grapes.png"), linear-gradient(to right, #c4def5, #c4def5);
+}
+
+.reward-item {
+  font-size: 24px;
+  padding: 5px;
+  border-bottom: 1px solid lightgray;
+}

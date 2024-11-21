@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sheep or Goat</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* Add your custom CSS here */
+    </style>
+</head>
+<body>
+    <form id="myForm">
+        <p>Which one are you?</p>
+        <input type="radio" id="sheep" name="animal" value="Sheep">
+        <label for="sheep">Sheep</label><br>
+        <input type="radio" id="goat" name="animal" value="Goat">
+        <label for="goat">Goat</label><br>
+        <br>
+        <p>What did the last person vote for?</p>
+        <input type="radio" id="plaintiff" name="vote" value="Plaintiff">
+        <label for="plaintiff">Plaintiff</label><br>
+        <input type="radio" id="defendant" name="vote" value="Defendant">
+        <label for="defendant">Defendant</label><br>
+        <br>
+        <p>Result:</p>
+        <div id="result"></div>
+    </form>
+
+    <script>
+      const form = document.getElementById('myForm');
+      form.addEventListener('change', () => {
+        const group1Checked = 
+          Array.from(document.querySelectorAll('input[name="animal"]')).some(radio => radio.checked);
+        const group2Checked = 
+          Array.from(document.querySelectorAll('input[name="vote"]')).some(radio => radio.checked);
+
+        resultDiv = document.getElementById("result")
+        if (group1Checked && group2Checked) {
+            var animal = document.querySelector("input[name='animal']:checked").value;
+            var lastChoice = document.querySelector("input[name='vote']:checked").value;
+            var theta = 0;
+            var r = 0;
+            var result = 0;
+            if (animal === "Sheep") {
+              theta = 0.6;
+              r = 0.95;
+            } else {
+              theta = 0.4;
+              r = 0.5
+            }
+            if (lastChoice === "Plaintiff"){
+              result = (r * theta) / ( (r * theta) + ( (1 - r) * (1 - theta) ) )
+            } else {
+              result = ( (1 - r) * theta) / ( ( (1 - r) * theta ) + (r * (1 - theta) ) )
+            }
+
+            if (result > Math.random()) {
+              var vote = "Plaintiff"
+            } else {
+              var vote = "Defendant"
+            }
+            
+            resultDiv.textContent = "Your vote is for the " + vote + ". Write it down on the notepad!"
+        } else {
+            resultDiv.textContent = "";
+        }
+      });
+    </script>
+</body>
+</html>

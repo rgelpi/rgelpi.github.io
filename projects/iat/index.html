@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2 id="instruction">Press 'A' if the word is an animal and 'F' if it 
+is a flower.</h2>
+    <h1 id="word"></h1>
+    <script>
+      var blocks = [
+          {
+            words: ['dog', 'cat', 'lion', 'turtle', 'rose', 'daisy', 'violet', 'lily'], 
+            categories: {
+              'f': ['dog', 'cat', 'lion', 'turtle'], 
+              'j': ['rose', 'daisy', 'violet', 'lily']
+            },
+            instruction: "Press 'F' if the word is an animal and 'J' if it is a flower."
+          },
+          {
+            words: ['dog', 'cat', 'lion', 'turtle', 'happy', 'joyful', 'peaceful', 'good', 
+              'rose', 'daisy', 'violet', 'lily', 'angry', 'sad', 'evil', 'bad'
+            ], 
+            categories: {
+              'f': ['dog', 'cat', 'lion', 'turtle', 'happy', 'joyful', 'peaceful', 'good'],
+              'j': ['rose', 'daisy', 'violet', 'lily', 'angry', 'sad', 'evil', 'bad']
+            },
+            instruction: "Press 'F' if the word is an animal and 'J' if it is a flower.\nPress 'F' if the word is good and 'J' if it is bad."
+          },
+          {
+            words: ['dog', 'cat', 'lion', 'turtle', 'rose', 'daisy', 'violet', 'lily'], 
+            categories: {
+              'j': ['dog', 'cat', 'lion', 'turtle'], 
+              'f': ['rose', 'daisy', 'violet', 'lily']
+            },
+            instruction: "Press 'F' if the word is a flower and 'J' if it is an animal."
+          },
+          {
+            words: ['dog', 'cat', 'lion', 'turtle', 'happy', 'joyful', 'peaceful', 'good', 
+              'rose', 'daisy', 'violet', 'lily', 'angry', 'sad', 'evil', 'bad'
+            ], 
+            categories: {
+              'j': ['dog', 'cat', 'lion', 'turtle', 'happy', 'joyful', 'peaceful', 'good'],
+              'f': ['rose', 'daisy', 'violet', 'lily', 'angry', 'sad', 'evil', 'bad']
+            },
+            instruction: "Press 'F' if the word is a flower and 'J' if it is an animal.\nPress 'F' if the word is good and 'J' if it is bad."
+          },
+      ];
+      var currentBlock = 0;
+      var index = 0;
+      var startTime, endTime;
+      var results = [];
+
+      function startTest() {
+          if (currentBlock < blocks.length) {
+              document.getElementById('instruction').textContent = blocks[currentBlock].instruction
+              index = 0;
+              startTime = new Date().getTime();
+              document.getElementById('word').textContent = 
+blocks[currentBlock].words[index];
+          } else {
+              document.getElementById('instruction').textContent = 'All tests completed!';
+              console.log(results);
+          }
+      }
+
+      document.addEventListener('keydown', function(event) {
+          if (currentBlock < blocks.length && index < blocks[currentBlock].words.length) {
+              endTime = new Date().getTime();
+              responseTime = endTime - startTime;
+              results.push({block: currentBlock, word: 
+                blocks[currentBlock].words[index], timeTaken: responseTime});
+
+              // Check if the key press was correct
+              var isCorrect = blocks[currentBlock].categories[event.key].includes(blocks[currentBlock].words[index]);
+              document.getElementById('instruction').textContent = isCorrect ? 'Correct!' : 'Incorrect!';
+
+              index++;
+              if (index < blocks[currentBlock].words.length) {
+                  document.getElementById('word').textContent = blocks[currentBlock].words[index];
+                  startTime = new Date().getTime();
+              } else {
+                  currentBlock++;
+                  setTimeout(startTest, 1000); // Start next block after 1 second
+              }
+          }
+      });
+
+      function calculateDiscriminability(data) {
+    // Separate data into two groups: good and bad
+    var goodData = data.filter(item => ['happy', 'joyful', 'peaceful', 
+'good'].includes(item.word));
+    var badData = data.filter(item => ['angry', 'sad', 'evil', 
+'bad'].includes(item.word));
+
+    // Calculate mean reaction times
+    var goodMean = goodData.reduce((sum, item) => sum + item.timeTaken, 0) / goodData.length;
+    var badMean = badData.reduce((sum, item) => sum + item.timeTaken, 0) / badData.length;
+
+    // Calculate standard deviations (assuming equal variance for simplicity)
+    var stdDev = Math.sqrt(goodData.map(item => Math.pow(item.timeTaken - goodMean, 2)).reduce((sum, item) => sum + item, 0) / goodData.length);
+
+    // Calculate z-scores
+    var goodZScore = (goodMean - badMean) / stdDev;
+    var badZScore = (badMean - goodMean) / stdDev;
+
+    // Calculate d'
+    var discriminabilityIndex = goodZScore - badZScore;
+    return discriminabilityIndex;
+}
+
+      startTest();
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rebekah Gelpi &mdash; University of Toronto</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <script>
+    window.onload = function() {
+    var grid = document.getElementById('grid');
+    var objectTypes = [
+        { type: 'orange', rewardRange: [-20, 20], color: "orange" }, // Average reward: 0
+        { type: 'watermelon', rewardRange: [-5, 25], color: "forestgreen" }, // Average reward: 10
+        { type: 'apple', rewardRange: [-10, 10], color: "crimson" }, // Average reward: 0
+        { type: 'grapes', rewardRange: [-25, 5], color: "purple" } // Average reward: -10 (+20 after 40 turns)
+    ];
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var totalReward = 0; // Initialize total reward to 0
+    var numTurns = 0; // Initialize number of turns to 0
+
+    function randomizeGrid() {
+        grid.innerHTML = ''; // Clear the grid
+        for(var i=0; i<36; i++) {
+            var cell = document.createElement('div');
+            cell.className = 'cell';
+            var objectType = objectTypes[Math.floor(Math.random() * objectTypes.length)]; // Choose a random object type
+            cell.classList.add(objectType.type); // Add the class of this object to the cell
+            cell.onclick = function(objectType) {
+              var reward = getRandomInt(...objectType.rewardRange); // Get a reward within the range for this object type
+              if((numTurns >= 50) & (objectType.type === "grapes")){ reward += 30 }; // Grapes ripen towards the end.
+              totalReward += reward; // Add the reward to the total reward
+              numTurns++; // Increment the number of turns
+              var averageReward = (totalReward / numTurns).toFixed(2); // Calculate the average reward per turn
+              document.getElementById('total-turns').textContent = "Turn #: " + numTurns; // Update the total reward display
+              document.getElementById('average-reward').textContent = "Reward/turn: " + averageReward; // Update the average reward display
+              var rewardItem = document.createElement('div');
+              var rewardsList = document.getElementById('rewards-list');
+              if(objectType.type !== "blank"){
+                rewardItem.style.color = objectType.color;
+                rewardItem.className = 'reward-item';
+                rewardItem.textContent = "You clicked on: " + objectType.type + " and received: " + reward + " points.";
+                rewardsList.insertBefore(rewardItem, rewardsList.firstChild); // Add the new item to the top of the list
+              }
+              randomizeGrid(); // Randomize grid when cell is clicked
+            }.bind(null, objectType); // Pass the object type to the function
+            grid.appendChild(cell);
+        }
+    }
+
+    randomizeGrid(); // Initialize the grid
+  }</script>
+    <div id="content">
+      <div id="col">
+        <div id="total-turns">Turn #: 0</div>
+        <div id="average-reward">Reward/turn: 0</div>
+      </div>
+      <div id="grid"></div>
+      <div id="average-reward">Instructions: Try to do at least 100 trials!</div>
+      <div id="rewards-list"></div>
+    </div>
+</body>
+</html>
