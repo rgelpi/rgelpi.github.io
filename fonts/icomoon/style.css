@@ -23,7 +23,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.icon-bluesky:before {
+  content: "🦋";
+}
 .icon-asterisk:before {
   content: "\f069";
 }
