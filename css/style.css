@@ -650,6 +650,8 @@ h1, h2, h3, h4, h5,
     background: -o-linear-gradient(left, #c70039, #ff5733 70%);
     background: linear-gradient(to right, #c70039, #ff5733 70%);
     -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent; }
     @media (min-width: 768px) {
       .site-hero h1 {
