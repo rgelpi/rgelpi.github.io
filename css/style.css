@@ -895,3 +895,9 @@ h1, h2, h3, h4, h5,
   margin-top: -20px !important;
   margin-left: 255px !important;
 }
+
+#bsky2 {
+  display: flex !important;
+  margin-top: -20px !important;
+  margin-left: 170px !important;
+}
